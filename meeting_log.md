@@ -8,4 +8,5 @@ Group Meeting #:
 6 - 5/1/2023 - Prepared for "Final proposal document and presentation" assignment by finalizing plans for the presentation, the paper, and the website.   
 7 - 7/6/2023 - Discussed individual project statuses, planned project milestones for remainder of summer (FlutterFlow app, self-tying shoes, Arduino/sensors.   
 8 - 8/7/2023 - Discusses project statuses, planned projects for August and September (shoes prototype, wardrobe model, app communication and testing).   
-9 - ***   
+9 - 8/27/2023 - Discussed project statuses, planned individual assignments for Web Page & Reminder / Project Plan Presentation & Report, planned next steps for project, planned next meeting agenda   
+10- 8/31/2023 - ***   
