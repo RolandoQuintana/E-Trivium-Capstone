@@ -1,5 +1,6 @@
 # Team Member Current Project Assignments   
-   
+
+# Septembr   
 Hyrum -   
 1. Finish making shoes by Friday, 9/15   
 2. Have parts for prototype smart wardrobe (work with Hyrum) by Friday, 9/15   
@@ -20,3 +21,12 @@ Saoud -
 2. Make schematic of wiring everything to Arduino by Friday, 9/15   
 3. Research batteries we can use for smart clothes, how to check battery %, how to charge them by end of Sept   
    
+# October   
+**TBD**   
+   
+# November      
+**TBD**   
+   
+# December      
+Everyone -    
+- Finish testing and prep for final demo   
