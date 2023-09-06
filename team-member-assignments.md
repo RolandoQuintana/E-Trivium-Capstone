@@ -50,8 +50,8 @@ Testing strategy for initial smart clothes prototype (Jessika, Saoud)-- We will 
    
 # November      
 Everyone -     
-- Finish the smart wardrobe with all the features.
-- Finish the final design for the smart clothing.   
+- Finish the smart wardrobe with all the features by the end of Nov   
+- Finish the final design for the smart clothing by the end of Nov   
    
 Testing strategy for smart wardrobe (everyone)-- We will test our wardrobe by making sure it's safe to use and it can charge and store leaves easily.   
 Testing strategy for smart clothes (everyone)-- We will test our final design to make sure all part locations and software are finalized, and that all leaves are easily swappable.   
