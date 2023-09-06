@@ -22,11 +22,31 @@ Saoud -
 3. Research batteries we can use for smart clothes, how to check battery %, how to charge them by end of Sept   
    
 # October   
-**TBD**   
+Hyrum -   
+1. ***TBD***   
+   
+Jessika -   
+1. ***TBD***      
+
+Rolando -   
+1. ***TBD***      
+
+Saoud -   
+1. ***TBD***      
    
 # November      
-**TBD**   
+Hyrum -   
+1. ***TBD***   
    
+Jessika -   
+1. ***TBD***      
+
+Rolando -   
+1. ***TBD***      
+
+Saoud -   
+1. ***TBD***      
+      
 # December      
 Everyone -    
 - Finish testing and prep for final demo   
