@@ -141,7 +141,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               }.withoutNulls,
                             );
                           },
-                          text: 'Posture',
+                          text: 'Health',
                           options: FFButtonOptions(
                             width: 150.0,
                             height: 50.0,
