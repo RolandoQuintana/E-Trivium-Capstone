@@ -365,32 +365,41 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
                                                               child: Align(
                                                                 alignment:
                                                                     AlignmentDirectional(
-                                                                        0.00,
+                                                                        1.00,
                                                                         0.00),
-                                                                child:
-                                                                    FlutterFlowIconButton(
-                                                                  borderColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  borderRadius:
-                                                                      20.0,
-                                                                  borderWidth:
-                                                                      1.0,
-                                                                  buttonSize:
-                                                                      40.0,
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .delete_outline,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .error,
-                                                                    size: 25.0,
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      FlutterFlowIconButton(
+                                                                    borderColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    borderRadius:
+                                                                        20.0,
+                                                                    borderWidth:
+                                                                        1.0,
+                                                                    buttonSize:
+                                                                        40.0,
+                                                                    icon: Icon(
+                                                                      Icons
+                                                                          .delete_outline,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      size:
+                                                                          25.0,
+                                                                    ),
+                                                                    onPressed:
+                                                                        () {
+                                                                      print(
+                                                                          'IconButton pressed ...');
+                                                                    },
                                                                   ),
-                                                                  onPressed:
-                                                                      () {
-                                                                    print(
-                                                                        'IconButton pressed ...');
-                                                                  },
                                                                 ),
                                                               ),
                                                             ),
