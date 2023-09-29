@@ -4,12 +4,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 's_o_s_leaf_settings_widget.dart' show SOSLeafSettingsWidget;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class SOSLeafSettingsModel extends FlutterFlowModel {
+class SOSLeafSettingsModel extends FlutterFlowModel<SOSLeafSettingsWidget> {
   ///  Local state fields for this page.
 
   int? currentButton = 0;

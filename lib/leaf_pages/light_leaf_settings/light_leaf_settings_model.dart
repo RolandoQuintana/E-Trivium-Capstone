@@ -1,8 +1,13 @@
+import '/backend/schema/structs/index.dart';
+import '/components/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'light_leaf_settings_widget.dart' show LightLeafSettingsWidget;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
@@ -11,7 +16,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class LightLeafSettingsModel extends FlutterFlowModel {
+class LightLeafSettingsModel extends FlutterFlowModel<LightLeafSettingsWidget> {
   ///  Local state fields for this page.
 
   int? currentButton = 0;
@@ -28,19 +33,35 @@ class LightLeafSettingsModel extends FlutterFlowModel {
       ? pageViewController!.page!.round()
       : 0;
   Color? colorPicked1;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // Model for DisplayReceivedData component.
+  late DisplayReceivedDataModel displayReceivedDataModel1;
+  // State field(s) for PatternDropDown widget.
+  String? patternDropDownValue;
+  FormFieldController<String>? patternDropDownValueController;
   Color? colorPicked2;
-  // State field(s) for SwitchListTile widget.
-  bool? switchListTileValue;
+  // Model for DisplayReceivedData component.
+  late DisplayReceivedDataModel displayReceivedDataModel2;
+  // State field(s) for EnableLightsSwitch widget.
+  bool? enableLightsSwitchValue;
+  // Model for DisplayReceivedData component.
+  late DisplayReceivedDataModel displayReceivedDataModel3;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    displayReceivedDataModel1 =
+        createModel(context, () => DisplayReceivedDataModel());
+    displayReceivedDataModel2 =
+        createModel(context, () => DisplayReceivedDataModel());
+    displayReceivedDataModel3 =
+        createModel(context, () => DisplayReceivedDataModel());
+  }
 
   void dispose() {
     unfocusNode.dispose();
+    displayReceivedDataModel1.dispose();
+    displayReceivedDataModel2.dispose();
+    displayReceivedDataModel3.dispose();
   }
 
   /// Action blocks are added here.

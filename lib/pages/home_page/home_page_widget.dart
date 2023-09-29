@@ -55,7 +55,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -138,7 +140,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         },
                         text: 'Posture',
                         options: FFButtonOptions(
-                          height: 40.0,
+                          width: 120.0,
+                          height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -150,10 +153,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     color: Colors.white,
                                   ),
                           elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
@@ -171,7 +170,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         },
                         text: 'SOS',
                         options: FFButtonOptions(
-                          height: 40.0,
+                          width: 120.0,
+                          height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -199,12 +199,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 'Gray Shirt',
                                 ParamType.String,
                               ),
+                              'deviceName': serializeParam(
+                                '',
+                                ParamType.String,
+                              ),
+                              'deviceId': serializeParam(
+                                '',
+                                ParamType.String,
+                              ),
+                              'deviceRssi': serializeParam(
+                                0,
+                                ParamType.int,
+                              ),
                             }.withoutNulls,
                           );
                         },
                         text: 'Lights',
                         options: FFButtonOptions(
-                          height: 40.0,
+                          width: 120.0,
+                          height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
                               24.0, 0.0, 24.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -224,7 +237,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       ),
                       Align(
-                        alignment: AlignmentDirectional(1.0, 1.0),
+                        alignment: AlignmentDirectional(1.00, 1.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 28.0, 28.0),

@@ -4,6 +4,7 @@ import '/components/strength_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
@@ -79,7 +80,9 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -94,15 +97,14 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
-                  alignment: AlignmentDirectional(1.0, -1.0),
+                  alignment: AlignmentDirectional(1.00, -1.00),
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(-1.0, -1.0),
+                          alignment: AlignmentDirectional(-1.00, -1.00),
                           child: Text(
                             widget.deviceName!,
                             style: FlutterFlowTheme.of(context)
@@ -141,7 +143,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                           ),
                         Expanded(
                           child: Align(
-                            alignment: AlignmentDirectional(1.0, -1.0),
+                            alignment: AlignmentDirectional(1.00, -1.00),
                             child: FlutterFlowIconButton(
                               borderColor: Colors.transparent,
                               borderRadius: 20.0,
@@ -169,7 +171,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(-1.0, -1.0),
+                  alignment: AlignmentDirectional(-1.00, -1.00),
                   child: Text(
                     widget.deviceId!,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -209,7 +211,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'You may not send and receive data from conencted bluetooth device.',
+                    'You may now send and receive data from conencted bluetooth device.',
                     style: FlutterFlowTheme.of(context).labelMedium.override(
                           fontFamily: 'Readex Pro',
                           lineHeight: 1.4,

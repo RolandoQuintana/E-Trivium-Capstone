@@ -49,14 +49,16 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(70.0),
           child: AppBar(
-            backgroundColor: Colors.black,
+            backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             automaticallyImplyLeading: true,
             title: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
@@ -88,415 +90,473 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 10.0, 20.0, 10.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            setState(() {
-                              _model.currentButton = 0;
-                            });
-                            await _model.pageViewController?.animateToPage(
-                              0,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease,
-                            );
-                          },
-                          text: 'Posture',
-                          options: FFButtonOptions(
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: _model.currentButton == 0
-                                ? FlutterFlowTheme.of(context).primaryText
-                                : Color(0x00000000),
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: _model.currentButton == 0
-                                      ? Colors.black
-                                      : FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          showLoadingIndicator: false,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            20.0, 10.0, 20.0, 10.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            setState(() {
-                              _model.currentButton = 1;
-                            });
-                            await _model.pageViewController?.animateToPage(
-                              1,
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease,
-                            );
-                          },
-                          text: 'Pedometer',
-                          options: FFButtonOptions(
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: _model.currentButton == 1
-                                ? FlutterFlowTheme.of(context).primaryText
-                                : Color(0x00000000),
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: _model.currentButton == 1
-                                      ? Colors.black
-                                      : FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                  fontSize:
-                                      _model.currentButton == 1 ? 24.0 : 16.0,
-                                ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              width: 2.0,
-                            ),
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          showLoadingIndicator: false,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+          child: Container(
+            width: 478.0,
+            height: 776.0,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  FlutterFlowTheme.of(context).secondaryBackground,
+                  FlutterFlowTheme.of(context).primary
+                ],
+                stops: [0.4, 1.0],
+                begin: AlignmentDirectional(0.0, -1.0),
+                end: AlignmentDirectional(0, 1.0),
               ),
-              Expanded(
-                child: Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 725.0,
-                    child: Stack(
-                      children: [
-                        Padding(
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 40.0),
-                          child: PageView(
-                            controller: _model.pageViewController ??=
-                                PageController(initialPage: 0),
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    30.0, 30.0, 30.0, 30.0),
-                                child: Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4.0,
-                                        color: Color(0x33000000),
-                                        offset: Offset(0.0, 10.0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(20.0),
+                              20.0, 10.0, 20.0, 10.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              setState(() {
+                                _model.currentButton = 0;
+                              });
+                              await _model.pageViewController?.animateToPage(
+                                0,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                              );
+                            },
+                            text: 'Posture',
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: _model.currentButton == 0
+                                  ? FlutterFlowTheme.of(context).primaryText
+                                  : Color(0x00000000),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: _model.currentButton == 0
+                                        ? Colors.black
+                                        : FlutterFlowTheme.of(context)
+                                            .primaryText,
                                   ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SwitchListTile.adaptive(
-                                        value: _model.switchListTileValue ??=
-                                            true,
-                                        onChanged: (newValue) async {
-                                          setState(() => _model
-                                              .switchListTileValue = newValue!);
-                                        },
-                                        title: Text(
-                                          'Enabled',
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleLarge,
-                                        ),
-                                        subtitle: Text(
-                                          'Subtitle goes here...',
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelMedium,
-                                        ),
-                                        tileColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        activeColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                        activeTrackColor:
-                                            FlutterFlowTheme.of(context)
-                                                .accent1,
-                                        dense: false,
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                      ),
-                                      FlutterFlowDropDown<String>(
-                                        controller: _model
-                                                .postureEnabledDropDownValueController ??=
-                                            FormFieldController<String>(
-                                          _model.postureEnabledDropDownValue ??=
-                                              'Always On',
-                                        ),
-                                        options: [
-                                          'Always On',
-                                          'Timer',
-                                          'Time Range'
-                                        ],
-                                        onChanged: (val) async {
-                                          setState(() => _model
-                                                  .postureEnabledDropDownValue =
-                                              val);
-                                          setState(() {
-                                            _model.postureEnabledSetting = _model
-                                                .postureEnabledDropDownValue;
-                                          });
-                                          if ((_model.postureEnabledSetting ==
-                                                      'Time Period') ||
-                                                  (_model.postureEnabledSetting ==
-                                                      'Time Period')
-                                              ? false
-                                              : true) {
-                                            final _datePickedTime =
-                                                await showTimePicker(
-                                              context: context,
-                                              initialTime:
-                                                  TimeOfDay.fromDateTime(
-                                                      getCurrentTimestamp),
-                                            );
-                                            if (_datePickedTime != null) {
-                                              setState(() {
-                                                _model.datePicked = DateTime(
-                                                  getCurrentTimestamp.year,
-                                                  getCurrentTimestamp.month,
-                                                  getCurrentTimestamp.day,
-                                                  _datePickedTime.hour,
-                                                  _datePickedTime.minute,
-                                                );
-                                              });
-                                            }
-                                          }
-                                        },
-                                        width: 300.0,
-                                        height: 50.0,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        hintText: 'Please select...',
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 2.0,
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        borderWidth: 2.0,
-                                        borderRadius: 8.0,
-                                        margin: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 16.0, 4.0),
-                                        hidesUnderline: true,
-                                        disabled: !_model.switchListTileValue!,
-                                        isSearchable: false,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 2.0,
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    30.0, 30.0, 30.0, 30.0),
-                                child: Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4.0,
-                                        color: Colors.black,
-                                        offset: Offset(0.0, 10.0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            showLoadingIndicator: false,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 10.0, 20.0, 10.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              setState(() {
+                                _model.currentButton = 1;
+                              });
+                              await _model.pageViewController?.animateToPage(
+                                1,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                              );
+                            },
+                            text: 'Pedometer',
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: _model.currentButton == 1
+                                  ? FlutterFlowTheme.of(context).primaryText
+                                  : Color(0x00000000),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: _model.currentButton == 1
+                                        ? Colors.black
+                                        : FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                    fontSize:
+                                        _model.currentButton == 1 ? 24.0 : 16.0,
                                   ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      FlutterFlowDropDown<String>(
-                                        controller:
-                                            _model.dropDownValueController ??=
-                                                FormFieldController<String>(
-                                          _model.dropDownValue ??= 'Solid',
-                                        ),
-                                        options: [
-                                          'Solid',
-                                          'Breath',
-                                          'Heart Beat',
-                                          'Flash'
-                                        ],
-                                        onChanged: (val) => setState(
-                                            () => _model.dropDownValue = val),
-                                        width: 300.0,
-                                        height: 50.0,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        hintText: 'Please select...',
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 2.0,
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        borderWidth: 2.0,
-                                        borderRadius: 8.0,
-                                        margin: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 16.0, 4.0),
-                                        hidesUnderline: true,
-                                        isSearchable: false,
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            showLoadingIndicator: false,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: AlignmentDirectional(0.00, 1.00),
+                    child: Container(
+                      width: double.infinity,
+                      height: 725.0,
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 40.0),
+                            child: PageView(
+                              controller: _model.pageViewController ??=
+                                  PageController(initialPage: 0),
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      30.0, 30.0, 30.0, 30.0),
+                                  child: Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 10.0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            30.0, 30.0, 30.0, 30.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            final _colorPickedColor =
-                                                await showFFColorPicker(
-                                              context,
-                                              currentColor: _model
-                                                  .colorPicked ??= Colors.black,
-                                              showRecentColors: true,
-                                              allowOpacity: true,
-                                              textColor:
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10.0, 20.0, 10.0, 0.0),
+                                          child: SwitchListTile.adaptive(
+                                            value: _model
+                                                .switchListTileValue ??= true,
+                                            onChanged: (newValue) async {
+                                              setState(() =>
+                                                  _model.switchListTileValue =
+                                                      newValue!);
+                                            },
+                                            title: Text(
+                                              'Enable Health',
+                                              style:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              secondaryTextColor:
+                                                      .titleLarge,
+                                            ),
+                                            tileColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            activeColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            activeTrackColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .accent1,
+                                            dense: false,
+                                            controlAffinity:
+                                                ListTileControlAffinity
+                                                    .trailing,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 30.0, 0.0, 0.0),
+                                          child: FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .postureEnabledDropDownValueController ??=
+                                                FormFieldController<String>(
+                                              _model.postureEnabledDropDownValue ??=
+                                                  'Always On',
+                                            ),
+                                            options: [
+                                              'Always On',
+                                              'Timer',
+                                              'Time Range'
+                                            ],
+                                            onChanged: (val) async {
+                                              setState(() => _model
+                                                      .postureEnabledDropDownValue =
+                                                  val);
+                                              setState(() {
+                                                _model.postureEnabledSetting =
+                                                    _model
+                                                        .postureEnabledDropDownValue;
+                                              });
+                                              if ((_model.postureEnabledSetting ==
+                                                          'Time Period') ||
+                                                      (_model.postureEnabledSetting ==
+                                                          'Time Period')
+                                                  ? false
+                                                  : true) {
+                                                final _datePickedTime =
+                                                    await showTimePicker(
+                                                  context: context,
+                                                  initialTime:
+                                                      TimeOfDay.fromDateTime(
+                                                          getCurrentTimestamp),
+                                                );
+                                                if (_datePickedTime != null) {
+                                                  safeSetState(() {
+                                                    _model.datePicked =
+                                                        DateTime(
+                                                      getCurrentTimestamp.year,
+                                                      getCurrentTimestamp.month,
+                                                      getCurrentTimestamp.day,
+                                                      _datePickedTime.hour,
+                                                      _datePickedTime.minute,
+                                                    );
+                                                  });
+                                                }
+                                              }
+                                            },
+                                            width: 300.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText: 'Please select...',
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
-                                              backgroundColor:
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            disabled:
+                                                !_model.switchListTileValue!,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      30.0, 30.0, 30.0, 30.0),
+                                  child: Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 10.0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 20.0, 0.0, 0.0),
+                                          child: FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .dropDownValueController ??=
+                                                FormFieldController<String>(
+                                              _model.dropDownValue ??= 'Solid',
+                                            ),
+                                            options: [
+                                              'Solid',
+                                              'Breath',
+                                              'Heart Beat',
+                                              'Flash'
+                                            ],
+                                            onChanged: (val) => setState(() =>
+                                                _model.dropDownValue = val),
+                                            width: 300.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText: 'Please select...',
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              primaryButtonBackgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              primaryButtonTextColor:
-                                                  Colors.white,
-                                              primaryButtonBorderColor:
-                                                  Colors.transparent,
-                                              displayAsBottomSheet:
-                                                  isMobileWidth(context),
-                                            );
-
-                                            if (_colorPickedColor != null) {
-                                              setState(() =>
-                                                  _model.colorPicked =
-                                                      _colorPickedColor);
-                                            }
-                                          },
-                                          child: Container(
-                                            width: 200.0,
-                                            height: 200.0,
-                                            decoration: BoxDecoration(
-                                              color: _model.colorPicked,
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              border: Border.all(
-                                                color:
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  30.0, 30.0, 30.0, 30.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              final _colorPickedColor =
+                                                  await showFFColorPicker(
+                                                context,
+                                                currentColor:
+                                                    _model.colorPicked ??=
+                                                        Colors.black,
+                                                showRecentColors: true,
+                                                allowOpacity: true,
+                                                textColor:
                                                     FlutterFlowTheme.of(context)
-                                                        .info,
-                                                width: 3.0,
+                                                        .primaryText,
+                                                secondaryTextColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                primaryButtonBackgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                primaryButtonTextColor:
+                                                    Colors.white,
+                                                primaryButtonBorderColor:
+                                                    Colors.transparent,
+                                                displayAsBottomSheet:
+                                                    isMobileWidth(context),
+                                              );
+
+                                              if (_colorPickedColor != null) {
+                                                safeSetState(() =>
+                                                    _model.colorPicked =
+                                                        _colorPickedColor);
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 200.0,
+                                              height: 200.0,
+                                              decoration: BoxDecoration(
+                                                color: _model.colorPicked,
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .info,
+                                                  width: 3.0,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 1.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 0.0, 16.0),
-                            child: smooth_page_indicator.SmoothPageIndicator(
-                              controller: _model.pageViewController ??=
-                                  PageController(initialPage: 0),
-                              count: 2,
-                              axisDirection: Axis.horizontal,
-                              onDotClicked: (i) async {
-                                await _model.pageViewController!.animateToPage(
-                                  i,
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.ease,
-                                );
-                              },
-                              effect: smooth_page_indicator.ExpandingDotsEffect(
-                                expansionFactor: 3.0,
-                                spacing: 8.0,
-                                radius: 16.0,
-                                dotWidth: 16.0,
-                                dotHeight: 8.0,
-                                dotColor:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                activeDotColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                                paintStyle: PaintingStyle.fill,
+                          Align(
+                            alignment: AlignmentDirectional(0.00, 1.00),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 0.0, 16.0),
+                              child: smooth_page_indicator.SmoothPageIndicator(
+                                controller: _model.pageViewController ??=
+                                    PageController(initialPage: 0),
+                                count: 2,
+                                axisDirection: Axis.horizontal,
+                                onDotClicked: (i) async {
+                                  await _model.pageViewController!
+                                      .animateToPage(
+                                    i,
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.ease,
+                                  );
+                                },
+                                effect:
+                                    smooth_page_indicator.ExpandingDotsEffect(
+                                  expansionFactor: 3.0,
+                                  spacing: 8.0,
+                                  radius: 16.0,
+                                  dotWidth: 16.0,
+                                  dotHeight: 8.0,
+                                  dotColor: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  activeDotColor:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  paintStyle: PaintingStyle.fill,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

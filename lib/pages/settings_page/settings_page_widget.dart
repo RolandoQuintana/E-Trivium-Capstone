@@ -3,6 +3,7 @@ import '/components/strength_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -74,7 +75,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -186,7 +189,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                             ),
                             Expanded(
                               child: Align(
-                                alignment: AlignmentDirectional(1.0, 0.0),
+                                alignment: AlignmentDirectional(1.00, 0.00),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 20.0, 0.0),
@@ -313,7 +316,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   child: Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            1.0, 0.0),
+                                                            1.00, 0.00),
                                                     child: Text(
                                                       'Finding...',
                                                       style:
@@ -426,8 +429,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                 child: Align(
                                                                   alignment:
                                                                       AlignmentDirectional(
-                                                                          -1.0,
-                                                                          0.0),
+                                                                          -1.00,
+                                                                          0.00),
                                                                   child:
                                                                       Padding(
                                                                     padding: EdgeInsetsDirectional
@@ -487,8 +490,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                 child: Align(
                                                                   alignment:
                                                                       AlignmentDirectional(
-                                                                          -1.0,
-                                                                          0.0),
+                                                                          -1.00,
+                                                                          0.00),
                                                                   child:
                                                                       Padding(
                                                                     padding: EdgeInsetsDirectional
@@ -590,7 +593,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   child: Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            1.0, 0.0),
+                                                            1.00, 0.00),
                                                     child: Text(
                                                       'Scanning...',
                                                       style:
@@ -706,8 +709,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                   child: Align(
                                                                     alignment:
                                                                         AlignmentDirectional(
-                                                                            -1.0,
-                                                                            0.0),
+                                                                            -1.00,
+                                                                            0.00),
                                                                     child:
                                                                         Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -760,8 +763,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                   child: Align(
                                                                     alignment:
                                                                         AlignmentDirectional(
-                                                                            -1.0,
-                                                                            0.0),
+                                                                            -1.00,
+                                                                            0.00),
                                                                     child:
                                                                         Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
