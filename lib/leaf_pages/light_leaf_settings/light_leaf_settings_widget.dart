@@ -645,11 +645,12 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   id: widget.deviceId,
                                                   rssi: widget.deviceRssi,
                                                 ),
-                                                functions
-                                                    .convertPatternColorToString(
-                                                        _model
-                                                            .patternDropDownValue,
-                                                        _model.colorPicked2)!,
+                                                functions.convertPatternColorToString(
+                                                    _model.patternDropDownValue,
+                                                    functions
+                                                        .convertColorToString(
+                                                            _model
+                                                                .colorPicked2))!,
                                               );
                                               ScaffoldMessenger.of(context)
                                                   .clearSnackBars();

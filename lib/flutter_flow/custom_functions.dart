@@ -37,16 +37,14 @@ String? convertBoolToString(bool? inputBool) {
 
 String? convertPatternColorToString(
   String? inputPattern,
-  Color? inputColor,
+  String? inputColor,
 ) {
   // Check if inputs are null
   if (inputPattern == null || inputColor == null) {
     return null;
   }
-  // Convert the Color type to a String
-  String hexColor = inputColor.value.toRadixString(16).padLeft(8, '0');
   // Returns string of selected pattern and selected color
-  String returnString = inputPattern + "#" + hexColor;
+  String returnString = inputPattern + "#" + inputColor;
   // For example:
   // String selectedPattern = "Solid";
   // Color selectedColor = Colors.blue;
