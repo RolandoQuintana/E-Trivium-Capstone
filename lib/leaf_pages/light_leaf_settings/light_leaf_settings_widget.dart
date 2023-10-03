@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
@@ -407,14 +406,18 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   0.0, 30.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
+                                              _model.colorPicked1String =
+                                                  await actions
+                                                      .convertColorToString(
+                                                _model.colorPicked1,
+                                              );
                                               await actions.sendData(
                                                 BTDeviceStruct(
                                                   name: widget.deviceName,
                                                   id: widget.deviceId,
                                                   rssi: widget.deviceRssi,
                                                 ),
-                                                functions.convertColorToString(
-                                                    _model.colorPicked1)!,
+                                                _model.colorPicked1String!,
                                               );
                                               ScaffoldMessenger.of(context)
                                                   .clearSnackBars();
@@ -442,6 +445,8 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                           .success,
                                                 ),
                                               );
+
+                                              setState(() {});
                                             },
                                             text: 'Confirm Color',
                                             options: FFButtonOptions(
@@ -639,18 +644,24 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   0.0, 30.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
+                                              _model.colorPicked2String =
+                                                  await actions
+                                                      .convertColorToString(
+                                                _model.colorPicked2,
+                                              );
+                                              _model.stringPatternColor =
+                                                  await actions
+                                                      .convertPatternColorToString(
+                                                _model.patternDropDownValue,
+                                                _model.colorPicked2String,
+                                              );
                                               await actions.sendData(
                                                 BTDeviceStruct(
                                                   name: widget.deviceName,
                                                   id: widget.deviceId,
                                                   rssi: widget.deviceRssi,
                                                 ),
-                                                functions.convertPatternColorToString(
-                                                    _model.patternDropDownValue,
-                                                    functions
-                                                        .convertColorToString(
-                                                            _model
-                                                                .colorPicked2))!,
+                                                _model.stringPatternColor!,
                                               );
                                               ScaffoldMessenger.of(context)
                                                   .clearSnackBars();
@@ -658,7 +669,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   .showSnackBar(
                                                 SnackBar(
                                                   content: Text(
-                                                    'Color data sent to device',
+                                                    'Pattern & color data sent to device',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyLarge
@@ -678,6 +689,8 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                           .success,
                                                 ),
                                               );
+
+                                              setState(() {});
                                             },
                                             text: 'Confirm Color',
                                             options: FFButtonOptions(
@@ -771,15 +784,19 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                       .enableLightsSwitchValue =
                                                   newValue!);
                                               if (newValue!) {
+                                                _model.enableLightsString =
+                                                    await actions
+                                                        .convertBoolToString(
+                                                  _model
+                                                      .enableLightsSwitchValue!,
+                                                );
                                                 await actions.sendData(
                                                   BTDeviceStruct(
                                                     name: widget.deviceName,
                                                     id: widget.deviceId,
                                                     rssi: widget.deviceRssi,
                                                   ),
-                                                  functions.convertBoolToString(
-                                                      _model
-                                                          .enableLightsSwitchValue)!,
+                                                  _model.enableLightsString!,
                                                 );
                                                 ScaffoldMessenger.of(context)
                                                     .clearSnackBars();
@@ -787,7 +804,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     .showSnackBar(
                                                   SnackBar(
                                                     content: Text(
-                                                      'Color data sent to device',
+                                                      'Enable lights data sent to device',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -808,6 +825,8 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                             .success,
                                                   ),
                                                 );
+
+                                                setState(() {});
                                               }
                                             },
                                             title: Text(

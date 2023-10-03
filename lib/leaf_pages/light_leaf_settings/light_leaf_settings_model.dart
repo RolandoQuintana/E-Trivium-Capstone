@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'light_leaf_settings_widget.dart' show LightLeafSettingsWidget;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
@@ -33,16 +32,24 @@ class LightLeafSettingsModel extends FlutterFlowModel<LightLeafSettingsWidget> {
       ? pageViewController!.page!.round()
       : 0;
   Color? colorPicked1;
+  // Stores action output result for [Custom Action - convertColorToString] action in Button widget.
+  String? colorPicked1String;
   // Model for DisplayReceivedData component.
   late DisplayReceivedDataModel displayReceivedDataModel1;
   // State field(s) for PatternDropDown widget.
   String? patternDropDownValue;
   FormFieldController<String>? patternDropDownValueController;
   Color? colorPicked2;
+  // Stores action output result for [Custom Action - convertColorToString] action in Button widget.
+  String? colorPicked2String;
+  // Stores action output result for [Custom Action - convertPatternColorToString] action in Button widget.
+  String? stringPatternColor;
   // Model for DisplayReceivedData component.
   late DisplayReceivedDataModel displayReceivedDataModel2;
   // State field(s) for EnableLightsSwitch widget.
   bool? enableLightsSwitchValue;
+  // Stores action output result for [Custom Action - convertBoolToString] action in EnableLightsSwitch widget.
+  String? enableLightsString;
   // Model for DisplayReceivedData component.
   late DisplayReceivedDataModel displayReceivedDataModel3;
 

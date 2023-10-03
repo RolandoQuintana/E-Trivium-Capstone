@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'dart:convert';
 
-Future<bool> isBluetoothEnabled() async {
-  await FlutterBluePlus.instance.isOn;
-  await Future.delayed(Duration(milliseconds: 100));
-  final state = await FlutterBluePlus.instance.state.first;
-  if (state == BluetoothState.on) {
-    return true;
-  }
-  return false;
+Future<String> convertBoolToString(bool inputBool) async {
+  String boolString = inputBool.toString();
+  return boolString;
+
+  // For example:
+  // bool inputBool = true;
+  // String boolString = convertBoolToString(inputBool);
+  // print(boolString); //Outputs: true
 }
