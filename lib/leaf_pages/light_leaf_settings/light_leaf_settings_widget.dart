@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
@@ -417,7 +418,16 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   id: widget.deviceId,
                                                   rssi: widget.deviceRssi,
                                                 ),
-                                                _model.colorPicked1String!,
+                                                valueOrDefault<String>(
+                                                  random_data.randomString(
+                                                    0,
+                                                    0,
+                                                    true,
+                                                    false,
+                                                    false,
+                                                  ),
+                                                  'test1',
+                                                ),
                                               );
                                               ScaffoldMessenger.of(context)
                                                   .clearSnackBars();
