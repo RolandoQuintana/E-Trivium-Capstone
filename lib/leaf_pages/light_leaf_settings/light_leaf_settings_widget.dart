@@ -416,12 +416,15 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                 BTDeviceStruct(
                                                   name: widget.deviceName,
                                                   id: widget.deviceId,
-                                                  rssi: widget.deviceRssi,
+                                                  rssi: valueOrDefault<int>(
+                                                    widget.deviceRssi,
+                                                    3,
+                                                  ),
                                                 ),
                                                 valueOrDefault<String>(
                                                   random_data.randomString(
                                                     0,
-                                                    0,
+                                                    5,
                                                     true,
                                                     false,
                                                     false,
