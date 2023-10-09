@@ -207,15 +207,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ParamType.String,
                                 ),
                                 'deviceName': serializeParam(
-                                  '',
+                                  widget.deviceName,
                                   ParamType.String,
                                 ),
                                 'deviceId': serializeParam(
-                                  '',
+                                  widget.deviceId,
                                   ParamType.String,
                                 ),
                                 'deviceRssi': serializeParam(
-                                  0,
+                                  widget.deviceRssi,
                                   ParamType.int,
                                 ),
                               }.withoutNulls,

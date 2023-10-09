@@ -422,14 +422,9 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   ),
                                                 ),
                                                 valueOrDefault<String>(
-                                                  random_data.randomString(
-                                                    0,
-                                                    5,
-                                                    true,
-                                                    false,
-                                                    false,
-                                                  ),
-                                                  'test1',
+                                                  random_data.randomName(
+                                                      true, false),
+                                                  'eRolando',
                                                 ),
                                               );
                                               ScaffoldMessenger.of(context)
