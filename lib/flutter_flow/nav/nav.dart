@@ -87,6 +87,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/healthLeafSettings',
           builder: (context, params) => HealthLeafSettingsWidget(
             clothing: params.getParam('clothing', ParamType.String),
+            deviceName: params.getParam('deviceName', ParamType.String),
+            deviceId: params.getParam('deviceId', ParamType.String),
+            deviceRssi: params.getParam('deviceRssi', ParamType.int),
           ),
         ),
         FFRoute(
@@ -94,6 +97,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/sOSLeafSettings',
           builder: (context, params) => SOSLeafSettingsWidget(
             clothing: params.getParam('clothing', ParamType.String),
+            deviceName: params.getParam('deviceName', ParamType.String),
+            deviceId: params.getParam('deviceId', ParamType.String),
+            deviceRssi: params.getParam('deviceRssi', ParamType.int),
           ),
         ),
         FFRoute(

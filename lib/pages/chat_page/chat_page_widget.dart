@@ -320,7 +320,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                       child: wrapWithModel(
                         model: _model.displayReceivedDataModel,
                         updateCallback: () => setState(() {}),
