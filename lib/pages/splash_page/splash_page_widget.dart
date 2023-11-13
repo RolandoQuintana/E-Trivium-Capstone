@@ -6,6 +6,7 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -83,20 +84,6 @@ class _SplashPageWidgetState extends State<SplashPageWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setDarkModeSetting(context, ThemeMode.dark);
-      await requestPermission(bluetoothPermission);
-      _model.bluetoothEnabled = await actions.isBluetoothEnabled();
-      if (Navigator.of(context).canPop()) {
-        context.pop();
-      }
-      context.pushNamed(
-        'SettingsPage',
-        queryParameters: {
-          'isBTEnabled': serializeParam(
-            _model.bluetoothEnabled,
-            ParamType.bool,
-          ),
-        }.withoutNulls,
-      );
     });
 
     setupAnimations(
@@ -116,6 +103,15 @@ class _SplashPageWidgetState extends State<SplashPageWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -199,6 +195,60 @@ class _SplashPageWidgetState extends State<SplashPageWidget>
                         ),
                       ],
                     ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(1.00, 0.00),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 20.0, 40.0, 0.0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              await requestPermission(bluetoothPermission);
+                              _model.bluetoothEnabled =
+                                  await actions.isBluetoothEnabled();
+                              if (Navigator.of(context).canPop()) {
+                                context.pop();
+                              }
+                              context.pushNamed(
+                                'SettingsPage',
+                                queryParameters: {
+                                  'isBTEnabled': serializeParam(
+                                    _model.bluetoothEnabled,
+                                    ParamType.bool,
+                                  ),
+                                }.withoutNulls,
+                              );
+
+                              setState(() {});
+                            },
+                            text: 'Okay',
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  24.0, 0.0, 24.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).primary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                  ),
+                              elevation: 3.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'add_custom_contact_widget.dart' show AddCustomContactWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -22,9 +23,11 @@ class AddCustomContactModel extends FlutterFlowModel<AddCustomContactWidget> {
       tabBarController != null ? tabBarController!.index : 0;
 
   // State field(s) for name widget.
+  FocusNode? nameFocusNode;
   TextEditingController? nameController;
   String? Function(BuildContext, String?)? nameControllerValidator;
   // State field(s) for phoneNumber widget.
+  FocusNode? phoneNumberFocusNode;
   TextEditingController? phoneNumberController;
   final phoneNumberMask = MaskTextInputFormatter(mask: '(###) ###-####');
   String? Function(BuildContext, String?)? phoneNumberControllerValidator;
@@ -36,7 +39,10 @@ class AddCustomContactModel extends FlutterFlowModel<AddCustomContactWidget> {
   void dispose() {
     unfocusNode.dispose();
     tabBarController?.dispose();
+    nameFocusNode?.dispose();
     nameController?.dispose();
+
+    phoneNumberFocusNode?.dispose();
     phoneNumberController?.dispose();
   }
 

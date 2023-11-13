@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
@@ -52,6 +53,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -138,18 +148,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   'Gray Shirt',
                                   ParamType.String,
                                 ),
-                                'deviceName': serializeParam(
-                                  widget.deviceName,
-                                  ParamType.String,
-                                ),
-                                'deviceId': serializeParam(
-                                  widget.deviceId,
-                                  ParamType.String,
-                                ),
-                                'deviceRssi': serializeParam(
-                                  widget.deviceRssi,
-                                  ParamType.int,
-                                ),
                               }.withoutNulls,
                             );
                           },
@@ -181,18 +179,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 'clothing': serializeParam(
                                   'Gray Shirt',
                                   ParamType.String,
-                                ),
-                                'deviceName': serializeParam(
-                                  widget.deviceName,
-                                  ParamType.String,
-                                ),
-                                'deviceId': serializeParam(
-                                  widget.deviceId,
-                                  ParamType.String,
-                                ),
-                                'deviceRssi': serializeParam(
-                                  widget.deviceRssi,
-                                  ParamType.int,
                                 ),
                               }.withoutNulls,
                             );

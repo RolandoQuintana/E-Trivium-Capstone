@@ -1,15 +1,14 @@
-import '/backend/schema/structs/index.dart';
-import '/components/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutterflow_colorpicker/flutterflow_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'health_leaf_settings_model.dart';
@@ -19,15 +18,9 @@ class HealthLeafSettingsWidget extends StatefulWidget {
   const HealthLeafSettingsWidget({
     Key? key,
     this.clothing,
-    required this.deviceName,
-    required this.deviceId,
-    required this.deviceRssi,
   }) : super(key: key);
 
   final String? clothing;
-  final String? deviceName;
-  final String? deviceId;
-  final int? deviceRssi;
 
   @override
   _HealthLeafSettingsWidgetState createState() =>
@@ -54,6 +47,15 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -266,15 +268,14 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                   10.0, 20.0, 10.0, 0.0),
                                           child: SwitchListTile.adaptive(
                                             value: _model
-                                                    .enablePostureTileValue ??=
-                                                true,
+                                                .switchListTileValue ??= true,
                                             onChanged: (newValue) async {
-                                              setState(() => _model
-                                                      .enablePostureTileValue =
-                                                  newValue!);
+                                              setState(() =>
+                                                  _model.switchListTileValue =
+                                                      newValue!);
                                             },
                                             title: Text(
-                                              'Enable Posture',
+                                              'Enable Health',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .titleLarge,
@@ -294,194 +295,88 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                     .trailing,
                                           ),
                                         ),
-                                        if (_model.enablePostureTileValue ==
-                                            true)
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 30.0, 0.0, 0.0),
-                                            child: FlutterFlowDropDown<String>(
-                                              controller: _model
-                                                      .postureEnabledDropDownValueController ??=
-                                                  FormFieldController<String>(
-                                                _model.postureEnabledDropDownValue ??=
-                                                    'AlwaysOn',
-                                              ),
-                                              options: [
-                                                'AlwaysOn',
-                                                'Timer',
-                                                'TimeRange'
-                                              ],
-                                              onChanged: (val) async {
-                                                setState(() => _model
-                                                        .postureEnabledDropDownValue =
-                                                    val);
-                                                setState(() {
-                                                  _model.postureEnabledSetting =
-                                                      _model
-                                                          .postureEnabledDropDownValue;
-                                                });
-                                                if ((_model.postureEnabledSetting ==
-                                                            'Time Period') ||
-                                                        (_model.postureEnabledSetting ==
-                                                            'Time Period')
-                                                    ? false
-                                                    : true) {
-                                                  final _datePickedTime =
-                                                      await showTimePicker(
-                                                    context: context,
-                                                    initialTime:
-                                                        TimeOfDay.fromDateTime(
-                                                            getCurrentTimestamp),
-                                                  );
-                                                  if (_datePickedTime != null) {
-                                                    safeSetState(() {
-                                                      _model.datePicked =
-                                                          DateTime(
-                                                        getCurrentTimestamp
-                                                            .year,
-                                                        getCurrentTimestamp
-                                                            .month,
-                                                        getCurrentTimestamp.day,
-                                                        _datePickedTime.hour,
-                                                        _datePickedTime.minute,
-                                                      );
-                                                    });
-                                                  }
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 30.0, 0.0, 0.0),
+                                          child: FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .postureEnabledDropDownValueController ??=
+                                                FormFieldController<String>(
+                                              _model.postureEnabledDropDownValue ??=
+                                                  'Always On',
+                                            ),
+                                            options: [
+                                              'Always On',
+                                              'Timer',
+                                              'Time Range'
+                                            ],
+                                            onChanged: (val) async {
+                                              setState(() => _model
+                                                      .postureEnabledDropDownValue =
+                                                  val);
+                                              setState(() {
+                                                _model.postureEnabledSetting =
+                                                    _model
+                                                        .postureEnabledDropDownValue;
+                                              });
+                                              if ((_model.postureEnabledSetting ==
+                                                          'Time Period') ||
+                                                      (_model.postureEnabledSetting ==
+                                                          'Time Period')
+                                                  ? false
+                                                  : true) {
+                                                final _datePickedTime =
+                                                    await showTimePicker(
+                                                  context: context,
+                                                  initialTime:
+                                                      TimeOfDay.fromDateTime(
+                                                          getCurrentTimestamp),
+                                                );
+                                                if (_datePickedTime != null) {
+                                                  safeSetState(() {
+                                                    _model.datePicked =
+                                                        DateTime(
+                                                      getCurrentTimestamp.year,
+                                                      getCurrentTimestamp.month,
+                                                      getCurrentTimestamp.day,
+                                                      _datePickedTime.hour,
+                                                      _datePickedTime.minute,
+                                                    );
+                                                  });
                                                 }
-                                              },
-                                              width: 300.0,
-                                              height: 50.0,
-                                              textStyle:
+                                              }
+                                            },
+                                            width: 300.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText: 'Please select...',
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
-                                              hintText: 'Please select...',
-                                              icon: Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              elevation: 2.0,
-                                              borderColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              borderWidth: 2.0,
-                                              borderRadius: 8.0,
-                                              margin: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 4.0, 16.0, 4.0),
-                                              hidesUnderline: true,
-                                              disabled: !_model
-                                                  .enablePostureTileValue!,
-                                              isSearchable: false,
-                                              isMultiSelect: false,
+                                                      .secondaryText,
+                                              size: 24.0,
                                             ),
-                                          ),
-                                        if (_model.enablePostureTileValue ==
-                                            true)
-                                          Padding(
-                                            padding:
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            elevation: 2.0,
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 30.0, 0.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await actions.sendData(
-                                                  BTDeviceStruct(
-                                                    name: widget.deviceName,
-                                                    id: widget.deviceId,
-                                                    rssi: widget.deviceRssi,
-                                                  ),
-                                                  _model
-                                                      .postureEnabledDropDownValue!,
-                                                );
-                                                ScaffoldMessenger.of(context)
-                                                    .clearSnackBars();
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Enable lights data sent to device',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                              ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 2000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .success,
-                                                  ),
-                                                );
-                                              },
-                                              text: 'Confirm Settings',
-                                              options: FFButtonOptions(
-                                                height: 40.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        24.0, 0.0, 24.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          color: Colors.white,
-                                                        ),
-                                                elevation: 3.0,
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                          ),
-                                        Expanded(
-                                          child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, -1.00),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 80.0, 0.0, 0.0),
-                                              child: wrapWithModel(
-                                                model: _model
-                                                    .displayReceivedDataModel1,
-                                                updateCallback: () =>
-                                                    setState(() {}),
-                                                child:
-                                                    DisplayReceivedDataWidget(
-                                                  device: BTDeviceStruct(
-                                                    name: widget.deviceName,
-                                                    id: widget.deviceId,
-                                                    rssi: widget.deviceRssi,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            disabled:
+                                                !_model.switchListTileValue!,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
                                           ),
                                         ),
                                       ],
@@ -518,117 +413,107 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 20.0, 10.0, 0.0),
-                                          child: SwitchListTile.adaptive(
-                                            value: _model
-                                                    .enablePedometerTileValue ??=
-                                                true,
-                                            onChanged: (newValue) async {
-                                              setState(() => _model
-                                                      .enablePedometerTileValue =
-                                                  newValue!);
-                                              if (newValue!) {
-                                                _model.enablePedometerString =
-                                                    await actions
-                                                        .convertBoolToString(
-                                                  _model
-                                                      .enablePedometerTileValue!,
-                                                );
-                                                await actions.sendData(
-                                                  BTDeviceStruct(
-                                                    name: widget.deviceName,
-                                                    id: widget.deviceId,
-                                                    rssi: widget.deviceRssi,
-                                                  ),
-                                                  _model.enablePedometerString!,
-                                                );
-                                                ScaffoldMessenger.of(context)
-                                                    .clearSnackBars();
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Enable lights data sent to device',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyLarge
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                              ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 2000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .success,
-                                                  ),
-                                                );
-
-                                                setState(() {});
-                                              }
-                                            },
-                                            title: Text(
-                                              'Enable Pedometer',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLarge,
+                                                  0.0, 20.0, 0.0, 0.0),
+                                          child: FlutterFlowDropDown<String>(
+                                            controller: _model
+                                                    .dropDownValueController ??=
+                                                FormFieldController<String>(
+                                              _model.dropDownValue ??= 'Solid',
                                             ),
-                                            tileColor:
+                                            options: [
+                                              'Solid',
+                                              'Breath',
+                                              'Heart Beat',
+                                              'Flash'
+                                            ],
+                                            onChanged: (val) => setState(() =>
+                                                _model.dropDownValue = val),
+                                            width: 300.0,
+                                            height: 50.0,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
+                                            hintText: 'Please select...',
+                                            icon: Icon(
+                                              Icons.keyboard_arrow_down_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                            fillColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
-                                            activeColor:
+                                            elevation: 2.0,
+                                            borderColor:
                                                 FlutterFlowTheme.of(context)
-                                                    .primary,
-                                            activeTrackColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .accent1,
-                                            dense: false,
-                                            controlAffinity:
-                                                ListTileControlAffinity
-                                                    .trailing,
+                                                    .primaryText,
+                                            borderWidth: 2.0,
+                                            borderRadius: 8.0,
+                                            margin:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 4.0, 16.0, 4.0),
+                                            hidesUnderline: true,
+                                            isSearchable: false,
+                                            isMultiSelect: false,
                                           ),
                                         ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 50.0, 0.0, 0.0),
-                                          child: Text(
-                                            'Steps:',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  fontSize: 24.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, -1.00),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 20.0, 0.0, 0.0),
-                                              child: wrapWithModel(
-                                                model: _model
-                                                    .displayReceivedDataModel2,
-                                                updateCallback: () =>
-                                                    setState(() {}),
-                                                child:
-                                                    DisplayReceivedDataWidget(
-                                                  device: BTDeviceStruct(
-                                                    name: widget.deviceName,
-                                                    id: widget.deviceId,
-                                                    rssi: widget.deviceRssi,
-                                                  ),
+                                                  30.0, 30.0, 30.0, 30.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              final _colorPickedColor =
+                                                  await showFFColorPicker(
+                                                context,
+                                                currentColor:
+                                                    _model.colorPicked ??=
+                                                        Colors.black,
+                                                showRecentColors: true,
+                                                allowOpacity: true,
+                                                textColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                secondaryTextColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                primaryButtonBackgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                primaryButtonTextColor:
+                                                    Colors.white,
+                                                primaryButtonBorderColor:
+                                                    Colors.transparent,
+                                                displayAsBottomSheet:
+                                                    isMobileWidth(context),
+                                              );
+
+                                              if (_colorPickedColor != null) {
+                                                safeSetState(() =>
+                                                    _model.colorPicked =
+                                                        _colorPickedColor);
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 200.0,
+                                              height: 200.0,
+                                              decoration: BoxDecoration(
+                                                color: _model.colorPicked,
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .info,
+                                                  width: 3.0,
                                                 ),
                                               ),
                                             ),

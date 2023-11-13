@@ -1,14 +1,11 @@
-import '/backend/schema/structs/index.dart';
-import '/components/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -19,15 +16,9 @@ class SOSLeafSettingsWidget extends StatefulWidget {
   const SOSLeafSettingsWidget({
     Key? key,
     this.clothing,
-    required this.deviceName,
-    required this.deviceId,
-    required this.deviceRssi,
   }) : super(key: key);
 
   final String? clothing;
-  final String? deviceName;
-  final String? deviceId;
-  final int? deviceRssi;
 
   @override
   _SOSLeafSettingsWidgetState createState() => _SOSLeafSettingsWidgetState();
@@ -42,35 +33,6 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SOSLeafSettingsModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.enableSOSString = await actions.convertBoolToString(
-        _model.sOSEnabledTileValue!,
-      );
-      await actions.sendData(
-        BTDeviceStruct(
-          name: widget.deviceName,
-          id: widget.deviceId,
-          rssi: widget.deviceRssi,
-        ),
-        _model.enableSOSString!,
-      );
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Enable SOS data sent to device',
-            style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  fontFamily: 'Readex Pro',
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-          ),
-          duration: Duration(milliseconds: 2000),
-          backgroundColor: FlutterFlowTheme.of(context).success,
-        ),
-      );
-    });
   }
 
   @override
@@ -82,6 +44,15 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -450,31 +421,6 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
                                                 ),
                                               );
                                             },
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, -1.00),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 80.0, 0.0, 0.0),
-                                              child: wrapWithModel(
-                                                model: _model
-                                                    .displayReceivedDataModel,
-                                                updateCallback: () =>
-                                                    setState(() {}),
-                                                child:
-                                                    DisplayReceivedDataWidget(
-                                                  device: BTDeviceStruct(
-                                                    name: widget.deviceName,
-                                                    id: widget.deviceId,
-                                                    rssi: widget.deviceRssi,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
                                           ),
                                         ),
                                       ],

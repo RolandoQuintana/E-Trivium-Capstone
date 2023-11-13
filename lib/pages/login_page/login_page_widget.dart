@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -244,7 +245,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
     });
 
     _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressFocusNode ??= FocusNode();
+
     _model.passwordController ??= TextEditingController();
+    _model.passwordFocusNode ??= FocusNode();
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -262,6 +267,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -383,6 +397,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                         child: TextFormField(
                                           controller:
                                               _model.emailAddressController,
+                                          focusNode:
+                                              _model.emailAddressFocusNode,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Email Address',
@@ -457,6 +473,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                     Expanded(
                                       child: TextFormField(
                                         controller: _model.passwordController,
+                                        focusNode: _model.passwordFocusNode,
                                         obscureText: !_model.passwordVisibility,
                                         decoration: InputDecoration(
                                           labelText: 'Password',
@@ -595,7 +612,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                             kTransitionInfoKey: TransitionInfo(
                                               hasTransition: true,
                                               transitionType: PageTransitionType
-                                                  .bottomToTop,
+                                                  .rightToLeft,
                                             ),
                                           },
                                         );

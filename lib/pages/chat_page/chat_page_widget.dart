@@ -9,6 +9,7 @@ import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'chat_page_model.dart';
@@ -66,6 +67,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
     });
 
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -77,6 +79,15 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -228,6 +239,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.textController,
+                              focusNode: _model.textFieldFocusNode,
                               obscureText: false,
                               decoration: InputDecoration(
                                 hintText: 'Enter data to send...',
@@ -320,7 +332,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   Expanded(
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                       child: wrapWithModel(
                         model: _model.displayReceivedDataModel,
                         updateCallback: () => setState(() {}),

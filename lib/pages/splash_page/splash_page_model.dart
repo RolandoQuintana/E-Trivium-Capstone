@@ -7,6 +7,7 @@ import '/flutter_flow/permissions_util.dart';
 import 'splash_page_widget.dart' show SplashPageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class SplashPageModel extends FlutterFlowModel<SplashPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Custom Action - isBluetoothEnabled] action in SplashPage widget.
+  // Stores action output result for [Custom Action - isBluetoothEnabled] action in Button widget.
   bool? bluetoothEnabled;
 
   /// Initialization and disposal methods.

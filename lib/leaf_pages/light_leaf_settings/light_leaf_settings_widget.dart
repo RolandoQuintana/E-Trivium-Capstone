@@ -9,6 +9,7 @@ import '/custom_code/actions/index.dart' as actions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterflow_colorpicker/flutterflow_colorpicker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,6 +56,15 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -415,7 +425,10 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                 BTDeviceStruct(
                                                   name: widget.deviceName,
                                                   id: widget.deviceId,
-                                                  rssi: widget.deviceRssi,
+                                                  rssi: valueOrDefault<int>(
+                                                    widget.deviceRssi,
+                                                    3,
+                                                  ),
                                                 ),
                                                 _model.colorPicked1String!,
                                               );

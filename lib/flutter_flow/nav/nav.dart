@@ -38,12 +38,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => NavBarPage(),
+      errorBuilder: (context, state) => appStateNotifier.showSplashImage
+          ? Builder(
+              builder: (context) => Container(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/E-Trivium_Logo_Orange.png',
+                    width: 100.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            )
+          : LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => NavBarPage(),
+          builder: (context, _) => appStateNotifier.showSplashImage
+              ? Builder(
+                  builder: (context) => Container(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/E-Trivium_Logo_Orange.png',
+                        width: 100.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                )
+              : LoginPageWidget(),
         ),
         FFRoute(
           name: 'HomePage',
@@ -87,9 +113,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/healthLeafSettings',
           builder: (context, params) => HealthLeafSettingsWidget(
             clothing: params.getParam('clothing', ParamType.String),
-            deviceName: params.getParam('deviceName', ParamType.String),
-            deviceId: params.getParam('deviceId', ParamType.String),
-            deviceRssi: params.getParam('deviceRssi', ParamType.int),
           ),
         ),
         FFRoute(
@@ -97,9 +120,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/sOSLeafSettings',
           builder: (context, params) => SOSLeafSettingsWidget(
             clothing: params.getParam('clothing', ParamType.String),
-            deviceName: params.getParam('deviceName', ParamType.String),
-            deviceId: params.getParam('deviceId', ParamType.String),
-            deviceRssi: params.getParam('deviceRssi', ParamType.int),
           ),
         ),
         FFRoute(

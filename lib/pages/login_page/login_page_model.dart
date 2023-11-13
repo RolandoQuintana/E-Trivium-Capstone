@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'login_page_widget.dart' show LoginPageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,9 +16,11 @@ class LoginPageModel extends FlutterFlowModel<LoginPageWidget> {
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for emailAddress widget.
+  FocusNode? emailAddressFocusNode;
   TextEditingController? emailAddressController;
   String? Function(BuildContext, String?)? emailAddressControllerValidator;
   // State field(s) for password widget.
+  FocusNode? passwordFocusNode;
   TextEditingController? passwordController;
   late bool passwordVisibility;
   String? Function(BuildContext, String?)? passwordControllerValidator;
@@ -30,7 +33,10 @@ class LoginPageModel extends FlutterFlowModel<LoginPageWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    emailAddressFocusNode?.dispose();
     emailAddressController?.dispose();
+
+    passwordFocusNode?.dispose();
     passwordController?.dispose();
   }
 

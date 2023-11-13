@@ -10,6 +10,7 @@ import '/custom_code/actions/index.dart' as actions;
 import 'chat_page_widget.dart' show ChatPageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +30,7 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
   // Model for StrengthIndicator component.
   late StrengthIndicatorModel strengthIndicatorModel;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Model for DisplayReceivedData component.
@@ -47,7 +49,9 @@ class ChatPageModel extends FlutterFlowModel<ChatPageWidget> {
     unfocusNode.dispose();
     rssiUpdateTimer?.cancel();
     strengthIndicatorModel.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
+
     displayReceivedDataModel.dispose();
   }
 
