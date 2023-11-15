@@ -49,8 +49,6 @@ class LightLeafSettingsModel extends FlutterFlowModel<LightLeafSettingsWidget> {
   late DisplayReceivedDataModel displayReceivedDataModel2;
   // State field(s) for EnableLightsSwitch widget.
   bool? enableLightsSwitchValue;
-  // Stores action output result for [Custom Action - convertBoolToString] action in EnableLightsSwitch widget.
-  String? enableLightsString;
   // Model for DisplayReceivedData component.
   late DisplayReceivedDataModel displayReceivedDataModel3;
 

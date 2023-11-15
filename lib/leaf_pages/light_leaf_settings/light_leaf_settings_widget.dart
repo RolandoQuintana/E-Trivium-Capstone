@@ -551,12 +551,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                               _model.patternDropDownValue ??=
                                                   'Solid',
                                             ),
-                                            options: [
-                                              'Solid',
-                                              'Breath',
-                                              'Beat',
-                                              'Flash'
-                                            ],
+                                            options: ['Solid', 'Flash'],
                                             onChanged: (val) => setState(() =>
                                                 _model.patternDropDownValue =
                                                     val),
@@ -797,20 +792,27 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                       .enableLightsSwitchValue =
                                                   newValue!);
                                               if (newValue!) {
-                                                _model.enableLightsString =
-                                                    await actions
-                                                        .convertBoolToString(
-                                                  _model
-                                                      .enableLightsSwitchValue!,
-                                                );
-                                                await actions.sendData(
-                                                  BTDeviceStruct(
-                                                    name: widget.deviceName,
-                                                    id: widget.deviceId,
-                                                    rssi: widget.deviceRssi,
-                                                  ),
-                                                  _model.enableLightsString!,
-                                                );
+                                                if (_model
+                                                    .enableLightsSwitchValue!) {
+                                                  await actions.sendData(
+                                                    BTDeviceStruct(
+                                                      name: widget.deviceName,
+                                                      id: widget.deviceId,
+                                                      rssi: widget.deviceRssi,
+                                                    ),
+                                                    'AAAAAAAAAAAAA',
+                                                  );
+                                                } else {
+                                                  await actions.sendData(
+                                                    BTDeviceStruct(
+                                                      name: widget.deviceName,
+                                                      id: widget.deviceId,
+                                                      rssi: widget.deviceRssi,
+                                                    ),
+                                                    'ZZZZZZZZZZZZZ',
+                                                  );
+                                                }
+
                                                 ScaffoldMessenger.of(context)
                                                     .clearSnackBars();
                                                 ScaffoldMessenger.of(context)
@@ -838,8 +840,6 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                             .success,
                                                   ),
                                                 );
-
-                                                setState(() {});
                                               }
                                             },
                                             title: Text(

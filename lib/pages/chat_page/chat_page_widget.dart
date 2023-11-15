@@ -98,7 +98,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70.0),
+          preferredSize: Size.fromHeight(80.0),
           child: AppBar(
             backgroundColor: Color(0x00FFFFFF),
             automaticallyImplyLeading: true,
@@ -110,7 +110,8 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                 Align(
                   alignment: AlignmentDirectional(1.00, -1.00),
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -172,7 +173,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                                     rssi: _model.currentRssi,
                                   ),
                                 );
-                                context.safePop();
+
+                                context.pushNamed(
+                                  'SettingsPage',
+                                  queryParameters: {
+                                    'isBTEnabled': serializeParam(
+                                      false,
+                                      ParamType.bool,
+                                    ),
+                                  }.withoutNulls,
+                                );
                               },
                             ),
                           ),

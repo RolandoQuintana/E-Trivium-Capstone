@@ -116,189 +116,182 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ],
           body: Builder(
             builder: (context) {
-              return SafeArea(
-                top: false,
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        FlutterFlowTheme.of(context).secondaryBackground,
-                        FlutterFlowTheme.of(context).accent1
-                      ],
-                      stops: [0.4, 1.0],
-                      begin: AlignmentDirectional(0.0, -1.0),
-                      end: AlignmentDirectional(0, 1.0),
-                    ),
+              return Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      FlutterFlowTheme.of(context).secondaryBackground,
+                      FlutterFlowTheme.of(context).accent1
+                    ],
+                    stops: [0.4, 1.0],
+                    begin: AlignmentDirectional(0.0, -1.0),
+                    end: AlignmentDirectional(0, 1.0),
                   ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        FFButtonWidget(
-                          onPressed: () async {
-                            context.pushNamed(
-                              'HealthLeafSettings',
-                              queryParameters: {
-                                'clothing': serializeParam(
-                                  'Gray Shirt',
-                                  ParamType.String,
-                                ),
-                              }.withoutNulls,
-                            );
-                          },
-                          text: 'Health',
-                          options: FFButtonOptions(
-                            width: 150.0,
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                ),
-                            elevation: 3.0,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        FFButtonWidget(
-                          onPressed: () async {
-                            context.pushNamed(
-                              'SOSLeafSettings',
-                              queryParameters: {
-                                'clothing': serializeParam(
-                                  'Gray Shirt',
-                                  ParamType.String,
-                                ),
-                              }.withoutNulls,
-                            );
-                          },
-                          text: 'SOS',
-                          options: FFButtonOptions(
-                            width: 150.0,
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        FFButtonWidget(
-                          onPressed: () async {
-                            context.pushNamed(
-                              'LightLeafSettings',
-                              queryParameters: {
-                                'clothing': serializeParam(
-                                  'Gray Shirt',
-                                  ParamType.String,
-                                ),
-                                'deviceName': serializeParam(
-                                  widget.deviceName,
-                                  ParamType.String,
-                                ),
-                                'deviceId': serializeParam(
-                                  widget.deviceId,
-                                  ParamType.String,
-                                ),
-                                'deviceRssi': serializeParam(
-                                  widget.deviceRssi,
-                                  ParamType.int,
-                                ),
-                              }.withoutNulls,
-                            );
-                          },
-                          text: 'Lights',
-                          options: FFButtonOptions(
-                            width: 150.0,
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                  fontSize: 18.0,
-                                ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional(1.00, 1.00),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 28.0, 28.0),
-                            child: FlutterFlowIconButton(
-                              borderColor: FlutterFlowTheme.of(context).primary,
-                              borderRadius: 20.0,
-                              borderWidth: 2.0,
-                              buttonSize: 60.0,
-                              fillColor: FlutterFlowTheme.of(context).accent1,
-                              icon: Icon(
-                                Icons.message_outlined,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed(
+                            'HealthLeafSettings',
+                            queryParameters: {
+                              'clothing': serializeParam(
+                                'Gray Shirt',
+                                ParamType.String,
                               ),
-                              onPressed: () async {
-                                context.pushNamed(
-                                  'ChatPage',
-                                  queryParameters: {
-                                    'deviceName': serializeParam(
-                                      widget.deviceName,
-                                      ParamType.String,
-                                    ),
-                                    'deviceId': serializeParam(
-                                      widget.deviceId,
-                                      ParamType.String,
-                                    ),
-                                    'hasWriteCharacteristic': serializeParam(
-                                      widget.hasWriteCharacteristic,
-                                      ParamType.bool,
-                                    ),
-                                    'deviceRssi': serializeParam(
-                                      widget.deviceRssi,
-                                      ParamType.int,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              },
+                            }.withoutNulls,
+                          );
+                        },
+                        text: 'Health',
+                        options: FFButtonOptions(
+                          width: 150.0,
+                          height: 50.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                  ),
+                          elevation: 3.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed(
+                            'SOSLeafSettings',
+                            queryParameters: {
+                              'clothing': serializeParam(
+                                'Gray Shirt',
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
+                        text: 'SOS',
+                        options: FFButtonOptions(
+                          width: 150.0,
+                          height: 50.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed(
+                            'LightLeafSettings',
+                            queryParameters: {
+                              'clothing': serializeParam(
+                                'Gray Shirt',
+                                ParamType.String,
+                              ),
+                              'deviceName': serializeParam(
+                                widget.deviceName,
+                                ParamType.String,
+                              ),
+                              'deviceId': serializeParam(
+                                widget.deviceId,
+                                ParamType.String,
+                              ),
+                              'deviceRssi': serializeParam(
+                                widget.deviceRssi,
+                                ParamType.int,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
+                        text: 'Lights',
+                        options: FFButtonOptions(
+                          width: 150.0,
+                          height: 50.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(1.00, 1.00),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 28.0, 28.0),
+                          child: FlutterFlowIconButton(
+                            borderColor: FlutterFlowTheme.of(context).primary,
+                            borderRadius: 20.0,
+                            borderWidth: 2.0,
+                            buttonSize: 60.0,
+                            fillColor: FlutterFlowTheme.of(context).accent1,
+                            icon: Icon(
+                              Icons.message_outlined,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24.0,
                             ),
+                            onPressed: () async {
+                              context.pushNamed(
+                                'ChatPage',
+                                queryParameters: {
+                                  'deviceName': serializeParam(
+                                    widget.deviceName,
+                                    ParamType.String,
+                                  ),
+                                  'deviceId': serializeParam(
+                                    widget.deviceId,
+                                    ParamType.String,
+                                  ),
+                                  'hasWriteCharacteristic': serializeParam(
+                                    widget.hasWriteCharacteristic,
+                                    ParamType.bool,
+                                  ),
+                                  'deviceRssi': serializeParam(
+                                    widget.deviceRssi,
+                                    ParamType.int,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               );

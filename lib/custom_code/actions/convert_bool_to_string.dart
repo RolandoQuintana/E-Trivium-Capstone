@@ -11,7 +11,14 @@ import 'dart:convert';
 
 Future<String> convertBoolToString(bool inputBool) async {
   String boolString = inputBool.toString();
-  return boolString;
+  String trueStr = "AAAAAAAAAAAAA";
+  String falseStr = "ZZZZZZZZZZZZZ";
+
+  if (boolString == "true") {
+    return trueStr;
+  } else {
+    return falseStr;
+  }
 
   // For example:
   // bool inputBool = true;

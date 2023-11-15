@@ -220,6 +220,13 @@ class _SplashPageWidgetState extends State<SplashPageWidget>
                                     ParamType.bool,
                                   ),
                                 }.withoutNulls,
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType:
+                                        PageTransitionType.rightToLeft,
+                                  ),
+                                },
                               );
 
                               setState(() {});

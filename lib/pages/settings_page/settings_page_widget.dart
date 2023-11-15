@@ -369,134 +369,174 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(20.0, 10.0,
                                                           20.0, 0.0),
-                                                  child: Container(
-                                                    width: 100.0,
-                                                    height: 70.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x324B39EF),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                        'HomePage',
+                                                        queryParameters: {
+                                                          'deviceName':
+                                                              serializeParam(
+                                                            displayConnectedDevicesItem
+                                                                .name,
+                                                            ParamType.String,
+                                                          ),
+                                                          'deviceId':
+                                                              serializeParam(
+                                                            displayConnectedDevicesItem
+                                                                .id,
+                                                            ParamType.String,
+                                                          ),
+                                                          'deviceRssi':
+                                                              serializeParam(
+                                                            displayConnectedDevicesItem
+                                                                .rssi,
+                                                            ParamType.int,
+                                                          ),
+                                                          'hasWriteCharacteristic':
+                                                              serializeParam(
+                                                            _model.hasWrite,
+                                                            ParamType.bool,
+                                                          ),
+                                                        }.withoutNulls,
+                                                        extra: <String,
+                                                            dynamic>{
+                                                          kTransitionInfoKey:
+                                                              TransitionInfo(
+                                                            hasTransition: true,
+                                                            transitionType:
+                                                                PageTransitionType
+                                                                    .leftToRight,
+                                                          ),
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      width: 100.0,
+                                                      height: 70.0,
+                                                      decoration: BoxDecoration(
                                                         color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
+                                                            Color(0x324B39EF),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  10.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Expanded(
-                                                                child: Align(
-                                                                  alignment:
-                                                                      AlignmentDirectional(
-                                                                          -1.00,
-                                                                          0.00),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            20.0,
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          displayConnectedDevicesItem
-                                                                              .name,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Readex Pro',
-                                                                                fontSize: 16.0,
-                                                                              ),
-                                                                        ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    10.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            -1.00,
+                                                                            0.00),
+                                                                    child:
                                                                         Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              10.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              StrengthIndicatorWidget(
-                                                                            key:
-                                                                                Key('Keyll0_${displayConnectedDevicesIndex}_of_${displayConnectedDevices.length}'),
-                                                                            rssi:
-                                                                                displayConnectedDevicesItem.rssi,
-                                                                            color:
-                                                                                valueOrDefault<Color>(
-                                                                              () {
-                                                                                if (displayConnectedDevicesItem.rssi >= -67) {
-                                                                                  return FlutterFlowTheme.of(context).success;
-                                                                                } else if (displayConnectedDevicesItem.rssi >= -90) {
-                                                                                  return FlutterFlowTheme.of(context).warning;
-                                                                                } else {
-                                                                                  return FlutterFlowTheme.of(context).error;
-                                                                                }
-                                                                              }(),
-                                                                              FlutterFlowTheme.of(context).success,
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          20.0,
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Text(
+                                                                            displayConnectedDevicesItem.name,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  fontSize: 16.0,
+                                                                                ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                10.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                StrengthIndicatorWidget(
+                                                                              key: Key('Keyll0_${displayConnectedDevicesIndex}_of_${displayConnectedDevices.length}'),
+                                                                              rssi: displayConnectedDevicesItem.rssi,
+                                                                              color: valueOrDefault<Color>(
+                                                                                () {
+                                                                                  if (displayConnectedDevicesItem.rssi >= -67) {
+                                                                                    return FlutterFlowTheme.of(context).success;
+                                                                                  } else if (displayConnectedDevicesItem.rssi >= -90) {
+                                                                                    return FlutterFlowTheme.of(context).warning;
+                                                                                  } else {
+                                                                                    return FlutterFlowTheme.of(context).error;
+                                                                                  }
+                                                                                }(),
+                                                                                FlutterFlowTheme.of(context).success,
+                                                                              ),
                                                                             ),
                                                                           ),
-                                                                        ),
-                                                                      ],
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              Expanded(
-                                                                child: Align(
-                                                                  alignment:
-                                                                      AlignmentDirectional(
-                                                                          -1.00,
-                                                                          0.00),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            20.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            10.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Text(
-                                                                          displayConnectedDevicesItem
-                                                                              .id,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .labelSmall
-                                                                              .override(
-                                                                                fontFamily: 'Readex Pro',
-                                                                                fontSize: 14.0,
-                                                                              ),
-                                                                        ),
-                                                                      ],
+                                                                Expanded(
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            -1.00,
+                                                                            0.00),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          20.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          10.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Text(
+                                                                            displayConnectedDevicesItem.id,
+                                                                            style: FlutterFlowTheme.of(context).labelSmall.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  fontSize: 14.0,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -651,6 +691,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                 ParamType.int,
                                                               ),
                                                             }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              kTransitionInfoKey:
+                                                                  TransitionInfo(
+                                                                hasTransition:
+                                                                    true,
+                                                                transitionType:
+                                                                    PageTransitionType
+                                                                        .leftToRight,
+                                                              ),
+                                                            },
                                                           );
 
                                                           setState(() {});

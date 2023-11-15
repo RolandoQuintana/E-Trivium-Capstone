@@ -15,7 +15,7 @@ Future<String?> convertPatternColorToString(
     return null;
   }
   // Return string of selected pattern and color
-  String returnString = inputPattern + "#" + inputColor;
+  String returnString = inputPattern + inputColor;
   return returnString;
 
   // For example:

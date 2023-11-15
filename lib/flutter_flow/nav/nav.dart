@@ -74,15 +74,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'HomePage')
-              : HomePageWidget(
-                  deviceName: params.getParam('deviceName', ParamType.String),
-                  deviceId: params.getParam('deviceId', ParamType.String),
-                  hasWriteCharacteristic:
-                      params.getParam('hasWriteCharacteristic', ParamType.bool),
-                  deviceRssi: params.getParam('deviceRssi', ParamType.int),
-                ),
+          builder: (context, params) => HomePageWidget(
+            deviceName: params.getParam('deviceName', ParamType.String),
+            deviceId: params.getParam('deviceId', ParamType.String),
+            hasWriteCharacteristic:
+                params.getParam('hasWriteCharacteristic', ParamType.bool),
+            deviceRssi: params.getParam('deviceRssi', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'LightLeafSettings',
@@ -97,11 +95,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'SettingsPage',
           path: '/settingsPage',
-          builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'SettingsPage')
-              : SettingsPageWidget(
-                  isBTEnabled: params.getParam('isBTEnabled', ParamType.bool),
-                ),
+          builder: (context, params) => SettingsPageWidget(
+            isBTEnabled: params.getParam('isBTEnabled', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'LoginPage',
