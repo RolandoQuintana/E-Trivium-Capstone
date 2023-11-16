@@ -145,6 +145,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 'Gray Shirt',
                                 ParamType.String,
                               ),
+                              'deviceName': serializeParam(
+                                widget.deviceName,
+                                ParamType.String,
+                              ),
+                              'deviceId': serializeParam(
+                                widget.deviceId,
+                                ParamType.String,
+                              ),
+                              'deviceRssi': serializeParam(
+                                widget.deviceRssi,
+                                ParamType.int,
+                              ),
                             }.withoutNulls,
                           );
                         },
@@ -175,6 +187,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               'clothing': serializeParam(
                                 'Gray Shirt',
                                 ParamType.String,
+                              ),
+                              'deviceName': serializeParam(
+                                widget.deviceName,
+                                ParamType.String,
+                              ),
+                              'deviceId': serializeParam(
+                                widget.deviceId,
+                                ParamType.String,
+                              ),
+                              'deviceRssi': serializeParam(
+                                widget.deviceRssi,
+                                ParamType.int,
                               ),
                             }.withoutNulls,
                           );

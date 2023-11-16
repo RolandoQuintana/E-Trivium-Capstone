@@ -18,9 +18,15 @@ class HealthLeafSettingsWidget extends StatefulWidget {
   const HealthLeafSettingsWidget({
     Key? key,
     this.clothing,
+    required this.deviceName,
+    required this.deviceId,
+    required this.deviceRssi,
   }) : super(key: key);
 
   final String? clothing;
+  final String? deviceName;
+  final String? deviceId;
+  final int? deviceRssi;
 
   @override
   _HealthLeafSettingsWidgetState createState() =>

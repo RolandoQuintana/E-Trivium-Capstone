@@ -31,6 +31,10 @@ class AddCustomContactModel extends FlutterFlowModel<AddCustomContactWidget> {
   TextEditingController? phoneNumberController;
   final phoneNumberMask = MaskTextInputFormatter(mask: '(###) ###-####');
   String? Function(BuildContext, String?)? phoneNumberControllerValidator;
+  // State field(s) for sosMessage widget.
+  FocusNode? sosMessageFocusNode;
+  TextEditingController? sosMessageController;
+  String? Function(BuildContext, String?)? sosMessageControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -44,6 +48,9 @@ class AddCustomContactModel extends FlutterFlowModel<AddCustomContactWidget> {
 
     phoneNumberFocusNode?.dispose();
     phoneNumberController?.dispose();
+
+    sosMessageFocusNode?.dispose();
+    sosMessageController?.dispose();
   }
 
   /// Action blocks are added here.

@@ -1,14 +1,19 @@
+import '/backend/schema/structs/index.dart';
+import '/components/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 's_o_s_leaf_settings_model.dart';
 export 's_o_s_leaf_settings_model.dart';
 
@@ -16,9 +21,15 @@ class SOSLeafSettingsWidget extends StatefulWidget {
   const SOSLeafSettingsWidget({
     Key? key,
     this.clothing,
+    required this.deviceName,
+    required this.deviceId,
+    required this.deviceRssi,
   }) : super(key: key);
 
   final String? clothing;
+  final String? deviceName;
+  final String? deviceId;
+  final int? deviceRssi;
 
   @override
   _SOSLeafSettingsWidgetState createState() => _SOSLeafSettingsWidgetState();
@@ -33,6 +44,60 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SOSLeafSettingsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.receivedDataTimer = InstantTimer.periodic(
+        duration: Duration(milliseconds: 1000),
+        callback: (timer) async {
+          _model.sosReceiveData = await actions.receiveData(
+            BTDeviceStruct(
+              name: widget.deviceName,
+              id: widget.deviceId,
+              rssi: widget.deviceRssi,
+            ),
+          );
+          if (_model.sosReceiveData == 'SOS') {
+            if (isiOS) {
+              await launchUrl(Uri.parse(
+                  "sms:${FFAppState().contacts.first.phoneNumber}&body=${Uri.encodeComponent(FFAppState().contacts.first.sOSMessage)}"));
+            } else {
+              await launchUrl(Uri(
+                scheme: 'sms',
+                path: FFAppState().contacts.first.phoneNumber,
+                queryParameters: <String, String>{
+                  'body': FFAppState().contacts.first.sOSMessage,
+                },
+              ));
+            }
+
+            await actions.sendData(
+              BTDeviceStruct(
+                name: widget.deviceName,
+                id: widget.deviceId,
+                rssi: widget.deviceRssi,
+              ),
+              'Sent SOS SMS!',
+            );
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'SOS button triggered! Sent SOS SMS!',
+                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        fontFamily: 'Readex Pro',
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                ),
+                duration: Duration(milliseconds: 2000),
+                backgroundColor: FlutterFlowTheme.of(context).success,
+              ),
+            );
+          }
+        },
+        startImmediately: true,
+      );
+    });
   }
 
   @override
@@ -163,7 +228,7 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
                                                   10.0, 20.0, 10.0, 0.0),
                                           child: SwitchListTile.adaptive(
                                             value: _model
-                                                .sOSEnabledTileValue ??= true,
+                                                .sOSEnabledTileValue ??= false,
                                             onChanged: (newValue) async {
                                               setState(() =>
                                                   _model.sOSEnabledTileValue =
@@ -190,237 +255,369 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
                                                     .trailing,
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 20.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              context.pushNamed(
-                                                'AddCustomContact',
-                                                extra: <String, dynamic>{
-                                                  kTransitionInfoKey:
-                                                      TransitionInfo(
-                                                    hasTransition: true,
-                                                    transitionType:
-                                                        PageTransitionType
-                                                            .bottomToTop,
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.00, 0.00),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 10.0, 0.0, 0.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                if (_model
+                                                    .sOSEnabledTileValue!) {
+                                                  await actions.sendData(
+                                                    BTDeviceStruct(
+                                                      name: widget.deviceName,
+                                                      id: widget.deviceId,
+                                                      rssi: widget.deviceRssi,
+                                                    ),
+                                                    'AAA',
+                                                  );
+                                                } else {
+                                                  await actions.sendData(
+                                                    BTDeviceStruct(
+                                                      name: widget.deviceName,
+                                                      id: widget.deviceId,
+                                                      rssi: widget.deviceRssi,
+                                                    ),
+                                                    'ZZZ',
+                                                  );
+                                                }
+
+                                                ScaffoldMessenger.of(context)
+                                                    .clearSnackBars();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Enable SOS data sent to device',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                    ),
+                                                    duration: Duration(
+                                                        milliseconds: 2000),
+                                                    backgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .success,
                                                   ),
-                                                },
-                                              );
-                                            },
-                                            text: 'Add SOS Contact',
-                                            options: FFButtonOptions(
-                                              height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Readex Pro',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                  ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
+                                                );
+                                              },
+                                              text: 'Confirm',
+                                              options: FFButtonOptions(
+                                                height: 40.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: Colors.white,
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
                                             ),
                                           ),
                                         ),
-                                        Flexible(
-                                          child: Builder(
-                                            builder: (context) {
-                                              final currentContacts =
-                                                  FFAppState()
-                                                      .contacts
-                                                      .toList();
-                                              return SingleChildScrollView(
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: List.generate(
-                                                      currentContacts.length,
-                                                      (currentContactsIndex) {
-                                                    final currentContactsItem =
-                                                        currentContacts[
-                                                            currentContactsIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Container(
-                                                        width: double.infinity,
-                                                        height: 100.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                        ),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      0.00,
-                                                                      0.00),
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child:
-                                                                    FlutterFlowIconButton(
-                                                                  borderColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  borderRadius:
-                                                                      20.0,
-                                                                  borderWidth:
-                                                                      1.0,
-                                                                  buttonSize:
-                                                                      40.0,
-                                                                  icon: FaIcon(
-                                                                    FontAwesomeIcons
-                                                                        .edit,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                    size: 20.0,
-                                                                  ),
-                                                                  onPressed:
-                                                                      () {
-                                                                    print(
-                                                                        'IconButton pressed ...');
-                                                                  },
-                                                                ),
-                                                              ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            if (_model.sOSEnabledTileValue ==
+                                                true)
+                                              Expanded(
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.00, 0.00),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                30.0,
+                                                                30.0,
+                                                                30.0,
+                                                                30.0),
+                                                    child: FFButtonWidget(
+                                                      onPressed: () async {
+                                                        context.pushNamed(
+                                                          'AddCustomContact',
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            kTransitionInfoKey:
+                                                                TransitionInfo(
+                                                              hasTransition:
+                                                                  true,
+                                                              transitionType:
+                                                                  PageTransitionType
+                                                                      .bottomToTop,
                                                             ),
-                                                            Container(
-                                                              width: MediaQuery
-                                                                          .sizeOf(
+                                                          },
+                                                        );
+                                                      },
+                                                      text: 'Add SOS Contact',
+                                                      options: FFButtonOptions(
+                                                        height: 40.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                ),
+                                                        elevation: 3.0,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                        if (_model.sOSEnabledTileValue == true)
+                                          Flexible(
+                                            child: Builder(
+                                              builder: (context) {
+                                                final currentContacts =
+                                                    FFAppState()
+                                                        .contacts
+                                                        .toList();
+                                                return SingleChildScrollView(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: List.generate(
+                                                        currentContacts.length,
+                                                        (currentContactsIndex) {
+                                                      final currentContactsItem =
+                                                          currentContacts[
+                                                              currentContactsIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Container(
+                                                          width:
+                                                              double.infinity,
+                                                          height: 100.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Container(
+                                                                width: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width *
+                                                                    0.549,
+                                                                height: 100.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .rectangle,
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          20.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      ListTile(
+                                                                    title: Text(
+                                                                      FFAppState()
+                                                                          .contacts[
+                                                                              currentContactsIndex]
+                                                                          .name,
+                                                                      style: FlutterFlowTheme.of(
                                                                               context)
-                                                                      .width *
-                                                                  0.549,
-                                                              height: 100.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .rectangle,
-                                                              ),
-                                                              child: ListTile(
-                                                                title: Text(
-                                                                  FFAppState()
-                                                                      .contacts[
-                                                                          currentContactsIndex]
-                                                                      .name,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleLarge,
-                                                                ),
-                                                                subtitle: Text(
-                                                                  FFAppState()
-                                                                      .contacts[
-                                                                          currentContactsIndex]
-                                                                      .phoneNumber,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMedium,
-                                                                ),
-                                                                tileColor: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .alternate,
-                                                                dense: false,
-                                                                contentPadding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
+                                                                          .titleLarge,
+                                                                    ),
+                                                                    subtitle:
+                                                                        Text(
+                                                                      FFAppState()
+                                                                          .contacts[
+                                                                              currentContactsIndex]
+                                                                          .phoneNumber,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium,
+                                                                    ),
+                                                                    tileColor: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                    dense:
+                                                                        false,
+                                                                    contentPadding:
+                                                                        EdgeInsetsDirectional.fromSTEB(
                                                                             18.0,
                                                                             5.0,
                                                                             0.0,
                                                                             5.0),
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: Align(
-                                                                alignment:
-                                                                    AlignmentDirectional(
-                                                                        1.00,
-                                                                        0.00),
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      FlutterFlowIconButton(
-                                                                    borderColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    borderRadius:
-                                                                        20.0,
-                                                                    borderWidth:
-                                                                        1.0,
-                                                                    buttonSize:
-                                                                        40.0,
-                                                                    icon: Icon(
-                                                                      Icons
-                                                                          .delete_outline,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error,
-                                                                      size:
-                                                                          25.0,
-                                                                    ),
-                                                                    onPressed:
-                                                                        () {
-                                                                      print(
-                                                                          'IconButton pressed ...');
-                                                                    },
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              Flexible(
+                                                                child: Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          1.00,
+                                                                          0.00),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            20.0,
+                                                                            0.0),
+                                                                    child:
+                                                                        FlutterFlowIconButton(
+                                                                      borderColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      borderRadius:
+                                                                          20.0,
+                                                                      borderWidth:
+                                                                          1.0,
+                                                                      buttonSize:
+                                                                          40.0,
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .delete_outline,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .error,
+                                                                        size:
+                                                                            25.0,
+                                                                      ),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        setState(
+                                                                            () {
+                                                                          FFAppState()
+                                                                              .removeFromContacts(ContactStruct(
+                                                                            name:
+                                                                                currentContactsItem.name,
+                                                                            phoneNumber:
+                                                                                currentContactsItem.phoneNumber,
+                                                                            sOSMessage:
+                                                                                currentContactsItem.sOSMessage,
+                                                                          ));
+                                                                        });
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  }),
+                                                      );
+                                                    }),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: AlignmentDirectional(
+                                                0.00, -1.00),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 20.0, 0.0, 0.0),
+                                              child: wrapWithModel(
+                                                model: _model
+                                                    .displayReceivedDataModel,
+                                                updateCallback: () =>
+                                                    setState(() {}),
+                                                child:
+                                                    DisplayReceivedDataWidget(
+                                                  device: BTDeviceStruct(
+                                                    name: widget.deviceName,
+                                                    id: widget.deviceId,
+                                                    rssi: widget.deviceRssi,
+                                                  ),
                                                 ),
-                                              );
-                                            },
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
