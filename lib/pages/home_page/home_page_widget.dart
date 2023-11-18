@@ -1,7 +1,11 @@
+import '/backend/schema/structs/index.dart';
+import '/components/battery_charge_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -41,6 +45,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setDarkModeSetting(context, ThemeMode.dark);
+      setState(() {
+        _model.batteryCharge = 0;
+      });
+      _model.gotDataTimer = InstantTimer.periodic(
+        duration: Duration(milliseconds: 10000),
+        callback: (timer) async {
+          _model.gotDataStr = await actions.receiveData(
+            BTDeviceStruct(
+              name: widget.deviceName,
+              id: widget.deviceId,
+              rssi: widget.deviceRssi,
+            ),
+          );
+          _model.gotDataInt = await actions.convertStringToInt(
+            _model.gotDataStr!,
+          );
+          setState(() {
+            _model.batteryCharge = _model.gotDataInt;
+          });
+        },
+        startImmediately: true,
+      );
     });
   }
 
@@ -104,6 +130,34 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   fontFamily: 'Outfit',
                                   fontSize: 28.0,
                                 ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: AlignmentDirectional(1.00, 0.00),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 20.0, 0.0),
+                          child: wrapWithModel(
+                            model: _model.batteryChargeIndicatorModel,
+                            updateCallback: () => setState(() {}),
+                            child: BatteryChargeIndicatorWidget(
+                              charge: _model.batteryCharge!,
+                              color: valueOrDefault<Color>(
+                                () {
+                                  if (_model.batteryCharge! > 50) {
+                                    return FlutterFlowTheme.of(context).success;
+                                  } else if (_model.batteryCharge! > 25) {
+                                    return FlutterFlowTheme.of(context).warning;
+                                  } else {
+                                    return FlutterFlowTheme.of(context).error;
+                                  }
+                                }(),
+                                FlutterFlowTheme.of(context).accent4,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],

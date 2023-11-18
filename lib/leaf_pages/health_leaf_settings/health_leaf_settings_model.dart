@@ -1,8 +1,11 @@
+import '/backend/schema/structs/index.dart';
+import '/components/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'health_leaf_settings_widget.dart' show HealthLeafSettingsWidget;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
@@ -32,12 +35,14 @@ class HealthLeafSettingsModel
           pageViewController!.page != null
       ? pageViewController!.page!.round()
       : 0;
-  // State field(s) for SwitchListTile widget.
-  bool? switchListTileValue;
+  // State field(s) for enablePostureTile widget.
+  bool? enablePostureTileValue;
   // State field(s) for PostureEnabledDropDown widget.
   String? postureEnabledDropDownValue;
   FormFieldController<String>? postureEnabledDropDownValueController;
   DateTime? datePicked;
+  // Model for DisplayReceivedData component.
+  late DisplayReceivedDataModel displayReceivedDataModel;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -45,10 +50,14 @@ class HealthLeafSettingsModel
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    displayReceivedDataModel =
+        createModel(context, () => DisplayReceivedDataModel());
+  }
 
   void dispose() {
     unfocusNode.dispose();
+    displayReceivedDataModel.dispose();
   }
 
   /// Action blocks are added here.

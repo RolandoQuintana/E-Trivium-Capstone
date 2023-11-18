@@ -1,5 +1,6 @@
 export 'is_bluetooth_enabled.dart' show isBluetoothEnabled;
 export 'turn_on_bluetooth.dart' show turnOnBluetooth;
+export 'convert_string_to_int.dart' show convertStringToInt;
 export 'turn_off_bluetooth.dart' show turnOffBluetooth;
 export 'find_devices.dart' show findDevices;
 export 'get_connected_devices.dart' show getConnectedDevices;
