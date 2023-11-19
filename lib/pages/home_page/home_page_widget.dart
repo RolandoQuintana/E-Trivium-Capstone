@@ -58,11 +58,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               rssi: widget.deviceRssi,
             ),
           );
-          _model.gotDataInt = await actions.convertStringToInt(
-            _model.gotDataStr!,
+          _model.batteryStr = await actions.extractBattery(
+            _model.gotDataStr,
+          );
+          _model.batteryInt = await actions.convertStringToInt(
+            _model.batteryStr!,
           );
           setState(() {
-            _model.batteryCharge = _model.gotDataInt;
+            _model.batteryCharge = _model.batteryInt;
           });
         },
         startImmediately: true,

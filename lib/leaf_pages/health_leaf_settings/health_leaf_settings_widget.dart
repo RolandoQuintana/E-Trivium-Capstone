@@ -5,13 +5,14 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterflow_colorpicker/flutterflow_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'health_leaf_settings_model.dart';
@@ -45,6 +46,33 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HealthLeafSettingsModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setDarkModeSetting(context, ThemeMode.dark);
+      setState(() {
+        _model.displaySteps = '0';
+      });
+      _model.gotStepsTimer = InstantTimer.periodic(
+        duration: Duration(milliseconds: 10000),
+        callback: (timer) async {
+          _model.gotDataStr = await actions.receiveData(
+            BTDeviceStruct(
+              name: widget.deviceName,
+              id: widget.deviceId,
+              rssi: widget.deviceRssi,
+            ),
+          );
+          _model.stepsStr = await actions.extractSteps(
+            _model.gotDataStr,
+          );
+          setState(() {
+            _model.displaySteps = _model.stepsStr!;
+          });
+        },
+        startImmediately: true,
+      );
+    });
   }
 
   @override
@@ -315,13 +343,11 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                               controller: _model
                                                       .postureEnabledDropDownValueController ??=
                                                   FormFieldController<String>(
-                                                _model.postureEnabledDropDownValue ??=
-                                                    'Always On',
-                                              ),
+                                                      null),
                                               options: [
-                                                'Always On',
+                                                'AlwaysOn',
                                                 'Timer',
-                                                'Time Range'
+                                                'TimeRange'
                                               ],
                                               onChanged: (val) async {
                                                 setState(() => _model
@@ -388,8 +414,6 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                   .fromSTEB(
                                                       16.0, 4.0, 16.0, 4.0),
                                               hidesUnderline: true,
-                                              disabled: !_model
-                                                  .enablePostureTileValue!,
                                               isSearchable: false,
                                               isMultiSelect: false,
                                             ),
@@ -411,7 +435,7 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                       id: widget.deviceId,
                                                       rssi: widget.deviceRssi,
                                                     ),
-                                                    'BBB',
+                                                    'BBBB',
                                                   );
                                                 } else {
                                                   await actions.sendData(
@@ -420,7 +444,7 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                       id: widget.deviceId,
                                                       rssi: widget.deviceRssi,
                                                     ),
-                                                    'YYY',
+                                                    'YYYY',
                                                   );
                                                 }
 
@@ -494,7 +518,7 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                       0.0, 80.0, 0.0, 0.0),
                                               child: wrapWithModel(
                                                 model: _model
-                                                    .displayReceivedDataModel,
+                                                    .displayReceivedDataModel1,
                                                 updateCallback: () =>
                                                     setState(() {}),
                                                 child:
@@ -543,107 +567,131 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 0.0),
-                                          child: FlutterFlowDropDown<String>(
-                                            controller: _model
-                                                    .dropDownValueController ??=
-                                                FormFieldController<String>(
-                                              _model.dropDownValue ??= 'Solid',
-                                            ),
-                                            options: [
-                                              'Solid',
-                                              'Breath',
-                                              'Heart Beat',
-                                              'Flash'
-                                            ],
-                                            onChanged: (val) => setState(() =>
-                                                _model.dropDownValue = val),
-                                            width: 300.0,
-                                            height: 50.0,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium,
-                                            hintText: 'Please select...',
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            elevation: 2.0,
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            borderWidth: 2.0,
-                                            borderRadius: 8.0,
-                                            margin:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 4.0, 16.0, 4.0),
-                                            hidesUnderline: true,
-                                            isSearchable: false,
-                                            isMultiSelect: false,
+                                                  0.0, 30.0, 0.0, 0.0),
+                                          child: Text(
+                                            'Steps:',
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleLarge
+                                                .override(
+                                                  fontFamily: 'Outfit',
+                                                  fontSize: 30.0,
+                                                ),
                                           ),
                                         ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  30.0, 30.0, 30.0, 30.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              final _colorPickedColor =
-                                                  await showFFColorPicker(
-                                                context,
-                                                currentColor:
-                                                    _model.colorPicked ??=
-                                                        Colors.black,
-                                                showRecentColors: true,
-                                                allowOpacity: true,
-                                                textColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                secondaryTextColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                primaryButtonBackgroundColor:
+                                                  0.0, 50.0, 0.0, 0.0),
+                                          child: Text(
+                                            _model.displaySteps,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyLarge
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  fontSize: 20.0,
+                                                ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.00, 0.00),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 60.0, 0.0, 0.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                await actions.sendData(
+                                                  BTDeviceStruct(
+                                                    name: widget.deviceName,
+                                                    id: widget.deviceId,
+                                                    rssi: widget.deviceRssi,
+                                                  ),
+                                                  'ResetSteps',
+                                                );
+                                                ScaffoldMessenger.of(context)
+                                                    .clearSnackBars();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Reset step counter sent to device',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                    ),
+                                                    duration: Duration(
+                                                        milliseconds: 2000),
+                                                    backgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .success,
+                                                  ),
+                                                );
+                                                setState(() {
+                                                  _model.displaySteps = '0';
+                                                });
+                                              },
+                                              text: 'Reset Steps',
+                                              options: FFButtonOptions(
+                                                height: 40.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                primaryButtonTextColor:
-                                                    Colors.white,
-                                                primaryButtonBorderColor:
-                                                    Colors.transparent,
-                                                displayAsBottomSheet:
-                                                    isMobileWidth(context),
-                                              );
-
-                                              if (_colorPickedColor != null) {
-                                                safeSetState(() =>
-                                                    _model.colorPicked =
-                                                        _colorPickedColor);
-                                              }
-                                            },
-                                            child: Container(
-                                              width: 200.0,
-                                              height: 200.0,
-                                              decoration: BoxDecoration(
-                                                color: _model.colorPicked,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: Colors.white,
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  color: Colors.transparent,
+                                                  width: 1.0,
+                                                ),
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                border: Border.all(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .info,
-                                                  width: 3.0,
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Align(
+                                            alignment: AlignmentDirectional(
+                                                0.00, -1.00),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 80.0, 0.0, 0.0),
+                                              child: wrapWithModel(
+                                                model: _model
+                                                    .displayReceivedDataModel2,
+                                                updateCallback: () =>
+                                                    setState(() {}),
+                                                child:
+                                                    DisplayReceivedDataWidget(
+                                                  device: BTDeviceStruct(
+                                                    name: widget.deviceName,
+                                                    id: widget.deviceId,
+                                                    rssi: widget.deviceRssi,
+                                                  ),
                                                 ),
                                               ),
                                             ),

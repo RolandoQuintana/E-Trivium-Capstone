@@ -12,3 +12,5 @@ export 'receive_data.dart' show receiveData;
 export 'convert_color_to_string.dart' show convertColorToString;
 export 'convert_pattern_color_to_string.dart' show convertPatternColorToString;
 export 'convert_bool_to_string.dart' show convertBoolToString;
+export 'extract_steps.dart' show extractSteps;
+export 'extract_battery.dart' show extractBattery;

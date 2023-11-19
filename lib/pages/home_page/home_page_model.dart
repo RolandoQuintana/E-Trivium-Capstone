@@ -24,8 +24,10 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   InstantTimer? gotDataTimer;
   // Stores action output result for [Custom Action - receiveData] action in HomePage widget.
   String? gotDataStr;
+  // Stores action output result for [Custom Action - extractBattery] action in HomePage widget.
+  String? batteryStr;
   // Stores action output result for [Custom Action - convertStringToInt] action in HomePage widget.
-  int? gotDataInt;
+  int? batteryInt;
   // Model for BatteryChargeIndicator component.
   late BatteryChargeIndicatorModel batteryChargeIndicatorModel;
 
