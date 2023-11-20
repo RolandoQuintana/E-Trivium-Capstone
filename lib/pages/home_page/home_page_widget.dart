@@ -1,5 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/components/battery_charge_indicator_widget.dart';
+import '/components/strength_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -47,10 +48,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       setDarkModeSetting(context, ThemeMode.dark);
       setState(() {
         _model.batteryCharge = 0;
+        _model.currentRssi = widget.deviceRssi;
       });
-      _model.gotDataTimer = InstantTimer.periodic(
-        duration: Duration(milliseconds: 10000),
+      _model.updateTimer = InstantTimer.periodic(
+        duration: Duration(milliseconds: 2000),
         callback: (timer) async {
+          _model.gotRssi = await actions.getRssi(
+            BTDeviceStruct(
+              name: widget.deviceName,
+              id: widget.deviceId,
+              rssi: widget.deviceRssi,
+            ),
+          );
           _model.gotDataStr = await actions.receiveData(
             BTDeviceStruct(
               name: widget.deviceName,
@@ -66,11 +75,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           );
           setState(() {
             _model.batteryCharge = _model.batteryInt;
+            _model.currentRssi = _model.gotRssi;
           });
         },
         startImmediately: true,
       );
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -138,27 +150,77 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     Expanded(
                       child: Align(
                         alignment: AlignmentDirectional(1.00, 0.00),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 20.0, 0.0),
-                          child: wrapWithModel(
-                            model: _model.batteryChargeIndicatorModel,
-                            updateCallback: () => setState(() {}),
-                            child: BatteryChargeIndicatorWidget(
-                              charge: _model.batteryCharge!,
-                              color: valueOrDefault<Color>(
-                                () {
-                                  if (_model.batteryCharge! > 50) {
-                                    return FlutterFlowTheme.of(context).success;
-                                  } else if (_model.batteryCharge! > 25) {
-                                    return FlutterFlowTheme.of(context).warning;
-                                  } else {
-                                    return FlutterFlowTheme.of(context).error;
-                                  }
-                                }(),
-                                FlutterFlowTheme.of(context).accent4,
+                        child: Container(
+                          width: 80.0,
+                          height: 57.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              if (_model.currentRssi != null)
+                                Align(
+                                  alignment: AlignmentDirectional(1.00, 0.00),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 10.0, 0.0),
+                                    child: wrapWithModel(
+                                      model: _model.strengthIndicatorModel,
+                                      updateCallback: () => setState(() {}),
+                                      child: StrengthIndicatorWidget(
+                                        rssi: _model.currentRssi!,
+                                        color: valueOrDefault<Color>(
+                                          () {
+                                            if (_model.currentRssi! >= -67) {
+                                              return FlutterFlowTheme.of(
+                                                      context)
+                                                  .success;
+                                            } else if (_model.currentRssi! >=
+                                                -90) {
+                                              return FlutterFlowTheme.of(
+                                                      context)
+                                                  .warning;
+                                            } else {
+                                              return FlutterFlowTheme.of(
+                                                      context)
+                                                  .error;
+                                            }
+                                          }(),
+                                          FlutterFlowTheme.of(context).success,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 10.0, 0.0, 0.0),
+                                child: wrapWithModel(
+                                  model: _model.batteryChargeIndicatorModel,
+                                  updateCallback: () => setState(() {}),
+                                  child: BatteryChargeIndicatorWidget(
+                                    charge: _model.batteryCharge!,
+                                    color: valueOrDefault<Color>(
+                                      () {
+                                        if (_model.batteryCharge! > 50) {
+                                          return FlutterFlowTheme.of(context)
+                                              .success;
+                                        } else if (_model.batteryCharge! > 25) {
+                                          return FlutterFlowTheme.of(context)
+                                              .warning;
+                                        } else {
+                                          return FlutterFlowTheme.of(context)
+                                              .error;
+                                        }
+                                      }(),
+                                      FlutterFlowTheme.of(context).accent4,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),

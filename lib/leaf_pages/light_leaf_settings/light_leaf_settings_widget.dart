@@ -45,6 +45,8 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => LightLeafSettingsModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

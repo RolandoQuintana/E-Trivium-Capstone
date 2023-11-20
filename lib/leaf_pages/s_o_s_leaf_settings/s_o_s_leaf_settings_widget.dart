@@ -98,6 +98,8 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
         startImmediately: true,
       );
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

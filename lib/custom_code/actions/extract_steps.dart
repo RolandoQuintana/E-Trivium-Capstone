@@ -16,6 +16,12 @@ Future<String> extractSteps(String? receivedStepsStr) async {
     return "null";
   }
 
+  // Check if the message contains the substring "Step"
+  if (!receivedStepsStr.contains("Step")) {
+    //print("Error: Message format does not contain 'Step'");
+    return "";
+  }
+
   try {
     // Extract the numeric part of the message
     String steps = receivedStepsStr.replaceAll(RegExp(r'[^0-9]'), '');

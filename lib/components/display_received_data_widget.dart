@@ -53,6 +53,8 @@ class _DisplayReceivedDataWidgetState extends State<DisplayReceivedDataWidget> {
         startImmediately: true,
       );
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

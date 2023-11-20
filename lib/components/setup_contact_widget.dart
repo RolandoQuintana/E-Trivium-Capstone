@@ -28,6 +28,8 @@ class _SetupContactWidgetState extends State<SetupContactWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SetupContactModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

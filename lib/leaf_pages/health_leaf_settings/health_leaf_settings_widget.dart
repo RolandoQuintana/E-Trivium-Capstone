@@ -1,15 +1,12 @@
 import '/backend/schema/structs/index.dart';
 import '/components/display_received_data_widget.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -51,28 +48,50 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setDarkModeSetting(context, ThemeMode.dark);
       setState(() {
-        _model.displaySteps = '0';
+        _model.isPostureBad = false;
       });
-      _model.gotStepsTimer = InstantTimer.periodic(
-        duration: Duration(milliseconds: 10000),
+      _model.postureTimer = InstantTimer.periodic(
+        duration: Duration(milliseconds: 2000),
         callback: (timer) async {
-          _model.gotDataStr = await actions.receiveData(
+          _model.gotSomeData = await actions.receiveData(
             BTDeviceStruct(
               name: widget.deviceName,
               id: widget.deviceId,
               rssi: widget.deviceRssi,
             ),
           );
-          _model.stepsStr = await actions.extractSteps(
-            _model.gotDataStr,
+          _model.postureBool = await actions.badPostureChecker(
+            _model.gotSomeData!,
           );
           setState(() {
-            _model.displaySteps = _model.stepsStr!;
+            _model.isPostureBad = _model.postureBool!;
           });
+          if (_model.isPostureBad && _model.enablePostureTileValue!) {
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'FIX YOUR BAD POSTURE!!',
+                  style: FlutterFlowTheme.of(context).bodyLarge.override(
+                        fontFamily: 'Readex Pro',
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        fontSize: 20.0,
+                      ),
+                ),
+                duration: Duration(milliseconds: 10000),
+                backgroundColor: FlutterFlowTheme.of(context).error,
+              ),
+            );
+            setState(() {
+              _model.isPostureBad = false;
+            });
+          }
         },
         startImmediately: true,
       );
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -306,7 +325,7 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                           child: SwitchListTile.adaptive(
                                             value: _model
                                                     .enablePostureTileValue ??=
-                                                true,
+                                                false,
                                             onChanged: (newValue) async {
                                               setState(() => _model
                                                       .enablePostureTileValue =
@@ -333,91 +352,6 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                     .trailing,
                                           ),
                                         ),
-                                        if (_model.enablePostureTileValue ??
-                                            true)
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 20.0, 0.0, 0.0),
-                                            child: FlutterFlowDropDown<String>(
-                                              controller: _model
-                                                      .postureEnabledDropDownValueController ??=
-                                                  FormFieldController<String>(
-                                                      null),
-                                              options: [
-                                                'AlwaysOn',
-                                                'Timer',
-                                                'TimeRange'
-                                              ],
-                                              onChanged: (val) async {
-                                                setState(() => _model
-                                                        .postureEnabledDropDownValue =
-                                                    val);
-                                                setState(() {
-                                                  _model.postureEnabledSetting =
-                                                      _model
-                                                          .postureEnabledDropDownValue;
-                                                });
-                                                if ((_model.postureEnabledSetting ==
-                                                            'Time Period') ||
-                                                        (_model.postureEnabledSetting ==
-                                                            'Time Period')
-                                                    ? false
-                                                    : true) {
-                                                  final _datePickedTime =
-                                                      await showTimePicker(
-                                                    context: context,
-                                                    initialTime:
-                                                        TimeOfDay.fromDateTime(
-                                                            getCurrentTimestamp),
-                                                  );
-                                                  if (_datePickedTime != null) {
-                                                    safeSetState(() {
-                                                      _model.datePicked =
-                                                          DateTime(
-                                                        getCurrentTimestamp
-                                                            .year,
-                                                        getCurrentTimestamp
-                                                            .month,
-                                                        getCurrentTimestamp.day,
-                                                        _datePickedTime.hour,
-                                                        _datePickedTime.minute,
-                                                      );
-                                                    });
-                                                  }
-                                                }
-                                              },
-                                              width: 300.0,
-                                              height: 50.0,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
-                                              hintText: 'Please select...',
-                                              icon: Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              elevation: 2.0,
-                                              borderColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              borderWidth: 2.0,
-                                              borderRadius: 8.0,
-                                              margin: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 4.0, 16.0, 4.0),
-                                              hidesUnderline: true,
-                                              isSearchable: false,
-                                              isMultiSelect: false,
-                                            ),
-                                          ),
                                         Align(
                                           alignment:
                                               AlignmentDirectional(0.00, 0.00),
@@ -582,14 +516,54 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 50.0, 0.0, 0.0),
-                                          child: Text(
-                                            _model.displaySteps,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyLarge
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  fontSize: 20.0,
-                                                ),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              setState(() {
+                                                _model.displaySteps = '0';
+                                              });
+                                              _model.gotStepsTimer =
+                                                  InstantTimer.periodic(
+                                                duration: Duration(
+                                                    milliseconds: 1000),
+                                                callback: (timer) async {
+                                                  _model.gotDataStr =
+                                                      await actions.receiveData(
+                                                    BTDeviceStruct(
+                                                      name: widget.deviceName,
+                                                      id: widget.deviceId,
+                                                      rssi: widget.deviceRssi,
+                                                    ),
+                                                  );
+                                                  _model.stepsStr =
+                                                      await actions
+                                                          .extractSteps(
+                                                    _model.gotDataStr,
+                                                  );
+                                                  setState(() {
+                                                    _model.displaySteps =
+                                                        _model.stepsStr!;
+                                                  });
+                                                },
+                                                startImmediately: true,
+                                              );
+
+                                              setState(() {});
+                                            },
+                                            child: Text(
+                                              _model.displaySteps,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        fontSize: 20.0,
+                                                      ),
+                                            ),
                                           ),
                                         ),
                                         Align(

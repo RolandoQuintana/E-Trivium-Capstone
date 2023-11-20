@@ -92,6 +92,8 @@ class _SplashPageWidgetState extends State<SplashPageWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

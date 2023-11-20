@@ -36,6 +36,8 @@ class _StrengthIndicatorWidgetState extends State<StrengthIndicatorWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => StrengthIndicatorModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

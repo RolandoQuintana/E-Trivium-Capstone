@@ -1,5 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/components/battery_charge_indicator_widget.dart';
+import '/components/strength_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -18,29 +19,38 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   int? batteryCharge;
 
+  int? currentRssi;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  InstantTimer? gotDataTimer;
+  InstantTimer? updateTimer;
+  // Stores action output result for [Custom Action - getRssi] action in HomePage widget.
+  int? gotRssi;
   // Stores action output result for [Custom Action - receiveData] action in HomePage widget.
   String? gotDataStr;
   // Stores action output result for [Custom Action - extractBattery] action in HomePage widget.
   String? batteryStr;
   // Stores action output result for [Custom Action - convertStringToInt] action in HomePage widget.
   int? batteryInt;
+  // Model for StrengthIndicator component.
+  late StrengthIndicatorModel strengthIndicatorModel;
   // Model for BatteryChargeIndicator component.
   late BatteryChargeIndicatorModel batteryChargeIndicatorModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    strengthIndicatorModel =
+        createModel(context, () => StrengthIndicatorModel());
     batteryChargeIndicatorModel =
         createModel(context, () => BatteryChargeIndicatorModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    gotDataTimer?.cancel();
+    updateTimer?.cancel();
+    strengthIndicatorModel.dispose();
     batteryChargeIndicatorModel.dispose();
   }
 

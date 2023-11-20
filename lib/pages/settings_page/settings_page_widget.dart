@@ -62,6 +62,8 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
         });
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

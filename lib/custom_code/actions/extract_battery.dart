@@ -15,6 +15,13 @@ Future<String> extractBattery(String? receivedBatStr) async {
     //print("Error: Received message is null");
     return "";
   }
+
+  // Check if the message contains the substring "Step"
+  if (!receivedBatStr.contains("Battery")) {
+    //print("Error: Message format does not contain 'Step'");
+    return "";
+  }
+
   try {
     // Extract the numeric part of the message
     String battery = receivedBatStr.replaceAll(RegExp(r'[^0-9]'), '');

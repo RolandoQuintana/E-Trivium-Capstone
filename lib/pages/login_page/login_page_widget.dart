@@ -256,6 +256,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

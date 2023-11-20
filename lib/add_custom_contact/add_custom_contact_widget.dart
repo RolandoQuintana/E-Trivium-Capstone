@@ -89,6 +89,8 @@ class _AddCustomContactWidgetState extends State<AddCustomContactWidget>
 
     _model.sosMessageController ??= TextEditingController();
     _model.sosMessageFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

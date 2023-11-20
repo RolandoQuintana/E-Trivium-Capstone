@@ -36,6 +36,8 @@ class _BatteryChargeIndicatorWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => BatteryChargeIndicatorModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -58,7 +60,7 @@ class _BatteryChargeIndicatorWidgetState
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
             child: Container(
               width: 10.0,
-              height: 5.0,
+              height: 4.0,
               decoration: BoxDecoration(
                 color: valueOrDefault<Color>(
                   widget.charge! > 75
@@ -74,7 +76,7 @@ class _BatteryChargeIndicatorWidgetState
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
             child: Container(
               width: 20.0,
-              height: 5.0,
+              height: 4.0,
               decoration: BoxDecoration(
                 color: valueOrDefault<Color>(
                   widget.charge! > 50
@@ -90,7 +92,7 @@ class _BatteryChargeIndicatorWidgetState
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
             child: Container(
               width: 20.0,
-              height: 5.0,
+              height: 4.0,
               decoration: BoxDecoration(
                 color: valueOrDefault<Color>(
                   widget.charge! > 25
@@ -107,7 +109,7 @@ class _BatteryChargeIndicatorWidgetState
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
             child: Container(
               width: 20.0,
-              height: 5.0,
+              height: 4.0,
               decoration: BoxDecoration(
                 color: valueOrDefault<Color>(
                   widget.charge! > 0
