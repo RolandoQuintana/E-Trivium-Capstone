@@ -8,6 +8,10 @@ from app to Arduino: "pattern#color" where # is the pattern number. 1 for solid,
 example 1: "pattern1ff0000ff" //Since pattern is 1 then this is solid LEDs
 example 2: "pattern3ff0000ff" //Since pattern is 3 then this is breathing LEDs or anything else
 
+enable light leaf:
+    from app to Arduino: "enable1" for on 
+             and "enable0" for off
+
 Health leaf:
 
 1) SOS:
@@ -16,9 +20,6 @@ Health leaf:
 2) posture:
     from app to Arduino: "posture1" for on 
              and "posture0" for off
-3) enable light leaf:
-    from app to Arduino: "enable1" for on 
-             and "enable0" for off
 ============================================================================
 
 From Arduino to app (these messages are sent at any time, so make sure to always listen for them): 
