@@ -252,7 +252,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         callback: (timer) async {
                                           _model.apiBatResult =
                                               await SendBatCall.call(
-                                            batteryPerc: _model.batteryCharge,
+                                            batteryPerc: 23,
                                           );
                                           if ((_model.apiBatResult?.succeeded ??
                                               true)) {
