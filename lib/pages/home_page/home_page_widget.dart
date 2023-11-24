@@ -711,6 +711,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             buttonSize: 60.0,
                             fillColor: FlutterFlowTheme.of(context).accent1,
                             icon: Icon(
+                              Icons.wifi,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24.0,
+                            ),
+                            onPressed: () async {
+                              context.pushNamed('httpPage');
+                            },
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(1.00, 1.00),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 28.0, 28.0),
+                          child: FlutterFlowIconButton(
+                            borderColor: FlutterFlowTheme.of(context).primary,
+                            borderRadius: 20.0,
+                            borderWidth: 2.0,
+                            buttonSize: 60.0,
+                            fillColor: FlutterFlowTheme.of(context).accent1,
+                            icon: Icon(
                               Icons.message_outlined,
                               color: FlutterFlowTheme.of(context).primaryText,
                               size: 24.0,

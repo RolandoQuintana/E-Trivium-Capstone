@@ -144,6 +144,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 params.getParam('hasWriteCharacteristic', ParamType.bool),
             deviceRssi: params.getParam('deviceRssi', ParamType.int),
           ),
+        ),
+        FFRoute(
+          name: 'httpPage',
+          path: '/httpPage',
+          builder: (context, params) => HttpPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
