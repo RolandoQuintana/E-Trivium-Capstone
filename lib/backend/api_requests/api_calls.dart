@@ -14,7 +14,7 @@ class SendBatCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "battery=${batteryPerc}"
+  "battery":"${batteryPerc}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'sendBat',
