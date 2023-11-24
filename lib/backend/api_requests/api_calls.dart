@@ -20,7 +20,9 @@ class SendBatCall {
       callName: 'sendBat',
       apiUrl: 'http://192.168.0.50:5000/bat',
       callType: ApiCallType.POST,
-      headers: {},
+      headers: {
+        'Content-Type': 'application/json',
+      },
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.TEXT,
