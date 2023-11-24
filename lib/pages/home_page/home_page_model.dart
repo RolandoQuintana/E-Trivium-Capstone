@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/battery_charge_indicator_widget.dart';
 import '/components/strength_indicator_widget.dart';
@@ -37,6 +38,9 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   late StrengthIndicatorModel strengthIndicatorModel;
   // Model for BatteryChargeIndicator component.
   late BatteryChargeIndicatorModel batteryChargeIndicatorModel;
+  InstantTimer? instantTimer;
+  // Stores action output result for [Backend Call - API (sendBat)] action in BatteryChargeIndicator widget.
+  ApiCallResponse? apiBatResult;
 
   /// Initialization and disposal methods.
 
@@ -52,6 +56,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
     updateTimer?.cancel();
     strengthIndicatorModel.dispose();
     batteryChargeIndicatorModel.dispose();
+    instantTimer?.cancel();
   }
 
   /// Action blocks are added here.

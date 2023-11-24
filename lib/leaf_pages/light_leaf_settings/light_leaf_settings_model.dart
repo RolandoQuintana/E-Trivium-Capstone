@@ -33,6 +33,8 @@ class LightLeafSettingsModel extends FlutterFlowModel<LightLeafSettingsWidget> {
       ? pageViewController!.page!.round()
       : 0;
   Color? colorPicked1;
+  // Stores action output result for [Custom Action - convertColorToString] action in Container widget.
+  String? colorPicked1StringBeta;
   // Stores action output result for [Custom Action - convertColorToString] action in Button widget.
   String? colorPicked1String;
   // Model for DisplayReceivedData component.

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/battery_charge_indicator_widget.dart';
 import '/components/strength_indicator_widget.dart';
@@ -157,71 +158,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              if (_model.currentRssi != null)
-                                Align(
-                                  alignment: AlignmentDirectional(1.00, 0.00),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 10.0, 0.0),
-                                    child: wrapWithModel(
-                                      model: _model.strengthIndicatorModel,
-                                      updateCallback: () => setState(() {}),
-                                      child: StrengthIndicatorWidget(
-                                        rssi: _model.currentRssi!,
-                                        color: valueOrDefault<Color>(
-                                          () {
-                                            if (_model.currentRssi! >= -67) {
-                                              return FlutterFlowTheme.of(
-                                                      context)
-                                                  .success;
-                                            } else if (_model.currentRssi! >=
-                                                -90) {
-                                              return FlutterFlowTheme.of(
-                                                      context)
-                                                  .warning;
-                                            } else {
-                                              return FlutterFlowTheme.of(
-                                                      context)
-                                                  .error;
-                                            }
-                                          }(),
-                                          FlutterFlowTheme.of(context).success,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 10.0, 0.0, 0.0),
-                                child: wrapWithModel(
-                                  model: _model.batteryChargeIndicatorModel,
-                                  updateCallback: () => setState(() {}),
-                                  child: BatteryChargeIndicatorWidget(
-                                    charge: _model.batteryCharge!,
-                                    color: valueOrDefault<Color>(
-                                      () {
-                                        if (_model.batteryCharge! > 50) {
-                                          return FlutterFlowTheme.of(context)
-                                              .success;
-                                        } else if (_model.batteryCharge! > 25) {
-                                          return FlutterFlowTheme.of(context)
-                                              .warning;
-                                        } else {
-                                          return FlutterFlowTheme.of(context)
-                                              .error;
-                                        }
-                                      }(),
-                                      FlutterFlowTheme.of(context).accent4,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ),
@@ -255,141 +191,512 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      FFButtonWidget(
-                        onPressed: () async {
-                          context.pushNamed(
-                            'HealthLeafSettings',
-                            queryParameters: {
-                              'clothing': serializeParam(
-                                'Gray Shirt',
-                                ParamType.String,
-                              ),
-                              'deviceName': serializeParam(
-                                widget.deviceName,
-                                ParamType.String,
-                              ),
-                              'deviceId': serializeParam(
-                                widget.deviceId,
-                                ParamType.String,
-                              ),
-                              'deviceRssi': serializeParam(
-                                widget.deviceRssi,
-                                ParamType.int,
-                              ),
-                            }.withoutNulls,
-                          );
-                        },
-                        text: 'Health',
-                        options: FFButtonOptions(
-                          width: 150.0,
-                          height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                  ),
-                          elevation: 3.0,
-                          borderRadius: BorderRadius.circular(8.0),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          'https://picsum.photos/seed/204/600',
+                          width: 300.0,
+                          height: 200.0,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      FFButtonWidget(
-                        onPressed: () async {
-                          context.pushNamed(
-                            'SOSLeafSettings',
-                            queryParameters: {
-                              'clothing': serializeParam(
-                                'Gray Shirt',
-                                ParamType.String,
-                              ),
-                              'deviceName': serializeParam(
-                                widget.deviceName,
-                                ParamType.String,
-                              ),
-                              'deviceId': serializeParam(
-                                widget.deviceId,
-                                ParamType.String,
-                              ),
-                              'deviceRssi': serializeParam(
-                                widget.deviceRssi,
-                                ParamType.int,
-                              ),
-                            }.withoutNulls,
-                          );
-                        },
-                        text: 'SOS',
-                        options: FFButtonOptions(
-                          width: 150.0,
-                          height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    fontSize: 18.0,
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (_model.currentRssi != null)
+                            Align(
+                              alignment: AlignmentDirectional(1.00, 0.00),
+                              child: wrapWithModel(
+                                model: _model.strengthIndicatorModel,
+                                updateCallback: () => setState(() {}),
+                                child: StrengthIndicatorWidget(
+                                  rssi: _model.currentRssi!,
+                                  color: valueOrDefault<Color>(
+                                    () {
+                                      if (_model.currentRssi! >= -67) {
+                                        return FlutterFlowTheme.of(context)
+                                            .success;
+                                      } else if (_model.currentRssi! >= -90) {
+                                        return FlutterFlowTheme.of(context)
+                                            .warning;
+                                      } else {
+                                        return FlutterFlowTheme.of(context)
+                                            .error;
+                                      }
+                                    }(),
+                                    FlutterFlowTheme.of(context).success,
                                   ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
+                                ),
+                              ),
+                            ),
+                          Text(
+                            'Connected',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (_model.currentRssi != null)
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    if (_model.batteryCharge != null) {
+                                      _model.instantTimer =
+                                          InstantTimer.periodic(
+                                        duration: Duration(milliseconds: 10000),
+                                        callback: (timer) async {
+                                          _model.apiBatResult =
+                                              await SendBatCall.call(
+                                            batteryPerc: _model.batteryCharge,
+                                          );
+                                          if ((_model.apiBatResult?.succeeded ??
+                                              true)) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Data Success',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        startImmediately: true,
+                                      );
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: wrapWithModel(
+                                    model: _model.batteryChargeIndicatorModel,
+                                    updateCallback: () => setState(() {}),
+                                    child: BatteryChargeIndicatorWidget(
+                                      charge: _model.batteryCharge!,
+                                      color: valueOrDefault<Color>(
+                                        () {
+                                          if (_model.batteryCharge! > 50) {
+                                            return FlutterFlowTheme.of(context)
+                                                .success;
+                                          } else if (_model.batteryCharge! >
+                                              25) {
+                                            return FlutterFlowTheme.of(context)
+                                                .warning;
+                                          } else {
+                                            return FlutterFlowTheme.of(context)
+                                                .error;
+                                          }
+                                        }(),
+                                        FlutterFlowTheme.of(context).accent4,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(-1.00, 0.00),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              25.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'Your Leaves',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 20.0,
+                                ),
+                          ),
                         ),
                       ),
-                      FFButtonWidget(
-                        onPressed: () async {
-                          context.pushNamed(
-                            'LightLeafSettings',
-                            queryParameters: {
-                              'clothing': serializeParam(
-                                'Gray Shirt',
-                                ParamType.String,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            20.0, 12.0, 20.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(
+                              'HealthLeafSettings',
+                              queryParameters: {
+                                'clothing': serializeParam(
+                                  '',
+                                  ParamType.String,
+                                ),
+                                'deviceName': serializeParam(
+                                  widget.deviceName,
+                                  ParamType.String,
+                                ),
+                                'deviceId': serializeParam(
+                                  widget.deviceId,
+                                  ParamType.String,
+                                ),
+                                'deviceRssi': serializeParam(
+                                  widget.deviceRssi,
+                                  ParamType.int,
+                                ),
+                              }.withoutNulls,
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 70.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5.0,
+                                  color: Color(0x3416202A),
+                                  offset: Offset(0.0, 2.0),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(12.0),
+                              shape: BoxShape.rectangle,
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
                               ),
-                              'deviceName': serializeParam(
-                                widget.deviceName,
-                                ParamType.String,
-                              ),
-                              'deviceId': serializeParam(
-                                widget.deviceId,
-                                ParamType.String,
-                              ),
-                              'deviceRssi': serializeParam(
-                                widget.deviceRssi,
-                                ParamType.int,
-                              ),
-                            }.withoutNulls,
-                          );
-                        },
-                        text: 'Lights',
-                        options: FFButtonOptions(
-                          width: 150.0,
-                          height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              24.0, 0.0, 24.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                    fontSize: 18.0,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 8.0, 8.0, 8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Icon(
+                                    Icons.health_and_safety_outlined,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 30.0,
                                   ),
-                          elevation: 3.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 4.0, 0.0, 4.0),
+                                          child: Text(
+                                            'Health',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyLarge
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            'Track Posture & Steps',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelSmall
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 18.0,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            20.0, 12.0, 20.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(
+                              'SOSLeafSettings',
+                              queryParameters: {
+                                'clothing': serializeParam(
+                                  '',
+                                  ParamType.String,
+                                ),
+                                'deviceName': serializeParam(
+                                  widget.deviceName,
+                                  ParamType.String,
+                                ),
+                                'deviceId': serializeParam(
+                                  widget.deviceId,
+                                  ParamType.String,
+                                ),
+                                'deviceRssi': serializeParam(
+                                  widget.deviceRssi,
+                                  ParamType.int,
+                                ),
+                              }.withoutNulls,
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 70.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5.0,
+                                  color: Color(0x3416202A),
+                                  offset: Offset(0.0, 2.0),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(12.0),
+                              shape: BoxShape.rectangle,
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 8.0, 8.0, 8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Icon(
+                                    Icons.notification_important_outlined,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 30.0,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 4.0, 0.0, 4.0),
+                                          child: Text(
+                                            'SOS',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyLarge
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            'Your SOS settings',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelSmall
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 18.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            20.0, 12.0, 20.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(
+                              'LightLeafSettings',
+                              queryParameters: {
+                                'clothing': serializeParam(
+                                  '',
+                                  ParamType.String,
+                                ),
+                                'deviceName': serializeParam(
+                                  widget.deviceName,
+                                  ParamType.String,
+                                ),
+                                'deviceId': serializeParam(
+                                  widget.deviceId,
+                                  ParamType.String,
+                                ),
+                                'deviceRssi': serializeParam(
+                                  widget.deviceRssi,
+                                  ParamType.int,
+                                ),
+                              }.withoutNulls,
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 70.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5.0,
+                                  color: Color(0x3416202A),
+                                  offset: Offset(0.0, 2.0),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(12.0),
+                              shape: BoxShape.rectangle,
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 8.0, 8.0, 8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Icon(
+                                    Icons.notification_important_outlined,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 30.0,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 4.0, 0.0, 4.0),
+                                          child: Text(
+                                            'Light',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyLarge
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            'Change your light',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelSmall
+                                                .override(
+                                                  fontFamily:
+                                                      'Plus Jakarta Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 18.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       Align(

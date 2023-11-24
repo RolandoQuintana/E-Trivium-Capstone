@@ -394,6 +394,51 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     _model.colorPicked1 =
                                                         _colorPicked1Color);
                                               }
+
+                                              _model.colorPicked1StringBeta =
+                                                  await actions
+                                                      .convertColorToString(
+                                                _model.colorPicked1,
+                                              );
+                                              await actions.sendData(
+                                                BTDeviceStruct(
+                                                  name: widget.deviceName,
+                                                  id: widget.deviceId,
+                                                  rssi: valueOrDefault<int>(
+                                                    widget.deviceRssi,
+                                                    3,
+                                                  ),
+                                                ),
+                                                _model.colorPicked1StringBeta!,
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .clearSnackBars();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Color data sent to device',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 2000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .success,
+                                                ),
+                                              );
+
+                                              setState(() {});
                                             },
                                             child: Container(
                                               width: 200.0,
