@@ -52,6 +52,18 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInContacts(int _index, ContactStruct _value) {
     _contacts.insert(_index, _value);
   }
+
+  bool _leavesConnected = false;
+  bool get leavesConnected => _leavesConnected;
+  set leavesConnected(bool _value) {
+    _leavesConnected = _value;
+  }
+
+  bool _wardrobeConnected = false;
+  bool get wardrobeConnected => _wardrobeConnected;
+  set wardrobeConnected(bool _value) {
+    _wardrobeConnected = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

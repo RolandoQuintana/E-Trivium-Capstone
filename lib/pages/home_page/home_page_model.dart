@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/battery_charge_indicator_widget.dart';
 import '/components/strength_indicator_widget.dart';
@@ -9,6 +8,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'home_page_widget.dart' show HomePageWidget;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -34,29 +35,43 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   String? batteryStr;
   // Stores action output result for [Custom Action - convertStringToInt] action in HomePage widget.
   int? batteryInt;
+  // State field(s) for PageView widget.
+  PageController? pageViewController;
+
+  int get pageViewCurrentIndex => pageViewController != null &&
+          pageViewController!.hasClients &&
+          pageViewController!.page != null
+      ? pageViewController!.page!.round()
+      : 0;
   // Model for StrengthIndicator component.
-  late StrengthIndicatorModel strengthIndicatorModel;
+  late StrengthIndicatorModel strengthIndicatorModel1;
   // Model for BatteryChargeIndicator component.
-  late BatteryChargeIndicatorModel batteryChargeIndicatorModel;
-  InstantTimer? instantTimer;
-  // Stores action output result for [Backend Call - API (sendBat)] action in BatteryChargeIndicator widget.
-  ApiCallResponse? apiBatResult;
+  late BatteryChargeIndicatorModel batteryChargeIndicatorModel1;
+  // Model for StrengthIndicator component.
+  late StrengthIndicatorModel strengthIndicatorModel2;
+  // Model for BatteryChargeIndicator component.
+  late BatteryChargeIndicatorModel batteryChargeIndicatorModel2;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    strengthIndicatorModel =
+    strengthIndicatorModel1 =
         createModel(context, () => StrengthIndicatorModel());
-    batteryChargeIndicatorModel =
+    batteryChargeIndicatorModel1 =
+        createModel(context, () => BatteryChargeIndicatorModel());
+    strengthIndicatorModel2 =
+        createModel(context, () => StrengthIndicatorModel());
+    batteryChargeIndicatorModel2 =
         createModel(context, () => BatteryChargeIndicatorModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     updateTimer?.cancel();
-    strengthIndicatorModel.dispose();
-    batteryChargeIndicatorModel.dispose();
-    instantTimer?.cancel();
+    strengthIndicatorModel1.dispose();
+    batteryChargeIndicatorModel1.dispose();
+    strengthIndicatorModel2.dispose();
+    batteryChargeIndicatorModel2.dispose();
   }
 
   /// Action blocks are added here.
