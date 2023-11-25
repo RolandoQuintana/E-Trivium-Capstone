@@ -127,7 +127,7 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                   activeColor: FlutterFlowTheme.of(context).primary,
                   inactiveColor: FlutterFlowTheme.of(context).alternate,
                   min: 0.0,
-                  max: 255.0,
+                  max: 1023.0,
                   value: _model.sliderValue ??= 1.0,
                   onChanged: (newValue) async {
                     newValue = double.parse(newValue.toStringAsFixed(2));
