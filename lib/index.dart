@@ -15,3 +15,5 @@ export '/pages/chat_page/chat_page_widget.dart' show ChatPageWidget;
 export '/pages/http_page/http_page_widget.dart' show HttpPageWidget;
 export '/pages/settings_wardrobe/settings_wardrobe_widget.dart'
     show SettingsWardrobeWidget;
+export '/leaf_pages/set_wardrobe_height/set_wardrobe_height_widget.dart'
+    show SetWardrobeHeightWidget;

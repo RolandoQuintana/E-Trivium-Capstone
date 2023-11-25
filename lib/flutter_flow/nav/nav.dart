@@ -156,6 +156,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SettingsWardrobeWidget(
             isBTEnabled: params.getParam('isBTEnabled', ParamType.bool),
           ),
+        ),
+        FFRoute(
+          name: 'SetWardrobeHeight',
+          path: '/setWardrobeHeight',
+          builder: (context, params) => SetWardrobeHeightWidget(
+            clothing: params.getParam('clothing', ParamType.String),
+            deviceName: params.getParam('deviceName', ParamType.String),
+            deviceId: params.getParam('deviceId', ParamType.String),
+            deviceRssi: params.getParam('deviceRssi', ParamType.int),
+            device: params.getParam('device', ParamType.JSON),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
