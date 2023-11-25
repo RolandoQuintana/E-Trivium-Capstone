@@ -134,7 +134,7 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                     setState(() => _model.sliderValue = newValue);
                     await actions.sendData(
                       BTDeviceStruct.fromMap(widget.device!),
-                      _model.sliderValue!.toString(),
+                      'slide${_model.sliderValue?.toString()}',
                     );
                   },
                 ),
