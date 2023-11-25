@@ -149,6 +149,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'httpPage',
           path: '/httpPage',
           builder: (context, params) => HttpPageWidget(),
+        ),
+        FFRoute(
+          name: 'SettingsWardrobe',
+          path: '/settingsWardrobe',
+          builder: (context, params) => SettingsWardrobeWidget(
+            isBTEnabled: params.getParam('isBTEnabled', ParamType.bool),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

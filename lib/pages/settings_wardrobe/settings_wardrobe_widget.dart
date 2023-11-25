@@ -11,11 +11,11 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'settings_page_model.dart';
-export 'settings_page_model.dart';
+import 'settings_wardrobe_model.dart';
+export 'settings_wardrobe_model.dart';
 
-class SettingsPageWidget extends StatefulWidget {
-  const SettingsPageWidget({
+class SettingsWardrobeWidget extends StatefulWidget {
+  const SettingsWardrobeWidget({
     Key? key,
     bool? isBTEnabled,
   })  : this.isBTEnabled = isBTEnabled ?? true,
@@ -24,18 +24,18 @@ class SettingsPageWidget extends StatefulWidget {
   final bool isBTEnabled;
 
   @override
-  _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
+  _SettingsWardrobeWidgetState createState() => _SettingsWardrobeWidgetState();
 }
 
-class _SettingsPageWidgetState extends State<SettingsPageWidget> {
-  late SettingsPageModel _model;
+class _SettingsWardrobeWidgetState extends State<SettingsWardrobeWidget> {
+  late SettingsWardrobeModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SettingsPageModel());
+    _model = createModel(context, () => SettingsWardrobeModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -484,7 +484,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                                 0.0),
                                                                             child:
                                                                                 StrengthIndicatorWidget(
-                                                                              key: Key('Keyll0_${displayConnectedDevicesIndex}_of_${displayConnectedDevices.length}'),
+                                                                              key: Key('Keyn8q_${displayConnectedDevicesIndex}_of_${displayConnectedDevices.length}'),
                                                                               rssi: displayConnectedDevicesItem.rssi,
                                                                               color: valueOrDefault<Color>(
                                                                                 () {
@@ -660,39 +660,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                             displayFoundDevicesItem,
                                                           );
                                                           setState(() {
+                                                            FFAppState()
+                                                                    .wardrobeDevice =
+                                                                displayFoundDevicesItem;
+                                                          });
+                                                          setState(() {
                                                             _model.addToConnectedDevices(
                                                                 displayFoundDevicesItem);
                                                           });
 
                                                           context.pushNamed(
                                                             'HomePage',
-                                                            queryParameters: {
-                                                              'deviceName':
-                                                                  serializeParam(
-                                                                displayFoundDevicesItem
-                                                                    .name,
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'deviceId':
-                                                                  serializeParam(
-                                                                displayFoundDevicesItem
-                                                                    .id,
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'hasWriteCharacteristic':
-                                                                  serializeParam(
-                                                                _model.hasWrite,
-                                                                ParamType.bool,
-                                                              ),
-                                                              'deviceRssi':
-                                                                  serializeParam(
-                                                                displayFoundDevicesItem
-                                                                    .rssi,
-                                                                ParamType.int,
-                                                              ),
-                                                            }.withoutNulls,
                                                             extra: <String,
                                                                 dynamic>{
                                                               kTransitionInfoKey:
@@ -759,7 +737,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
                                                                               child: StrengthIndicatorWidget(
-                                                                                key: Key('Keyjpe_${displayFoundDevicesIndex}_of_${displayFoundDevices.length}'),
+                                                                                key: Key('Key4xa_${displayFoundDevicesIndex}_of_${displayFoundDevices.length}'),
                                                                                 rssi: displayFoundDevicesItem.rssi,
                                                                                 color: valueOrDefault<Color>(
                                                                                   () {

@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'settings_page_widget.dart' show SettingsPageWidget;
+import 'settings_wardrobe_widget.dart' show SettingsWardrobeWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class SettingsPageModel extends FlutterFlowModel<SettingsPageWidget> {
+class SettingsWardrobeModel extends FlutterFlowModel<SettingsWardrobeWidget> {
   ///  Local state fields for this page.
 
   bool? isFetchingDevices;
@@ -47,9 +47,9 @@ class SettingsPageModel extends FlutterFlowModel<SettingsPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Custom Action - getConnectedDevices] action in SettingsPage widget.
+  // Stores action output result for [Custom Action - getConnectedDevices] action in SettingsWardrobe widget.
   List<BTDeviceStruct>? fetchedConnectedDevices;
-  // Stores action output result for [Custom Action - findDevices] action in SettingsPage widget.
+  // Stores action output result for [Custom Action - findDevices] action in SettingsWardrobe widget.
   List<BTDeviceStruct>? fetchedDevices;
   // State field(s) for Switch widget.
   bool? switchValue;

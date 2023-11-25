@@ -1,6 +1,6 @@
 import '/backend/schema/structs/index.dart';
-import '/components/battery_charge_indicator_widget.dart';
-import '/components/strength_indicator_widget.dart';
+import '/custom/battery_charge_indicator/battery_charge_indicator_widget.dart';
+import '/custom/strength_indicator/strength_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -970,11 +970,50 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     ),
                                                   ),
                                                 ),
-                                              Text(
-                                                'Connected',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
+                                              FFButtonWidget(
+                                                onPressed: () async {
+                                                  context.pushNamed(
+                                                    'SettingsWardrobe',
+                                                    queryParameters: {
+                                                      'isBTEnabled':
+                                                          serializeParam(
+                                                        true,
+                                                        ParamType.bool,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                },
+                                                text: 'Button',
+                                                options: FFButtonOptions(
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          24.0, 0.0, 24.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                'Readex Pro',
+                                                            color: Colors.white,
+                                                          ),
+                                                  elevation: 3.0,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
                                               ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -1024,6 +1063,64 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ],
                                           ),
                                         ],
+                                      ),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(1.00, 1.00),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 28.0, 28.0, 28.0),
+                                          child: FlutterFlowIconButton(
+                                            borderColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            borderRadius: 20.0,
+                                            borderWidth: 2.0,
+                                            buttonSize: 60.0,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .accent1,
+                                            icon: Icon(
+                                              Icons.message_outlined,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 24.0,
+                                            ),
+                                            onPressed: () async {
+                                              context.pushNamed(
+                                                'ChatPage',
+                                                queryParameters: {
+                                                  'deviceName': serializeParam(
+                                                    FFAppState()
+                                                        .wardrobeDevice
+                                                        .name,
+                                                    ParamType.String,
+                                                  ),
+                                                  'deviceId': serializeParam(
+                                                    FFAppState()
+                                                        .wardrobeDevice
+                                                        .id,
+                                                    ParamType.String,
+                                                  ),
+                                                  'hasWriteCharacteristic':
+                                                      serializeParam(
+                                                    widget
+                                                        .hasWriteCharacteristic,
+                                                    ParamType.bool,
+                                                  ),
+                                                  'deviceRssi': serializeParam(
+                                                    FFAppState()
+                                                        .wardrobeDevice
+                                                        .rssi,
+                                                    ParamType.int,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            },
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),

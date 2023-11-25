@@ -1,6 +1,6 @@
 import '/backend/schema/structs/index.dart';
-import '/components/display_received_data_widget.dart';
-import '/components/strength_indicator_widget.dart';
+import '/custom/display_received_data/display_received_data_widget.dart';
+import '/custom/strength_indicator/strength_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

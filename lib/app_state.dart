@@ -64,6 +64,16 @@ class FFAppState extends ChangeNotifier {
   set wardrobeConnected(bool _value) {
     _wardrobeConnected = _value;
   }
+
+  BTDeviceStruct _wardrobeDevice = BTDeviceStruct();
+  BTDeviceStruct get wardrobeDevice => _wardrobeDevice;
+  set wardrobeDevice(BTDeviceStruct _value) {
+    _wardrobeDevice = _value;
+  }
+
+  void updateWardrobeDeviceStruct(Function(BTDeviceStruct) updateFn) {
+    updateFn(_wardrobeDevice);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

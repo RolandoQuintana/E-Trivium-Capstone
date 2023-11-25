@@ -13,3 +13,5 @@ export '/add_custom_contact/add_custom_contact_widget.dart'
 export '/pages/splash_page/splash_page_widget.dart' show SplashPageWidget;
 export '/pages/chat_page/chat_page_widget.dart' show ChatPageWidget;
 export '/pages/http_page/http_page_widget.dart' show HttpPageWidget;
+export '/pages/settings_wardrobe/settings_wardrobe_widget.dart'
+    show SettingsWardrobeWidget;

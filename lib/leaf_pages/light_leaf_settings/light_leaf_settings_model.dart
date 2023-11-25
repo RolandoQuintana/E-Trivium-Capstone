@@ -1,5 +1,5 @@
 import '/backend/schema/structs/index.dart';
-import '/components/display_received_data_widget.dart';
+import '/custom/display_received_data/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
