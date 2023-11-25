@@ -27,8 +27,20 @@ class _HttpPageWidgetState extends State<HttpPageWidget> {
     super.initState();
     _model = createModel(context, () => HttpPageModel());
 
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.wardobeHeightController ??= TextEditingController();
+    _model.wardobeHeightFocusNode ??= FocusNode();
+
+    _model.batteryController ??= TextEditingController();
+    _model.batteryFocusNode ??= FocusNode();
+
+    _model.sosEnController ??= TextEditingController();
+    _model.sosEnFocusNode ??= FocusNode();
+
+    _model.healthEnController ??= TextEditingController();
+    _model.healthEnFocusNode ??= FocusNode();
+
+    _model.lightEnController ??= TextEditingController();
+    _model.lightEnFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -137,51 +149,312 @@ class _HttpPageWidgetState extends State<HttpPageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: Container(
-                            width: double.infinity,
-                            child: TextFormField(
-                              controller: _model.textController,
-                              focusNode: _model.textFieldFocusNode,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Enter data to send...',
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelLarge,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 10.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model.wardobeHeightController,
+                                    focusNode: _model.wardobeHeightFocusNode,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'WardobeHeight...',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).accent1,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyLarge,
+                                    validator: _model
+                                        .wardobeHeightControllerValidator
+                                        .asValidator(context),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context).accent1,
                               ),
-                              style: FlutterFlowTheme.of(context).bodyLarge,
-                              validator: _model.textControllerValidator
-                                  .asValidator(context),
-                            ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 10.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model.batteryController,
+                                    focusNode: _model.batteryFocusNode,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'Battery',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).accent1,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyLarge,
+                                    validator: _model.batteryControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 10.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model.sosEnController,
+                                    focusNode: _model.sosEnFocusNode,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'sosEn...',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).accent1,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyLarge,
+                                    validator: _model.sosEnControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 10.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model.healthEnController,
+                                    focusNode: _model.healthEnFocusNode,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'healthEn...',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).accent1,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyLarge,
+                                    validator: _model
+                                        .healthEnControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 10.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: TextFormField(
+                                    controller: _model.lightEnController,
+                                    focusNode: _model.lightEnFocusNode,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'healthEn...',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).accent1,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyLarge,
+                                    validator: _model.lightEnControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         Padding(
@@ -199,9 +472,13 @@ class _HttpPageWidgetState extends State<HttpPageWidget> {
                             ),
                             showLoadingIndicator: true,
                             onPressed: () async {
-                              _model.response = await SendBatCall.call(
-                                batteryPerc:
-                                    int.tryParse(_model.textController.text),
+                              _model.response = await SendDataToWebCall.call(
+                                batteryPerc: _model.batteryController.text,
+                                wardrobeHeight:
+                                    _model.wardobeHeightController.text,
+                                sosEn: _model.sosEnController.text,
+                                healthEn: _model.healthEnController.text,
+                                lightEn: _model.lightEnController.text,
                               );
                               ScaffoldMessenger.of(context).clearSnackBars();
                               ScaffoldMessenger.of(context).showSnackBar(

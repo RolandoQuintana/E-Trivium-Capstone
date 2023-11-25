@@ -8,24 +8,32 @@ export 'api_manager.dart' show ApiCallResponse;
 
 const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 
-class SendBatCall {
+class SendDataToWebCall {
   static Future<ApiCallResponse> call({
-    int? batteryPerc,
+    String? batteryPerc = '',
+    String? wardrobeHeight = '',
+    String? sosEn = '',
+    String? healthEn = '',
+    String? lightEn = '',
   }) async {
     final ffApiRequestBody = '''
 {
-  "battery":"${batteryPerc}"
+  "wardrobeHeight": "${wardrobeHeight}",
+  "battery": "${batteryPerc}",
+  "sosEn": "${sosEn}",
+  "healthEn": "${healthEn}",
+  "lightEn": "${lightEn}"
 }''';
     return ApiManager.instance.makeApiCall(
-      callName: 'sendBat',
-      apiUrl: 'http://192.168.0.50:5000/bat',
+      callName: 'sendDataToWeb',
+      apiUrl: 'http://192.168.0.50:5000/send',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
       },
       params: {},
       body: ffApiRequestBody,
-      bodyType: BodyType.TEXT,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

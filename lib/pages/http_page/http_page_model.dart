@@ -19,11 +19,27 @@ class HttpPageModel extends FlutterFlowModel<HttpPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController;
-  String? Function(BuildContext, String?)? textControllerValidator;
-  // Stores action output result for [Backend Call - API (sendBat)] action in SendButton widget.
+  // State field(s) for WardobeHeight widget.
+  FocusNode? wardobeHeightFocusNode;
+  TextEditingController? wardobeHeightController;
+  String? Function(BuildContext, String?)? wardobeHeightControllerValidator;
+  // State field(s) for Battery widget.
+  FocusNode? batteryFocusNode;
+  TextEditingController? batteryController;
+  String? Function(BuildContext, String?)? batteryControllerValidator;
+  // State field(s) for sosEn widget.
+  FocusNode? sosEnFocusNode;
+  TextEditingController? sosEnController;
+  String? Function(BuildContext, String?)? sosEnControllerValidator;
+  // State field(s) for healthEn widget.
+  FocusNode? healthEnFocusNode;
+  TextEditingController? healthEnController;
+  String? Function(BuildContext, String?)? healthEnControllerValidator;
+  // State field(s) for lightEn widget.
+  FocusNode? lightEnFocusNode;
+  TextEditingController? lightEnController;
+  String? Function(BuildContext, String?)? lightEnControllerValidator;
+  // Stores action output result for [Backend Call - API (sendDataToWeb)] action in SendButton widget.
   ApiCallResponse? response;
 
   /// Initialization and disposal methods.
@@ -32,8 +48,20 @@ class HttpPageModel extends FlutterFlowModel<HttpPageWidget> {
 
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode?.dispose();
-    textController?.dispose();
+    wardobeHeightFocusNode?.dispose();
+    wardobeHeightController?.dispose();
+
+    batteryFocusNode?.dispose();
+    batteryController?.dispose();
+
+    sosEnFocusNode?.dispose();
+    sosEnController?.dispose();
+
+    healthEnFocusNode?.dispose();
+    healthEnController?.dispose();
+
+    lightEnFocusNode?.dispose();
+    lightEnController?.dispose();
   }
 
   /// Action blocks are added here.
