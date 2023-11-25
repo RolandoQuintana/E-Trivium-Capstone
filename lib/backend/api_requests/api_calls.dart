@@ -26,7 +26,7 @@ class SendDataToWebCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'sendDataToWeb',
-      apiUrl: 'http://10.71.71.118:5000/send',
+      apiUrl: 'https://rolandoquintana.pythonanywhere.com/send',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
