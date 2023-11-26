@@ -136,59 +136,64 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                             ),
                       ),
                       FFButtonWidget(
-                        onPressed: () async {
-                          await actions.sendData(
-                            BTDeviceStruct.fromMap(widget.device!),
-                            'adjustHeight',
-                          );
-                          _model.adjustReturn = await actions.receiveData(
-                            BTDeviceStruct.fromMap(widget.device!),
-                          );
-                          _model.adjustStatus = await actions.getAdjustStatus(
-                            _model.adjustReturn,
-                          );
-                          if (_model.adjustStatus != 'notStatus') {
-                            if (_model.adjustStatus == 'true') {
-                              setState(() {
-                                _model.adjusting = true;
-                              });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Adjust In Progress',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                ),
-                              );
-                            } else {
-                              setState(() {
-                                _model.adjusting = false;
-                              });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Adjust Not Possible Yet',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                ),
-                              );
-                            }
-                          }
+                        onPressed: _model.adjusting == true
+                            ? null
+                            : () async {
+                                await actions.sendData(
+                                  BTDeviceStruct.fromMap(widget.device!),
+                                  'adjustHeight',
+                                );
+                                _model.adjustReturn = await actions.receiveData(
+                                  BTDeviceStruct.fromMap(widget.device!),
+                                );
+                                _model.adjustStatus =
+                                    await actions.getAdjustStatus(
+                                  _model.adjustReturn,
+                                );
+                                if (_model.adjustStatus != 'notStatus') {
+                                  if (_model.adjustStatus == 'true') {
+                                    setState(() {
+                                      _model.adjusting = true;
+                                    });
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Adjust In Progress',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                  } else {
+                                    setState(() {
+                                      _model.adjusting = false;
+                                    });
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Adjust Not Possible Yet',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                  }
+                                }
 
-                          setState(() {});
-                        },
+                                setState(() {});
+                              },
                         text: 'Adjust',
                         options: FFButtonOptions(
                           height: 40.0,
@@ -229,7 +234,8 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                     inactiveColor: FlutterFlowTheme.of(context).alternate,
                     min: 0.0,
                     max: 255.0,
-                    value: _model.sliderValue ??= 1.0,
+                    value: _model.sliderValue ??=
+                        (int.parse(FFAppState().wardrobeHeight)).toDouble(),
                     label: _model.sliderValue.toString(),
                     onChanged: _model.adjusting != true
                         ? null
