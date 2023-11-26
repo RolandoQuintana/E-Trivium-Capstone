@@ -225,122 +225,108 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(30.0, 20.0, 30.0, 0.0),
-                  child: SliderTheme(
-                    data: SliderThemeData(
-                      showValueIndicator: ShowValueIndicator.always,
-                    ),
-                    child: Slider(
-                      activeColor: FlutterFlowTheme.of(context).primary,
-                      inactiveColor: FlutterFlowTheme.of(context).alternate,
-                      min: 0.0,
-                      max: 255.0,
-                      value: _model.sliderValue ??=
-                          (int.parse(FFAppState().wardrobeHeight)).toDouble(),
-                      label: _model.sliderValue.toString(),
-                      onChanged: _model.adjusting != true
-                          ? null
-                          : (newValue) async {
-                              newValue =
-                                  double.parse(newValue.toStringAsFixed(0));
-                              setState(() => _model.sliderValue = newValue);
-                              await actions.sendData(
-                                BTDeviceStruct.fromMap(widget.device!),
-                                'slide${_model.sliderValue?.toString()}',
-                              );
-                            },
-                    ),
+                SliderTheme(
+                  data: SliderThemeData(
+                    showValueIndicator: ShowValueIndicator.always,
+                  ),
+                  child: Slider(
+                    activeColor: FlutterFlowTheme.of(context).primary,
+                    inactiveColor: FlutterFlowTheme.of(context).alternate,
+                    min: 0.0,
+                    max: 255.0,
+                    value: _model.sliderValue ??=
+                        (int.parse(FFAppState().wardrobeHeight)).toDouble(),
+                    label: _model.sliderValue.toString(),
+                    onChanged: _model.adjusting != true
+                        ? null
+                        : (newValue) async {
+                            newValue =
+                                double.parse(newValue.toStringAsFixed(0));
+                            setState(() => _model.sliderValue = newValue);
+                            await actions.sendData(
+                              BTDeviceStruct.fromMap(widget.device!),
+                              'slide${_model.sliderValue?.toString()}',
+                            );
+                          },
                   ),
                 ),
                 if (_model.adjusting)
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        await actions.sendData(
-                          BTDeviceStruct.fromMap(widget.device!),
-                          'confirmHeight',
-                        );
-                        _model.confirmReturn = await actions.receiveData(
-                          BTDeviceStruct.fromMap(widget.device!),
-                        );
-                        if (_model.confirmReturn != 'false') {
-                          setState(() {
-                            FFAppState().wardrobeHeight = _model.confirmReturn!;
-                          });
-                          setState(() {
-                            _model.adjusting = false;
-                          });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Adjust Finished',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      await actions.sendData(
+                        BTDeviceStruct.fromMap(widget.device!),
+                        'confirmHeight',
+                      );
+                      _model.confirmReturn = await actions.receiveData(
+                        BTDeviceStruct.fromMap(widget.device!),
+                      );
+                      if (_model.confirmReturn != 'false') {
+                        setState(() {
+                          FFAppState().wardrobeHeight = _model.confirmReturn!;
+                        });
+                        setState(() {
+                          _model.adjusting = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Adjust Finished',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
                               ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
                             ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Adjust Not Confirmed',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Adjust Not Confirmed',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
                               ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
                             ),
-                          );
-                        }
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      }
 
-                        setState(() {});
-                      },
-                      text: 'Confirm',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).error,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                ),
-                        elevation: 3.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
+                      setState(() {});
+                    },
+                    text: 'Confirm',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).error,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Readex Pro',
+                                color: Colors.white,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
                       ),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 Expanded(
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 60.0, 0.0, 0.0),
-                    child: wrapWithModel(
-                      model: _model.displayReceivedDataModel,
-                      updateCallback: () => setState(() {}),
-                      child: DisplayReceivedDataWidget(
-                        device: widget.device != null && widget.device != ''
-                            ? BTDeviceStruct.fromMap(widget.device)
-                            : null,
-                      ),
+                  child: wrapWithModel(
+                    model: _model.displayReceivedDataModel,
+                    updateCallback: () => setState(() {}),
+                    child: DisplayReceivedDataWidget(
+                      device: widget.device != null && widget.device != ''
+                          ? BTDeviceStruct.fromMap(widget.device)
+                          : null,
                     ),
                   ),
                 ),

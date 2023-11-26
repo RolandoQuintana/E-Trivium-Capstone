@@ -369,7 +369,7 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                       id: widget.deviceId,
                                                       rssi: widget.deviceRssi,
                                                     ),
-                                                    'EnablePosture',
+                                                    'BBBB',
                                                   );
                                                 } else {
                                                   await actions.sendData(
@@ -378,7 +378,7 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                                       id: widget.deviceId,
                                                       rssi: widget.deviceRssi,
                                                     ),
-                                                    'DisablePosture',
+                                                    'YYYY',
                                                   );
                                                 }
 

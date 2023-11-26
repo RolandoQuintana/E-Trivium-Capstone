@@ -181,7 +181,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       FlutterFlowTheme.of(context).secondaryBackground,
                       FlutterFlowTheme.of(context).accent1
                     ],
-                    stops: [0.3, 1.0],
+                    stops: [0.4, 1.0],
                     begin: AlignmentDirectional(0.0, -1.0),
                     end: AlignmentDirectional(0, 1.0),
                   ),
@@ -213,8 +213,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               BorderRadius.circular(8.0),
                                           child: Image.asset(
                                             'assets/images/leavesPicture_(2).png',
-                                            width: 200.0,
-                                            height: 150.0,
+                                            width: 300.0,
+                                            height: 200.0,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -246,48 +246,39 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     alignment:
                                                         AlignmentDirectional(
                                                             1.00, 0.00),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  20.0,
-                                                                  0.0),
-                                                      child: wrapWithModel(
-                                                        model: _model
-                                                            .strengthIndicatorModel1,
-                                                        updateCallback: () =>
-                                                            setState(() {}),
-                                                        child:
-                                                            StrengthIndicatorWidget(
-                                                          rssi: _model
-                                                              .currentRssi!,
-                                                          color: valueOrDefault<
-                                                              Color>(
-                                                            () {
-                                                              if (_model
-                                                                      .currentRssi! >=
-                                                                  -67) {
-                                                                return FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .success;
-                                                              } else if (_model
-                                                                      .currentRssi! >=
-                                                                  -90) {
-                                                                return FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .warning;
-                                                              } else {
-                                                                return FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error;
-                                                              }
-                                                            }(),
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .success,
-                                                          ),
+                                                    child: wrapWithModel(
+                                                      model: _model
+                                                          .strengthIndicatorModel1,
+                                                      updateCallback: () =>
+                                                          setState(() {}),
+                                                      child:
+                                                          StrengthIndicatorWidget(
+                                                        rssi:
+                                                            _model.currentRssi!,
+                                                        color: valueOrDefault<
+                                                            Color>(
+                                                          () {
+                                                            if (_model
+                                                                    .currentRssi! >=
+                                                                -67) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .success;
+                                                            } else if (_model
+                                                                    .currentRssi! >=
+                                                                -90) {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .warning;
+                                                            } else {
+                                                              return FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error;
+                                                            }
+                                                          }(),
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .success,
                                                         ),
                                                       ),
                                                     ),
@@ -306,49 +297,39 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   children: [
                                                     if (_model.currentRssi !=
                                                         null)
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    20.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    5.0),
-                                                        child: wrapWithModel(
-                                                          model: _model
-                                                              .batteryChargeIndicatorModel1,
-                                                          updateCallback: () =>
-                                                              setState(() {}),
-                                                          child:
-                                                              BatteryChargeIndicatorWidget(
-                                                            charge: _model
-                                                                .batteryCharge!,
-                                                            color:
-                                                                valueOrDefault<
-                                                                    Color>(
-                                                              () {
-                                                                if (_model
-                                                                        .batteryCharge! >
-                                                                    50) {
-                                                                  return FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .success;
-                                                                } else if (_model
-                                                                        .batteryCharge! >
-                                                                    25) {
-                                                                  return FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .warning;
-                                                                } else {
-                                                                  return FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .error;
-                                                                }
-                                                              }(),
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .accent4,
-                                                            ),
+                                                      wrapWithModel(
+                                                        model: _model
+                                                            .batteryChargeIndicatorModel1,
+                                                        updateCallback: () =>
+                                                            setState(() {}),
+                                                        child:
+                                                            BatteryChargeIndicatorWidget(
+                                                          charge: _model
+                                                              .batteryCharge!,
+                                                          color: valueOrDefault<
+                                                              Color>(
+                                                            () {
+                                                              if (_model
+                                                                      .batteryCharge! >
+                                                                  50) {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .success;
+                                                              } else if (_model
+                                                                      .batteryCharge! >
+                                                                  25) {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .warning;
+                                                              } else {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error;
+                                                              }
+                                                            }(),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .accent4,
                                                           ),
                                                         ),
                                                       ),
@@ -382,7 +363,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  30.0, 12.0, 30.0, 0.0),
+                                                  20.0, 12.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -475,12 +456,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               'Health',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .titleMedium
+                                                                  .bodyLarge
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Readex Pro',
+                                                                        'Plus Jakarta Sans',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
                                                                     fontSize:
-                                                                        20.0,
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
                                                                   ),
                                                             ),
                                                           ),
@@ -514,22 +501,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
-                                                      child: Icon(
-                                                        Icons.arrow_forward_ios,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        size: 18.0,
-                                                      ),
+                                                    Icon(
+                                                      Icons.arrow_forward_ios,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 18.0,
                                                     ),
                                                   ],
                                                 ),
@@ -540,7 +518,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  30.0, 12.0, 30.0, 0.0),
+                                                  20.0, 12.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -633,12 +611,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               'SOS',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .titleMedium
+                                                                  .bodyLarge
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Readex Pro',
+                                                                        'Plus Jakarta Sans',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
                                                                     fontSize:
-                                                                        20.0,
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
                                                                   ),
                                                             ),
                                                           ),
@@ -672,22 +656,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
-                                                      child: Icon(
-                                                        Icons.arrow_forward_ios,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        size: 18.0,
-                                                      ),
+                                                    Icon(
+                                                      Icons.arrow_forward_ios,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 18.0,
                                                     ),
                                                   ],
                                                 ),
@@ -698,7 +673,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  30.0, 12.0, 30.0, 0.0),
+                                                  20.0, 12.0, 20.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -760,7 +735,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       MainAxisSize.max,
                                                   children: [
                                                     Icon(
-                                                      Icons.ac_unit_rounded,
+                                                      Icons
+                                                          .notification_important_outlined,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -790,12 +766,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               'Light',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .titleMedium
+                                                                  .bodyLarge
                                                                   .override(
                                                                     fontFamily:
-                                                                        'Readex Pro',
+                                                                        'Plus Jakarta Sans',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
                                                                     fontSize:
-                                                                        20.0,
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
                                                                   ),
                                                             ),
                                                           ),
@@ -829,22 +811,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ],
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0),
-                                                      child: Icon(
-                                                        Icons.arrow_forward_ios,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        size: 18.0,
-                                                      ),
+                                                    Icon(
+                                                      Icons.arrow_forward_ios,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 18.0,
                                                     ),
                                                   ],
                                                 ),
@@ -858,7 +831,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 50.0, 28.0, 28.0),
+                                                    0.0, 28.0, 28.0, 28.0),
                                             child: FlutterFlowIconButton(
                                               borderColor:
                                                   FlutterFlowTheme.of(context)

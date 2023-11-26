@@ -22,5 +22,5 @@ Future<String?> convertPatternColorToString(
   // String inputPattern = "Solid";
   // String inputColor = "ff0000ff";  //i.e., hex for blue
   // String returnString = convertPatternColorToString(inputPattern, inputColor);
-  // print(returnString); // Outputs: Solidff0000ff
+  // print(returnString); // Outputs: Solid#ff0000ff
 }
