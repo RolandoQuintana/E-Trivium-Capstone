@@ -1,3 +1,4 @@
+import '/custom/display_received_data/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -298,6 +299,17 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                Expanded(
+                  child: wrapWithModel(
+                    model: _model.displayReceivedDataModel,
+                    updateCallback: () => setState(() {}),
+                    child: DisplayReceivedDataWidget(
+                      device: widget.device != null && widget.device != ''
+                          ? BTDeviceStruct.fromMap(widget.device)
+                          : null,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

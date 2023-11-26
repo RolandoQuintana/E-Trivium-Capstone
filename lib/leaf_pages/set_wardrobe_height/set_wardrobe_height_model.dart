@@ -1,3 +1,4 @@
+import '/custom/display_received_data/display_received_data_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -25,13 +26,19 @@ class SetWardrobeHeightModel extends FlutterFlowModel<SetWardrobeHeightWidget> {
   double? sliderValue;
   // Stores action output result for [Custom Action - receiveData] action in Button widget.
   String? confirmReturn;
+  // Model for DisplayReceivedData component.
+  late DisplayReceivedDataModel displayReceivedDataModel;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    displayReceivedDataModel =
+        createModel(context, () => DisplayReceivedDataModel());
+  }
 
   void dispose() {
     unfocusNode.dispose();
+    displayReceivedDataModel.dispose();
   }
 
   /// Action blocks are added here.
