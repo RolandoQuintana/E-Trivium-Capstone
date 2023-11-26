@@ -12,13 +12,19 @@ import 'package:provider/provider.dart';
 class SetWardrobeHeightModel extends FlutterFlowModel<SetWardrobeHeightWidget> {
   ///  Local state fields for this page.
 
-  int? currentButton = 0;
+  bool adjusting = false;
 
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Custom Action - receiveData] action in Button widget.
+  String? adjustReturn;
+  // Stores action output result for [Custom Action - getAdjustStatus] action in Button widget.
+  String? adjustStatus;
   // State field(s) for Slider widget.
   double? sliderValue;
+  // Stores action output result for [Custom Action - receiveData] action in Button widget.
+  String? confirmReturn;
 
   /// Initialization and disposal methods.
 

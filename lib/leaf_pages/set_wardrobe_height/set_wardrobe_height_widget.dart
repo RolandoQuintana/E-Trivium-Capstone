@@ -13,17 +13,9 @@ export 'set_wardrobe_height_model.dart';
 class SetWardrobeHeightWidget extends StatefulWidget {
   const SetWardrobeHeightWidget({
     Key? key,
-    this.clothing,
-    required this.deviceName,
-    required this.deviceId,
-    required this.deviceRssi,
     required this.device,
   }) : super(key: key);
 
-  final String? clothing;
-  final String? deviceName;
-  final String? deviceId;
-  final int? deviceRssi;
   final dynamic device;
 
   @override
@@ -83,17 +75,10 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'Light Leaf',
+                    'Adjust Height',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Open Sans',
                           fontSize: 25.0,
-                        ),
-                  ),
-                  Text(
-                    widget.clothing!,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).secondaryText,
                         ),
                   ),
                 ],
@@ -113,7 +98,7 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
               gradient: LinearGradient(
                 colors: [
                   FlutterFlowTheme.of(context).secondaryBackground,
-                  FlutterFlowTheme.of(context).primary
+                  FlutterFlowTheme.of(context).accent1
                 ],
                 stops: [0.4, 1.0],
                 begin: AlignmentDirectional(0.0, -1.0),
@@ -123,21 +108,196 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Slider(
-                  activeColor: FlutterFlowTheme.of(context).primary,
-                  inactiveColor: FlutterFlowTheme.of(context).alternate,
-                  min: 0.0,
-                  max: 1023.0,
-                  value: _model.sliderValue ??= 1.0,
-                  onChanged: (newValue) async {
-                    newValue = double.parse(newValue.toStringAsFixed(2));
-                    setState(() => _model.sliderValue = newValue);
-                    await actions.sendData(
-                      BTDeviceStruct.fromMap(widget.device!),
-                      'slide${_model.sliderValue?.toString()}',
-                    );
-                  },
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Current Height: ',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 25.0,
+                            ),
+                      ),
+                      Text(
+                        FFAppState().wardrobeHeight,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 25.0,
+                            ),
+                      ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          await actions.sendData(
+                            BTDeviceStruct.fromMap(widget.device!),
+                            'adjustHeight',
+                          );
+                          _model.adjustReturn = await actions.receiveData(
+                            BTDeviceStruct.fromMap(widget.device!),
+                          );
+                          _model.adjustStatus = await actions.getAdjustStatus(
+                            _model.adjustReturn,
+                          );
+                          if (_model.adjustStatus != 'notStatus') {
+                            if (_model.adjustStatus == 'true' ? false : false) {
+                              setState(() {
+                                _model.adjusting = true;
+                              });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Adjust In Progress',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                            } else {
+                              setState(() {
+                                _model.adjusting = false;
+                              });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Adjust Not Possible Yet',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                            }
+                          }
+
+                          setState(() {});
+                        },
+                        text: 'Adjust',
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).error,
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                SliderTheme(
+                  data: SliderThemeData(
+                    showValueIndicator: ShowValueIndicator.always,
+                  ),
+                  child: Slider(
+                    activeColor: FlutterFlowTheme.of(context).primary,
+                    inactiveColor: FlutterFlowTheme.of(context).alternate,
+                    min: 0.0,
+                    max: 255.0,
+                    value: _model.sliderValue ??= 1.0,
+                    label: _model.sliderValue.toString(),
+                    onChanged: _model.adjusting == true
+                        ? null
+                        : (newValue) async {
+                            newValue =
+                                double.parse(newValue.toStringAsFixed(0));
+                            setState(() => _model.sliderValue = newValue);
+                            await actions.sendData(
+                              BTDeviceStruct.fromMap(widget.device!),
+                              'slide${_model.sliderValue?.toString()}',
+                            );
+                          },
+                  ),
+                ),
+                if (_model.adjusting)
+                  FFButtonWidget(
+                    onPressed: () async {
+                      await actions.sendData(
+                        BTDeviceStruct.fromMap(widget.device!),
+                        'confirmHeight',
+                      );
+                      _model.confirmReturn = await actions.receiveData(
+                        BTDeviceStruct.fromMap(widget.device!),
+                      );
+                      if (_model.confirmReturn != 'false') {
+                        setState(() {
+                          FFAppState().wardrobeHeight = _model.confirmReturn!;
+                        });
+                        setState(() {
+                          _model.adjusting = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Adjust Finished',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Adjust Not Confirmed',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+                      }
+
+                      setState(() {});
+                    },
+                    text: 'Confirm',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).error,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Readex Pro',
+                                color: Colors.white,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
               ],
             ),
           ),

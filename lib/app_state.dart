@@ -74,6 +74,12 @@ class FFAppState extends ChangeNotifier {
   void updateWardrobeDeviceStruct(Function(BTDeviceStruct) updateFn) {
     updateFn(_wardrobeDevice);
   }
+
+  String _wardrobeHeight = '';
+  String get wardrobeHeight => _wardrobeHeight;
+  set wardrobeHeight(String _value) {
+    _wardrobeHeight = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

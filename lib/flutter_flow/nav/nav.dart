@@ -161,10 +161,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'SetWardrobeHeight',
           path: '/setWardrobeHeight',
           builder: (context, params) => SetWardrobeHeightWidget(
-            clothing: params.getParam('clothing', ParamType.String),
-            deviceName: params.getParam('deviceName', ParamType.String),
-            deviceId: params.getParam('deviceId', ParamType.String),
-            deviceRssi: params.getParam('deviceRssi', ParamType.int),
             device: params.getParam('device', ParamType.JSON),
           ),
         )
