@@ -110,7 +110,10 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  _model.adjustReturn!,
+                  valueOrDefault<String>(
+                    _model.adjustReturn,
+                    'none',
+                  ),
                   style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
                 Padding(
@@ -211,7 +214,10 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                   ),
                 ),
                 Text(
-                  _model.adjustStatus!,
+                  valueOrDefault<String>(
+                    _model.adjustStatus,
+                    'none',
+                  ),
                   style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
                 SliderTheme(
