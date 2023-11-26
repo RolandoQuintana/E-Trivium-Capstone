@@ -274,7 +274,7 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
                                                       id: widget.deviceId,
                                                       rssi: widget.deviceRssi,
                                                     ),
-                                                    'AAA',
+                                                    'EnableSOS',
                                                   );
                                                 } else {
                                                   await actions.sendData(
@@ -283,7 +283,7 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
                                                       id: widget.deviceId,
                                                       rssi: widget.deviceRssi,
                                                     ),
-                                                    'ZZZ',
+                                                    'DisableSOS',
                                                   );
                                                 }
 

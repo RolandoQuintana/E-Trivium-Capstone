@@ -876,7 +876,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     id: widget.deviceId,
                                                     rssi: widget.deviceRssi,
                                                   ),
-                                                  'AAAAAAAAAAAAA',
+                                                  'EnableLights',
                                                 );
                                               } else {
                                                 await actions.sendData(
@@ -885,7 +885,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     id: widget.deviceId,
                                                     rssi: widget.deviceRssi,
                                                   ),
-                                                  'ZZZZZZZZZZZZZ',
+                                                  'DisableLights',
                                                 );
                                               }
 
