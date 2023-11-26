@@ -148,7 +148,7 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                             _model.adjustReturn,
                           );
                           if (_model.adjustStatus != 'notStatus') {
-                            if (_model.adjustStatus == 'true' ? false : false) {
+                            if (_model.adjustStatus == 'true') {
                               setState(() {
                                 _model.adjusting = true;
                               });
