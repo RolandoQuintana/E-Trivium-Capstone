@@ -1,0 +1,40 @@
+Communication Protocol Between App & Arduino:   
+   
+   
+-----Messages From App to Arduino-----
+   
+* Light leaf:
+   
+1) Color: An 8-digit color code that the light leaf should be changed to.
+          E.g.: "FFFFFFFF" is white. "FF0000FF" is blue.
+2) Pattern + Color: A 13-digit message with the pattern name (currently only Solid and Flash) and the color code.
+          E.g.: "SolidFF0000FF" for solid blue lights. "FlashFFFFFFFF" for flashing white lights.
+3) Enable/disable lights: "EnableLights" to enable light leaf, "DisableLights" to disable light leaf.
+   
+* SOS Leaf:
+   
+1) SOS: "EnableSOS" to enable SOS leaf, "DisableSOS" to disable SOS leaf.
+   
+* Health Leaf:
+   
+1) Posture: "EnablePosture" to enable posture monitoring, "DisablePosture" to disable posture monitoring.
+   
+2) Pedometer: "ResetSteps" to reset the step counter for the app & Arduino.
+   
+   
+============================================================================
+
+   
+-----Mesasges From Arduino to App----- 
+(Note: These messages are sent at any time from the app, so Arduino must always be listening for them.)
+   
+* Battery: "battery#" where # is the battery percentage (75-100% is 4 bars, 50-74% is 3 bars, 25-49% is 2 bars, <25% is 1 bar, 0% is no bars). 
+   
+* SOS Leaf:
+    
+1) SOS: "SOS" if the SOS button has been pressed.
+   
+* Health Leaf:
+   
+1) Posture: "BadPosture" if the Arduino detects poor posture.
+   
