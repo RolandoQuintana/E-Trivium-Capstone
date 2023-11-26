@@ -231,7 +231,7 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                     max: 255.0,
                     value: _model.sliderValue ??= 1.0,
                     label: _model.sliderValue.toString(),
-                    onChanged: _model.adjusting == true
+                    onChanged: _model.adjusting != true
                         ? null
                         : (newValue) async {
                             newValue =
