@@ -29,6 +29,7 @@ Communication Protocol Between App & Arduino:
 (Note: These messages are sent at any time from the app, so Arduino must always be listening for them.)
    
 * Battery: "battery#" where # is the battery percentage (75-100% is 4 bars, 50-74% is 3 bars, 25-49% is 2 bars, <25% is 1 bar, 0% is no bars). 
+           Note: Arduino only sends battery percent to the app upon battery charge percent change.
    
 * SOS Leaf:
     
