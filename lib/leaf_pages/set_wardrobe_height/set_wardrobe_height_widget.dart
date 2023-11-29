@@ -231,7 +231,7 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 225.0, 0.0, 225.0),
                     child: Transform.rotate(
-                      angle: 1.5708,
+                      angle: 4.7124,
                       child: SliderTheme(
                         data: SliderThemeData(
                           showValueIndicator: ShowValueIndicator.always,
@@ -240,7 +240,7 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                           activeColor: FlutterFlowTheme.of(context).primary,
                           inactiveColor: FlutterFlowTheme.of(context).alternate,
                           min: 6.0,
-                          max: 2000.0,
+                          max: 6000.0,
                           value: _model.sliderValue ??=
                               (int.parse(FFAppState().wardrobeHeight))
                                   .toDouble(),
