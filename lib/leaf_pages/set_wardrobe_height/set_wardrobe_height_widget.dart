@@ -232,8 +232,8 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                   child: Slider(
                     activeColor: FlutterFlowTheme.of(context).primary,
                     inactiveColor: FlutterFlowTheme.of(context).alternate,
-                    min: 0.0,
-                    max: 255.0,
+                    min: 6.0,
+                    max: 2000.0,
                     value: _model.sliderValue ??=
                         (int.parse(FFAppState().wardrobeHeight)).toDouble(),
                     label: _model.sliderValue.toString(),
