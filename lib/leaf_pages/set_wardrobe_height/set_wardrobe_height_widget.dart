@@ -239,15 +239,19 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                     label: _model.sliderValue.toString(),
                     onChanged: _model.adjusting != true
                         ? null
-                        : (newValue) async {
+                        : (newValue) {
                             newValue =
                                 double.parse(newValue.toStringAsFixed(0));
                             setState(() => _model.sliderValue = newValue);
-                            await actions.sendData(
-                              BTDeviceStruct.fromMap(widget.device!),
-                              'slide${_model.sliderValue?.toString()}',
-                            );
                           },
+                    onChangeEnd: (newValue) async {
+                      newValue = double.parse(newValue.toStringAsFixed(0));
+                      setState(() => _model.sliderValue = newValue);
+                      await actions.sendData(
+                        BTDeviceStruct.fromMap(widget.device!),
+                        'slide${_model.sliderValue?.toString()}',
+                      );
+                    },
                   ),
                 ),
                 if (_model.adjusting)
