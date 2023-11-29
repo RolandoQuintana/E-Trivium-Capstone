@@ -225,33 +225,45 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
-                SliderTheme(
-                  data: SliderThemeData(
-                    showValueIndicator: ShowValueIndicator.always,
-                  ),
-                  child: Slider(
-                    activeColor: FlutterFlowTheme.of(context).primary,
-                    inactiveColor: FlutterFlowTheme.of(context).alternate,
-                    min: 6.0,
-                    max: 2000.0,
-                    value: _model.sliderValue ??=
-                        (int.parse(FFAppState().wardrobeHeight)).toDouble(),
-                    label: _model.sliderValue.toString(),
-                    onChanged: _model.adjusting != true
-                        ? null
-                        : (newValue) {
+                Align(
+                  alignment: AlignmentDirectional(0.00, 0.00),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 225.0, 0.0, 225.0),
+                    child: Transform.rotate(
+                      angle: 1.5708,
+                      child: SliderTheme(
+                        data: SliderThemeData(
+                          showValueIndicator: ShowValueIndicator.always,
+                        ),
+                        child: Slider(
+                          activeColor: FlutterFlowTheme.of(context).primary,
+                          inactiveColor: FlutterFlowTheme.of(context).alternate,
+                          min: 6.0,
+                          max: 2000.0,
+                          value: _model.sliderValue ??=
+                              (int.parse(FFAppState().wardrobeHeight))
+                                  .toDouble(),
+                          label: _model.sliderValue.toString(),
+                          onChanged: _model.adjusting != true
+                              ? null
+                              : (newValue) {
+                                  newValue =
+                                      double.parse(newValue.toStringAsFixed(0));
+                                  setState(() => _model.sliderValue = newValue);
+                                },
+                          onChangeEnd: (newValue) async {
                             newValue =
                                 double.parse(newValue.toStringAsFixed(0));
                             setState(() => _model.sliderValue = newValue);
+                            await actions.sendData(
+                              BTDeviceStruct.fromMap(widget.device!),
+                              'slide${_model.sliderValue?.toString()}',
+                            );
                           },
-                    onChangeEnd: (newValue) async {
-                      newValue = double.parse(newValue.toStringAsFixed(0));
-                      setState(() => _model.sliderValue = newValue);
-                      await actions.sendData(
-                        BTDeviceStruct.fromMap(widget.device!),
-                        'slide${_model.sliderValue?.toString()}',
-                      );
-                    },
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 if (_model.adjusting)
