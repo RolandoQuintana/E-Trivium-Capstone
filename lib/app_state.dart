@@ -75,7 +75,7 @@ class FFAppState extends ChangeNotifier {
     updateFn(_wardrobeDevice);
   }
 
-  String _wardrobeHeight = '0';
+  String _wardrobeHeight = '6';
   String get wardrobeHeight => _wardrobeHeight;
   set wardrobeHeight(String _value) {
     _wardrobeHeight = _value;
