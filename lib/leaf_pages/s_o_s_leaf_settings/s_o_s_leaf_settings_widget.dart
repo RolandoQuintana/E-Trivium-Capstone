@@ -235,6 +235,17 @@ class _SOSLeafSettingsWidgetState extends State<SOSLeafSettingsWidget> {
                                               setState(() =>
                                                   _model.sOSEnabledTileValue =
                                                       newValue!);
+                                              if (newValue!) {
+                                                setState(() {
+                                                  FFAppState().SOSenabled =
+                                                      'Enabled';
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  FFAppState().SOSenabled =
+                                                      'Disabled';
+                                                });
+                                              }
                                             },
                                             title: Text(
                                               'Enable SOS',

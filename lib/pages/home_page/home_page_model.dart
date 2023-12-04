@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/custom/battery_charge_indicator/battery_charge_indicator_widget.dart';
 import '/custom/strength_indicator/strength_indicator_widget.dart';

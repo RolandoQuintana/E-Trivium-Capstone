@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/custom/battery_charge_indicator/battery_charge_indicator_widget.dart';
 import '/custom/strength_indicator/strength_indicator_widget.dart';
@@ -74,6 +75,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           );
           _model.batteryInt = await actions.convertStringToInt(
             _model.batteryStr!,
+          );
+          await SendDataToWebCall.call(
+            wardrobeHeight: FFAppState().wardrobeHeight,
+            healthEn: FFAppState().postureEnabled,
+            lightEn: FFAppState().lightsEnabled,
+            sosEn: FFAppState().SOSenabled,
           );
           setState(() {
             _model.batteryCharge = _model.batteryInt;
@@ -239,7 +246,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 if (_model.currentRssi != null)
                                                   Align(
@@ -927,7 +934,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
                                               if (_model.currentRssi != null)
                                                 Align(

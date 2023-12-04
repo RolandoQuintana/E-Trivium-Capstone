@@ -330,6 +330,17 @@ class _HealthLeafSettingsWidgetState extends State<HealthLeafSettingsWidget> {
                                               setState(() => _model
                                                       .enablePostureTileValue =
                                                   newValue!);
+                                              if (newValue!) {
+                                                setState(() {
+                                                  FFAppState().postureEnabled =
+                                                      'Enabled';
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  FFAppState().postureEnabled =
+                                                      'Disabled';
+                                                });
+                                              }
                                             },
                                             title: Text(
                                               'Enable Health',

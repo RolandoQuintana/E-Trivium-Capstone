@@ -80,6 +80,30 @@ class FFAppState extends ChangeNotifier {
   set wardrobeHeight(String _value) {
     _wardrobeHeight = _value;
   }
+
+  String _batteryLevel = 'unknown';
+  String get batteryLevel => _batteryLevel;
+  set batteryLevel(String _value) {
+    _batteryLevel = _value;
+  }
+
+  String _lightsEnabled = 'Enabled';
+  String get lightsEnabled => _lightsEnabled;
+  set lightsEnabled(String _value) {
+    _lightsEnabled = _value;
+  }
+
+  String _postureEnabled = 'Disabled';
+  String get postureEnabled => _postureEnabled;
+  set postureEnabled(String _value) {
+    _postureEnabled = _value;
+  }
+
+  String _SOSenabled = 'Disabled';
+  String get SOSenabled => _SOSenabled;
+  set SOSenabled(String _value) {
+    _SOSenabled = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

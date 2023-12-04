@@ -843,6 +843,17 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                               setState(() => _model
                                                       .enableLightsSwitchValue =
                                                   newValue!);
+                                              if (newValue!) {
+                                                setState(() {
+                                                  FFAppState().lightsEnabled =
+                                                      'Enabled';
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  FFAppState().lightsEnabled =
+                                                      'Disabled';
+                                                });
+                                              }
                                             },
                                             title: Text(
                                               'Enable Lights',
