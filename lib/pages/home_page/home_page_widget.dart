@@ -83,6 +83,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             sosEn: FFAppState().SOSenabled,
             batteryPerc: '50',
           );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Http Sent',
+                style: TextStyle(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                ),
+              ),
+              duration: Duration(milliseconds: 4000),
+              backgroundColor: FlutterFlowTheme.of(context).secondary,
+            ),
+          );
           setState(() {
             _model.batteryCharge = _model.batteryInt;
             _model.currentRssi = _model.gotRssi;
