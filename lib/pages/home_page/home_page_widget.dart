@@ -56,6 +56,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       _model.updateTimer = InstantTimer.periodic(
         duration: Duration(milliseconds: 2000),
         callback: (timer) async {
+          await SendDataToWebCall.call(
+            wardrobeHeight: FFAppState().wardrobeHeight,
+            healthEn: FFAppState().postureEnabled,
+            lightEn: FFAppState().lightsEnabled,
+            sosEn: FFAppState().SOSenabled,
+            batteryPerc: '50',
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Http Sent',
+                style: TextStyle(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                ),
+              ),
+              duration: Duration(milliseconds: 4000),
+              backgroundColor: FlutterFlowTheme.of(context).secondary,
+            ),
+          );
           _model.gotRssi = await actions.getRssi(
             BTDeviceStruct(
               name: widget.deviceName,
@@ -75,25 +94,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           );
           _model.batteryInt = await actions.convertStringToInt(
             _model.batteryStr!,
-          );
-          await SendDataToWebCall.call(
-            wardrobeHeight: FFAppState().wardrobeHeight,
-            healthEn: FFAppState().postureEnabled,
-            lightEn: FFAppState().lightsEnabled,
-            sosEn: FFAppState().SOSenabled,
-            batteryPerc: '50',
-          );
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Http Sent',
-                style: TextStyle(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-              ),
-              duration: Duration(milliseconds: 4000),
-              backgroundColor: FlutterFlowTheme.of(context).secondary,
-            ),
           );
           setState(() {
             _model.batteryCharge = _model.batteryInt;
