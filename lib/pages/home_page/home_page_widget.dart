@@ -81,6 +81,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             healthEn: FFAppState().postureEnabled,
             lightEn: FFAppState().lightsEnabled,
             sosEn: FFAppState().SOSenabled,
+            batteryPerc: '50',
           );
           setState(() {
             _model.batteryCharge = _model.batteryInt;
