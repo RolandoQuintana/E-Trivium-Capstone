@@ -596,9 +596,14 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     .patternDropDownValueController ??=
                                                 FormFieldController<String>(
                                               _model.patternDropDownValue ??=
-                                                  'Solid',
+                                                  'Pattern1',
                                             ),
-                                            options: ['Solid', 'Flash'],
+                                            options: [
+                                              'Pattern1',
+                                              'Pattern2',
+                                              'Pattern3',
+                                              'Pattern4'
+                                            ],
                                             onChanged: (val) => setState(() =>
                                                 _model.patternDropDownValue =
                                                     val),
@@ -876,7 +881,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     id: widget.deviceId,
                                                     rssi: widget.deviceRssi,
                                                   ),
-                                                  'AAAAAAAAAAAAA',
+                                                  'Lights1',
                                                 );
                                               } else {
                                                 await actions.sendData(
@@ -885,7 +890,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     id: widget.deviceId,
                                                     rssi: widget.deviceRssi,
                                                   ),
-                                                  'ZZZZZZZZZZZZZ',
+                                                  'Lights0',
                                                 );
                                               }
 
