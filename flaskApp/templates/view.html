@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E-Tri Online</title>
+    <style>
+      h1 {
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: lighter;
+      }
+
+      p {
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: lighter;
+      }
+
+      .container {
+        height: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .column {
+        float: left;
+        width: 20%;
+      }
+
+      /* Clear floats after the columns */
+      .row {
+        text-align: center;
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <body bgcolor="BLACK"></body>
+    <div class="row">
+      <div class="column">
+        <h1>Wardrobe</h1>
+        <p>Current Height: {{warHeight}}</p>
+      </div>
+      <div class="column">
+        <h1>Battery</h1>
+        <p>Status: {{batPerc}}</p>
+      </div>
+      <div class="column">
+        <h1>SOS</h1>
+        <p>Status: {{sosE}}</p>
+      </div>
+      <div class="column">
+        <h1>Health</h1>
+        <p>Status: {{healthE}}</p>
+      </div>
+      <div class="column">
+        <h1>Light</h1>
+        <p>Status: {{lightE}}</p>
+      </div>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
