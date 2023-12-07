@@ -400,16 +400,19 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                       .convertColorToString(
                                                 _model.colorPicked1,
                                               );
+                                              _model.stringPatternColorBeta =
+                                                  await actions
+                                                      .convertPatternColorToString(
+                                                'Pattern1',
+                                                _model.colorPicked1StringBeta,
+                                              );
                                               await actions.sendData(
                                                 BTDeviceStruct(
                                                   name: widget.deviceName,
                                                   id: widget.deviceId,
-                                                  rssi: valueOrDefault<int>(
-                                                    widget.deviceRssi,
-                                                    3,
-                                                  ),
+                                                  rssi: widget.deviceRssi,
                                                 ),
-                                                _model.colorPicked1StringBeta!,
+                                                _model.stringPatternColorBeta!,
                                               );
                                               ScaffoldMessenger.of(context)
                                                   .clearSnackBars();
@@ -417,7 +420,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   .showSnackBar(
                                                 SnackBar(
                                                   content: Text(
-                                                    'Color data sent to device',
+                                                    'Pattern & color data sent to device',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyLarge
