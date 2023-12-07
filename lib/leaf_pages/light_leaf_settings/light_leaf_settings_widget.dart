@@ -475,7 +475,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   await actions
                                                       .convertPatternColorToString(
                                                 'Pattern1',
-                                                _model.colorPicked2String,
+                                                _model.colorPicked1String,
                                               );
                                               await actions.sendData(
                                                 BTDeviceStruct(
@@ -483,7 +483,7 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                   id: widget.deviceId,
                                                   rssi: widget.deviceRssi,
                                                 ),
-                                                _model.stringPattern1Color!,
+                                                _model.stringPatternColor!,
                                               );
                                               ScaffoldMessenger.of(context)
                                                   .clearSnackBars();
