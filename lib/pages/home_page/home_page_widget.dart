@@ -61,7 +61,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             healthEn: FFAppState().postureEnabled,
             lightEn: FFAppState().lightsEnabled,
             sosEn: FFAppState().SOSenabled,
-            batteryPerc: '50',
+            batteryPerc: _model.batteryCharge?.toString(),
           );
           _model.gotRssi = await actions.getRssi(
             BTDeviceStruct(

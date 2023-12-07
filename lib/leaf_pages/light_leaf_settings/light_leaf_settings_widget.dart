@@ -608,7 +608,9 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                               'Pattern1',
                                               'Pattern2',
                                               'Pattern3',
-                                              'Pattern4'
+                                              'Pattern4',
+                                              'Pattern5',
+                                              'Pattern6'
                                             ],
                                             onChanged: (val) => setState(() =>
                                                 _model.patternDropDownValue =
