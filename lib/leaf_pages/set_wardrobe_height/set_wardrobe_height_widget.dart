@@ -336,13 +336,17 @@ class _SetWardrobeHeightWidgetState extends State<SetWardrobeHeightWidget> {
                     ),
                   ),
                 Expanded(
-                  child: wrapWithModel(
-                    model: _model.displayReceivedDataModel,
-                    updateCallback: () => setState(() {}),
-                    child: DisplayReceivedDataWidget(
-                      device: widget.device != null && widget.device != ''
-                          ? BTDeviceStruct.fromMap(widget.device)
-                          : null,
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
+                    child: wrapWithModel(
+                      model: _model.displayReceivedDataModel,
+                      updateCallback: () => setState(() {}),
+                      child: DisplayReceivedDataWidget(
+                        device: widget.device != null && widget.device != ''
+                            ? BTDeviceStruct.fromMap(widget.device)
+                            : null,
+                      ),
                     ),
                   ),
                 ),

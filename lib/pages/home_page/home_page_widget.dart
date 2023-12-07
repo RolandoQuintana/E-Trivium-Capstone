@@ -221,8 +221,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               BorderRadius.circular(8.0),
                                           child: Image.asset(
                                             'assets/images/leavesPicture_(2).png',
-                                            width: 300.0,
-                                            height: 200.0,
+                                            width: 200.0,
+                                            height: 150.0,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -353,7 +353,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    25.0, 0.0, 0.0, 0.0),
+                                                    25.0, 20.0, 0.0, 0.0),
                                             child: Text(
                                               'Your Leaves',
                                               textAlign: TextAlign.center,
