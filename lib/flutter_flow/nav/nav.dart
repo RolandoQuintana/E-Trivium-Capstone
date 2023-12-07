@@ -41,11 +41,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       errorBuilder: (context, state) => appStateNotifier.showSplashImage
           ? Builder(
               builder: (context) => Container(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
+                color: FlutterFlowTheme.of(context).primaryBackground,
                 child: Center(
                   child: Image.asset(
-                    'assets/images/E-Trivium_Logo_Orange.png',
-                    width: 100.0,
+                    'assets/images/Etrivium_Logo_Thicc_V1.png',
+                    width: 300.0,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -59,11 +59,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => appStateNotifier.showSplashImage
               ? Builder(
                   builder: (context) => Container(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     child: Center(
                       child: Image.asset(
-                        'assets/images/E-Trivium_Logo_Orange.png',
-                        width: 100.0,
+                        'assets/images/Etrivium_Logo_Thicc_V1.png',
+                        width: 300.0,
                         fit: BoxFit.cover,
                       ),
                     ),
