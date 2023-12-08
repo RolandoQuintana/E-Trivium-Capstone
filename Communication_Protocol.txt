@@ -5,8 +5,8 @@ Communication Protocol Between App & Arduino:
    
 * Light leaf:
    
-1) Color: An 8-digit color code that the light leaf should be changed to.
-          E.g.: "FFFFFFFF" is white. "FF0000FF" is blue.
+1) Color: Sends "Pattern1########" where ######## is the user-selected color.
+          E.g.: "Pattern1FFFFFFFF" is solid white. "Pattern1FF0000FF" is solid blue.
 2) Pattern + Color: A 13-digit message with the pattern name (currently only Solid and Flash) and the color code.
           E.g.: "Pattern1FF0000FF" for solid blue lights pattern. "Pattern2FFFFFFFF" for flashing white lights pattern. "Pattern3FFFFFFFF" for posture white lights pattern.
 3) Enable/disable lights: "Lights1" to enable light leaf, "Lights0" to disable light leaf.
@@ -20,6 +20,10 @@ Communication Protocol Between App & Arduino:
 1) Posture: "Posture1" to enable posture monitoring, "Posture0" to disable posture monitoring.
    
 2) Pedometer: "ResetSteps" to reset the step counter for the app & Arduino.
+
+* Chat Page:
+
+- "TestSOS" can be sent from the chat page to act as though the SOS button has been pressed.
    
    
 ============================================================================
