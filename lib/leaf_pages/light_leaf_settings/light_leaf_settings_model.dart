@@ -49,6 +49,8 @@ class LightLeafSettingsModel extends FlutterFlowModel<LightLeafSettingsWidget> {
   Color? colorPicked2;
   // Stores action output result for [Custom Action - convertColorToString] action in Button widget.
   String? colorPicked2String;
+  // Stores action output result for [Custom Action - adjustPatternName] action in Button widget.
+  String? patternNumberString;
   // Stores action output result for [Custom Action - convertPatternColorToString] action in Button widget.
   String? stringPattern1Color;
   // Model for DisplayReceivedData component.

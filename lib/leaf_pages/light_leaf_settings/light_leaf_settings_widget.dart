@@ -717,10 +717,15 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                       .convertColorToString(
                                                 _model.colorPicked2,
                                               );
+                                              _model.patternNumberString =
+                                                  await actions
+                                                      .adjustPatternName(
+                                                _model.patternDropDownValue!,
+                                              );
                                               _model.stringPattern1Color =
                                                   await actions
                                                       .convertPatternColorToString(
-                                                _model.patternDropDownValue,
+                                                _model.patternNumberString,
                                                 _model.colorPicked2String,
                                               );
                                               await actions.sendData(
