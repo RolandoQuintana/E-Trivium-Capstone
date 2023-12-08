@@ -16,3 +16,4 @@ export 'extract_steps.dart' show extractSteps;
 export 'extract_battery.dart' show extractBattery;
 export 'bad_posture_checker.dart' show badPostureChecker;
 export 'get_adjust_status.dart' show getAdjustStatus;
+export 'adjust_pattern_name.dart' show adjustPatternName;

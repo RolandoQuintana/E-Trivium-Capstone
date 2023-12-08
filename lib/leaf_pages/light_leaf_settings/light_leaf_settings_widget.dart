@@ -602,15 +602,15 @@ class _LightLeafSettingsWidgetState extends State<LightLeafSettingsWidget> {
                                                     .patternDropDownValueController ??=
                                                 FormFieldController<String>(
                                               _model.patternDropDownValue ??=
-                                                  'Pattern1',
+                                                  'Solid',
                                             ),
                                             options: [
-                                              'Pattern1',
-                                              'Pattern2',
-                                              'Pattern3',
-                                              'Pattern4',
-                                              'Pattern5',
-                                              'Pattern6'
+                                              'Solid',
+                                              'Flash',
+                                              'Breathe',
+                                              'Rain',
+                                              'Posture',
+                                              'Random'
                                             ],
                                             onChanged: (val) => setState(() =>
                                                 _model.patternDropDownValue =
