@@ -38,38 +38,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => appStateNotifier.showSplashImage
-          ? Builder(
-              builder: (context) => Container(
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/Etrivium_Logo_Thicc_V1.png',
-                    width: 300.0,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            )
-          : LoginPageWidget(),
+      errorBuilder: (context, state) => LoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.showSplashImage
-              ? Builder(
-                  builder: (context) => Container(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
-                    child: Center(
-                      child: Image.asset(
-                        'assets/images/Etrivium_Logo_Thicc_V1.png',
-                        width: 300.0,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                )
-              : LoginPageWidget(),
+          builder: (context, _) => LoginPageWidget(),
         ),
         FFRoute(
           name: 'HomePage',

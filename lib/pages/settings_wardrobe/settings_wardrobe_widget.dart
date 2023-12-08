@@ -109,9 +109,9 @@ class _SettingsWardrobeWidgetState extends State<SettingsWardrobeWidget> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
-                        'assets/images/E-Trivium_Logo_Orange.png',
-                        width: 32.0,
-                        height: 32.0,
+                        'assets/images/ETri_Logo_Thicc_V1.png',
+                        width: 46.0,
+                        height: 36.0,
                         fit: BoxFit.contain,
                       ),
                     ),

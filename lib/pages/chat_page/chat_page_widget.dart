@@ -100,111 +100,132 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80.0),
+          preferredSize: Size.fromHeight(75.0),
           child: AppBar(
             backgroundColor: Color(0x00FFFFFF),
             automaticallyImplyLeading: true,
-            title: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: AlignmentDirectional(1.00, -1.00),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(-1.00, -1.00),
-                          child: Text(
-                            widget.deviceName!,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Open Sans',
-                                  fontSize: 18.0,
-                                ),
-                          ),
-                        ),
-                        if (_model.currentRssi != null)
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: wrapWithModel(
-                              model: _model.strengthIndicatorModel,
-                              updateCallback: () => setState(() {}),
-                              child: StrengthIndicatorWidget(
-                                rssi: _model.currentRssi!,
-                                color: valueOrDefault<Color>(
-                                  () {
-                                    if (_model.currentRssi! >= -67) {
-                                      return FlutterFlowTheme.of(context)
-                                          .success;
-                                    } else if (_model.currentRssi! >= -90) {
-                                      return FlutterFlowTheme.of(context)
-                                          .warning;
-                                    } else {
-                                      return FlutterFlowTheme.of(context).error;
-                                    }
-                                  }(),
-                                  FlutterFlowTheme.of(context).success,
-                                ),
-                              ),
+            title: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(1.00, -1.00),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              'assets/images/E-Trivium_Logo_Orange.png',
+                              width: 24.0,
+                              height: 24.0,
+                              fit: BoxFit.contain,
                             ),
                           ),
-                        Expanded(
-                          child: Align(
-                            alignment: AlignmentDirectional(1.00, -1.00),
-                            child: FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 20.0,
-                              buttonSize: 40.0,
-                              icon: Icon(
-                                Icons.bluetooth_disabled_rounded,
-                                color: FlutterFlowTheme.of(context).error,
-                                size: 28.0,
-                              ),
-                              onPressed: () async {
-                                await actions.disconnectDevice(
-                                  BTDeviceStruct(
-                                    name: widget.deviceName,
-                                    id: widget.deviceId,
-                                    rssi: _model.currentRssi,
-                                  ),
-                                );
-
-                                context.pushNamed(
-                                  'SettingsPage',
-                                  queryParameters: {
-                                    'isBTEnabled': serializeParam(
-                                      false,
-                                      ParamType.bool,
+                          Align(
+                            alignment: AlignmentDirectional(-1.00, -1.00),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                widget.deviceName!,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Open Sans',
+                                      fontSize: 18.0,
                                     ),
-                                  }.withoutNulls,
-                                );
-                              },
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          if (_model.currentRssi != null)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: wrapWithModel(
+                                model: _model.strengthIndicatorModel,
+                                updateCallback: () => setState(() {}),
+                                child: StrengthIndicatorWidget(
+                                  rssi: _model.currentRssi!,
+                                  color: valueOrDefault<Color>(
+                                    () {
+                                      if (_model.currentRssi! >= -67) {
+                                        return FlutterFlowTheme.of(context)
+                                            .success;
+                                      } else if (_model.currentRssi! >= -90) {
+                                        return FlutterFlowTheme.of(context)
+                                            .warning;
+                                      } else {
+                                        return FlutterFlowTheme.of(context)
+                                            .error;
+                                      }
+                                    }(),
+                                    FlutterFlowTheme.of(context).success,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(1.00, -1.00),
+                              child: FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 20.0,
+                                buttonSize: 40.0,
+                                icon: Icon(
+                                  Icons.bluetooth_disabled_rounded,
+                                  color: FlutterFlowTheme.of(context).error,
+                                  size: 28.0,
+                                ),
+                                onPressed: () async {
+                                  await actions.disconnectDevice(
+                                    BTDeviceStruct(
+                                      name: widget.deviceName,
+                                      id: widget.deviceId,
+                                      rssi: _model.currentRssi,
+                                    ),
+                                  );
+
+                                  context.pushNamed(
+                                    'SettingsPage',
+                                    queryParameters: {
+                                      'isBTEnabled': serializeParam(
+                                        false,
+                                        ParamType.bool,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: AlignmentDirectional(-1.00, -1.00),
-                  child: Text(
-                    widget.deviceId!,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Readex Pro',
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          fontSize: 12.0,
-                        ),
+                  Align(
+                    alignment: AlignmentDirectional(-1.00, -1.00),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(34.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        widget.deviceId!,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Readex Pro',
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              fontSize: 12.0,
+                            ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             actions: [],
             centerTitle: true,

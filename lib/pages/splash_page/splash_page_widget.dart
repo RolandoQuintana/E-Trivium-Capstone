@@ -161,7 +161,7 @@ class _SplashPageWidgetState extends State<SplashPageWidget>
                           ),
                         if (Theme.of(context).brightness == Brightness.dark)
                           Image.asset(
-                            'assets/images/E-Trivium_Logo_Orange.png',
+                            'assets/images/ETri_Logo_Thicc_V1.png',
                             width: 64.0,
                             height: 64.0,
                             fit: BoxFit.contain,

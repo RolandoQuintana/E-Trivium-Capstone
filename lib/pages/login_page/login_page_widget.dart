@@ -87,26 +87,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(0.0, 40.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
           begin: Offset(0.0, 50.0),
           end: Offset(0.0, 0.0),
         ),
@@ -345,37 +325,30 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                       ),
                                     if (Theme.of(context).brightness ==
                                         Brightness.dark)
-                                      Image.asset(
-                                        'assets/images/E-Trivium_Logo_Orange.png',
-                                        width: 64.0,
-                                        height: 64.0,
-                                        fit: BoxFit.contain,
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.00, 0.00),
+                                        child: Image.asset(
+                                          'assets/images/Etrivium_Logo_Thicc_V1.png',
+                                          width: 170.0,
+                                          height: 120.0,
+                                          fit: BoxFit.fitWidth,
+                                        ),
                                       ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          10.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        'E-Trivium',
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .displayMedium
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              fontSize: 32.0,
-                                            ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'textOnPageLoadAnimation1']!),
-                                    ),
                                   ],
                                 ).animateOnPageLoad(
                                     animationsMap['rowOnPageLoadAnimation1']!),
                               ),
                               Text(
                                 'Welcome!',
-                                style:
-                                    FlutterFlowTheme.of(context).displaySmall,
+                                style: FlutterFlowTheme.of(context)
+                                    .displaySmall
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      fontSize: 28.0,
+                                    ),
                               ).animateOnPageLoad(
-                                  animationsMap['textOnPageLoadAnimation2']!),
+                                  animationsMap['textOnPageLoadAnimation1']!),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 0.0, 0.0),
@@ -383,7 +356,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget>
                                   'Use the form below to access your account.',
                                   style: FlutterFlowTheme.of(context).bodySmall,
                                 ).animateOnPageLoad(
-                                    animationsMap['textOnPageLoadAnimation3']!),
+                                    animationsMap['textOnPageLoadAnimation2']!),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
